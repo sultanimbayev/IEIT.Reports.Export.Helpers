@@ -1,0 +1,26 @@
+﻿<c:title xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" >
+  <c:tx>
+    <c:rich>
+      <a:bodyPr />
+      <a:lstStyle />
+      <a:p>
+        <a:pPr>
+          <a:defRPr sz="2000" />
+        </a:pPr>
+        <a:r>
+          <a:rPr lang="ru-RU" sz="2000" />
+          <a:t></a:t>
+        </a:r>
+      </a:p>
+    </c:rich>
+  </c:tx>
+  <c:layout>
+    <c:manualLayout>
+      <c:xMode val="edge" />
+      <c:yMode val="edge" />
+      <c:x val="0.29161460269477718" />
+      <c:y val="2.9838289483457823E-2" />
+    </c:manualLayout>
+  </c:layout>
+  <c:overlay val="0" />
+</c:title>
