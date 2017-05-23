@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <!--Put path to OpenXML.Element directory realtive to DLLs folder (or IEIT.Reports.Export.Helpers.dll file) -->
+    <add key="OpenXMLElementsPath" value="..\OpenXML.Elements"/>
+  </appSettings>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5.2" />
+    </startup>
+</configuration>
