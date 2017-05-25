@@ -34,11 +34,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             if (workbook == null) { throw new ArgumentNullException("workbook"); }
             if (workbook.WorkbookPart == null) { throw new IncorrectDocumentStructureException(); }
-            string relId = workbook.Descendants<Sheet>()
+            var rel = workbook.Descendants<Sheet>()
                 .Where(s => s.Name.Value.Equals(sheetName))
-                .First()
-                .Id;
-            var wsPart = workbook.WorkbookPart.GetPartById(relId) as WorksheetPart;
+                .First();
+            if(rel == null || rel.Id == null) { return null; }
+            var wsPart = workbook.WorkbookPart.GetPartById(rel.Id) as WorksheetPart;
             if (wsPart == null) { return null; }
             return wsPart.Worksheet;
         }

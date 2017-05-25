@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="content\App.config.transform" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\OpenXML.Elements\Drawing\Charts\Formula.Empty.xml" />
