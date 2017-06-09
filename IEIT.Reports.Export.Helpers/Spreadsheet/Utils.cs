@@ -19,6 +19,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             ElementsDir = ConfigurationManager.AppSettings[CONFIG_KEY_ELEMENTS_PATH];
         }
 
+        /// <summary>
+        /// Полный путь к папке, где лежит DLL с данной библиотекой
+        /// </summary>
         private static string AssemblyDirectory
         {
             get
@@ -30,11 +33,21 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
         }
 
+        /// <summary>
+        /// Получить полный путь относительно папки где лежит DLL с данной библиотекой
+        /// </summary>
+        /// <param name="relativePath"></param>
+        /// <returns></returns>
         private static string GetFullPath(string relativePath)
         {
             return System.IO.Path.GetFullPath($"{AssemblyDirectory}\\{relativePath}");
         }
 
+        /// <summary>
+        /// Получить номер строки из адреса ячейки
+        /// </summary>
+        /// <param name="address">Адрес ячейки</param>
+        /// <returns></returns>
         public static uint ToRowNum(string address)
         {
             uint result = 0;
@@ -45,7 +58,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return result;
         }
         
-        
+        /// <summary>
+        /// Получить 
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
         public static uint ToColumNum(string address)
         {
             var value = address.TrimEnd("1234567890".ToCharArray());

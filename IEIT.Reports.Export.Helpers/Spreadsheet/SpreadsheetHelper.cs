@@ -43,6 +43,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return wsPart.Worksheet;
         }
 
+        /// <summary>
+        /// Получить свойства листа
+        /// </summary>
+        /// <param name="worksheet">Объект листа</param>
+        /// <returns>Объект содержащий свойства листа <see cref="Sheet"/></returns>
         private static Sheet GetSheet(this Worksheet worksheet)
         {
             if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
@@ -54,12 +59,21 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return sheet;
         }
 
+        /// <summary>
+        /// Получить часть документа который содержит все рабочие листы.
+        /// </summary>
+        /// <param name="worksheet">Рабочий лист</param>
+        /// <returns>Часть документа который содержит все рабочие листы</returns>
         private static WorkbookPart GetWorkbookPart(this Worksheet worksheet)
         {
             return worksheet.WorksheetPart.GetParentParts().FirstOrDefault() as WorkbookPart;
         }
 
-
+        /// <summary>
+        /// Получить название листа
+        /// </summary>
+        /// <param name="worksheet"></param>
+        /// <returns></returns>
         public static string GetName(this Worksheet worksheet)
         {
             var sheet = worksheet.GetSheet();
@@ -67,95 +81,83 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return sheet.Name;
         }
 
+        /// <summary>
+        /// Записать значение в ячейку
+        /// </summary>
+        /// <param name="ws">Лист в который требуется записать значение</param>
+        /// <param name="value">Значение которое нужно записать</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
         public static Intent Write(this Worksheet ws, string value)
         {
-            return makeIntentToWrite(ws, _writeAny, value);
+            return new Intent(ws).WithText(value);
         }
 
+        /// <summary>
+        /// Записать значение в ячейку
+        /// </summary>
+        /// <param name="ws">Лист в который требуется записать значение</param>
+        /// <param name="value">Значение которое нужно записать</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
         public static Intent Write(this Worksheet ws, object value)
         {
             var _val = value != null ? value.ToString() : "-";
-            return makeIntentToWrite(ws, _writeAny, _val);
+            return new Intent(ws).WithText(_val);
         }
 
+        /// <summary>
+        /// Записать текст в ячейку
+        /// </summary>
+        /// <param name="ws">Лист в который требуется записать значение</param>
+        /// <param name="value">Значение которое нужно записать</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
         public static Intent WriteText(this Worksheet ws, string text)
         {
-            return makeIntentToWrite(ws, _writeText, text);
+            return new Intent(ws, Actions._writeText).WithText(text);
         }
 
+        /// <summary>
+        /// Записать формулу в ячейку
+        /// </summary>
+        /// <param name="ws">Лист в который требуется записать значение</param>
+        /// <param name="value">Значение которое нужно записать</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
         public static Intent WriteFormula(this Worksheet ws, string formula)
         {
-            return makeIntentToWrite(ws, _writeFormula, formula);
+            return new Intent(ws, Actions._writeFormula).WithText(formula);
         }
 
+
+        /// <summary>
+        /// Записать число в ячейку
+        /// </summary>
+        /// <param name="ws">Лист в который требуется записать значение</param>
+        /// <param name="value">Значение которое нужно записать</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
         public static Intent WriteNumber(this Worksheet ws, string number)
         {
-            return makeIntentToWrite(ws, _writeNumber, number);
+            return new Intent(ws, Actions._writeNumber).WithText(number);
         }
 
-        private static Intent makeIntentToWrite(Worksheet ws, Func<Worksheet, string, string, bool> writeDeleg, string text)
-        {
-            return new Intent(ws, writeDeleg, _setStyle).WithText(text);
-        }
-
+        /// <summary>
+        /// Назначить стиль ячейки
+        /// </summary>
+        /// <param name="ws">Лист в которыом нужно изменить стиль</param>
+        /// <param name="styleIndex">ID стиля</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
         public static Intent SetStyle(this Worksheet ws, UInt32Value styleIndex)
         {
-            return new Intent(ws, _writeAny, _setStyle).WithStyle(styleIndex);
+            return new Intent(ws, Actions._writeAny).WithStyle(styleIndex);
         }
 
-        private static bool _writeAny(Worksheet worksheet, string cellAddress, string value)
-        {
-            if(value == null){ value = "-"; }
-            if (value.StartsWith("=")) { return _writeFormula(worksheet, cellAddress, value); }
-            if (value.IsNumber()) { return _writeNumber(worksheet, cellAddress, value); }
-            return _writeText(worksheet, cellAddress, value);
-        }
-
-        private static bool _writeText(Worksheet worksheet, string cellAddress, string value)
-        {
-            if(worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            Cell cell = worksheet.MakeCell(cellAddress);
-            if (cell == null) { throw new IncompleteActionException("Вставка ячейки."); }
-            cell = cell.ReplaceBy(new Cell() { StyleIndex = cell.StyleIndex, CellReference = cell.CellReference });
-            cell.CellValue = new CellValue(value);
-            cell.DataType = CellValues.InlineString;
-            cell.InlineString = new InlineString() { Text = new Text(value) };
-            return true;
-        }
-
-        private static bool _writeNumber(Worksheet worksheet, string cellAddress, string value)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            Cell cell = worksheet.MakeCell(cellAddress);
-            if (cell == null) { throw new IncompleteActionException("Вставка ячейки."); }
-            cell = cell.ReplaceBy(new Cell() { StyleIndex = cell.StyleIndex, CellReference = cell.CellReference });
-            if (!string.IsNullOrEmpty(value)) value = value.Replace(",", ".");
-            cell.CellValue = new CellValue(value);
-            //cell.DataType = CellValues.Number;
-            //cell.DataType = new EnumValue<CellValues>(CellValues.Number);
-            return true;
-        }
-
-        private static bool _writeFormula(Worksheet worksheet, string cellAddress, string formula)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            Cell cell = worksheet.MakeCell(cellAddress);
-            if (cell == null) { throw new IncompleteActionException("Вставка ячейки."); }
-            cell = cell.ReplaceBy(new Cell() { StyleIndex = cell.StyleIndex, CellReference = cell.CellReference });
-            cell.CellFormula = new CellFormula(formula);
-            cell.DataType = new EnumValue<CellValues>(CellValues.InlineString);
-            return true;
-        }
-
-        private static bool _setStyle(Worksheet worksheet, string cellAddress, UInt32Value styleIndex)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            Cell cell = worksheet.MakeCell(cellAddress);
-            if (cell == null) { throw new IncompleteActionException("Вставка ячейки."); }
-            cell.StyleIndex = styleIndex;
-            return true;
-        }
-
+       
+        /// <summary>
+        /// Получить объект ячейки. 
+        /// Вызывает ошибку если ячейка еще не существует.
+        /// <seealso cref="MakeCell(Worksheet, string)"/>
+        /// </summary>
+        /// <param name="worksheet">Лист в котором находится ячейка</param>
+        /// <param name="cellAddress">Адрес ячейки</param>
+        /// <returns>Объект ячейки который находится в данном листе по указанному адресу</returns>
         public static Cell GetCell(this Worksheet worksheet, string cellAddress)
         {
             if (worksheet == null){ throw new ArgumentNullException("worksheet"); }
@@ -167,6 +169,13 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return cell;
         }
 
+        /// <summary>
+        /// Создать ячейку. Если ячейка уже создана в указанном месте, 
+        /// тогда данный метод будет идентичен методу <see cref="GetCell(Worksheet, string)"/>
+        /// </summary>
+        /// <param name="worksheet">Лист в котором нужно создать ячейку</param>
+        /// <param name="cellAddress">Адрес новой ячейки</param>
+        /// <returns>Созданную ячейку, если ячейка не существовала</returns>
         public static Cell MakeCell(this Worksheet worksheet, string cellAddress)
         {
             if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
@@ -190,6 +199,14 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
         }
 
+        /// <summary>
+        /// Получить строку. 
+        /// Вызывает ошибку если строка еще не существует. 
+        /// <seealso cref="MakeRow(Worksheet, uint)"/>
+        /// </summary>
+        /// <param name="worksheet">Лист в котором находится требуемая строка</param>
+        /// <param name="rowNum">Номер запрашиваемой строки</param>
+        /// <returns>Объект строки</returns>
         public static Row GetRow(this Worksheet worksheet, uint rowNum)
         {
             if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
@@ -199,6 +216,14 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return row;
         }
 
+
+        /// <summary>
+        /// Создать строку. Если строка уже существует, то данный метод будет
+        /// идентичен методу <see cref="GetRow(Worksheet, uint)"/>
+        /// </summary>
+        /// <param name="worksheet"></param>
+        /// <param name="rowNum"></param>
+        /// <returns></returns>
         public static Row MakeRow(this Worksheet worksheet, uint rowNum)
         {
             if(worksheet == null) { throw new ArgumentNullException("worksheet"); }
@@ -221,7 +246,13 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         }
         
 
-
+        /// <summary>
+        /// Переименовать лист
+        /// </summary>
+        /// <param name="worksheet">Лист который ты хочешь переименовать</param>
+        /// <param name="newName">Новое название листа</param>
+        /// <param name="updateReferences">Заменить все ссылки к данному листу?</param>
+        /// <returns>true при удачном переименовывании, false в обратном случае</returns>
         public static bool Rename(this Worksheet worksheet, string newName, bool updateReferences = true)
         {
             var sheet = worksheet.GetSheet();

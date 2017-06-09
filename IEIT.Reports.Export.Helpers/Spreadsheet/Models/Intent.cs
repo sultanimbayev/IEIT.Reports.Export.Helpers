@@ -40,13 +40,34 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         private string CellAddress { get; set; }
 
         private Firable<UInt32Value> IntendedStyle { get; set; }
-        
-        public Intent(Worksheet ws, Func<Worksheet, string, string, bool> writeText, Func<Worksheet, string, UInt32Value, bool> setStyle)
+
+        /// <summary>
+        /// Создает "намерение" для изменения своиств ячейки.
+        /// </summary>
+        /// <param name="ws">Рабочий лист в котором будут изменения</param>
+        public Intent(Worksheet ws)
         {
-            IntendedText = new Firable<string>(writeText);
-            IntendedStyle = new Firable<UInt32Value>(setStyle);
+            IntendedText = new Firable<string>(Actions._writeAny);
+            IntendedStyle = new Firable<UInt32Value>(Actions._setStyle);
             Worksheet = ws;
         }
+
+        /// <summary>
+        /// Создает "намерение" для изменения своиств ячейки 
+        /// с переопределением поведения записи значения в ячейку.
+        /// Используйте этот конструктор только в случае если конструктор 
+        /// <see cref="Intent(Worksheet)"/> не дает нужных результатов
+        /// </summary>
+        /// <param name="ws">Рабочий лист в котором будут изменения</param>
+        /// <param name="writeDeleg">
+        /// Делегат для записи значении в ячейку. 
+        /// По сути это определяет то, как будет записыватся значение в ячейку.
+        /// </param>
+        public Intent(Worksheet ws, Func<Worksheet, string, string, bool> writeDeleg) : this(ws)
+        {
+            IntendedText = new Firable<string>(writeDeleg);
+        }
+
 
         public Intent To(string cellAddress)
         {

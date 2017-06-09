@@ -51,6 +51,7 @@
     <Compile Include="Exceptions\IncompleteActionException.cs" />
     <Compile Include="Exceptions\IncorrectDocumentStructureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spreadsheet\Actions.cs" />
     <Compile Include="Spreadsheet\Charts\ChartHelper.cs" />
     <Compile Include="Spreadsheet\Charts\LineChartHelper.cs" />
     <Compile Include="Spreadsheet\Models\Intent.cs" />
@@ -58,7 +59,9 @@
     <Compile Include="Spreadsheet\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\App.config.transform" />
+    <None Include="content\App.config.transform">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
