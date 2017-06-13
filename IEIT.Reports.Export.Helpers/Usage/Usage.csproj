@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E346D0B8-5EC4-4FF6-BA42-5D71D4E1DFEF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{3B855824-A545-4D20-9835-B071515FBCF3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IEIT.Reports.Export.Helpers</RootNamespace>
-    <AssemblyName>IEIT.Reports.Export.Helpers</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Usage</RootNamespace>
+    <AssemblyName>Usage</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,11 +24,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -37,7 +38,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,32 +48,26 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\IncompleteActionException.cs" />
-    <Compile Include="Exceptions\InvalidDocumentStructureException.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spreadsheet\CellHelper.cs" />
-    <Compile Include="Spreadsheet\Worksheet\WriterActions.cs" />
-    <Compile Include="Spreadsheet\Charts\ChartHelper.cs" />
-    <Compile Include="Spreadsheet\Charts\LineChartHelper.cs" />
-    <Compile Include="Spreadsheet\Intents\WriteIntent.cs" />
-    <Compile Include="Spreadsheet\SpreadsheetHelper.cs" />
-    <Compile Include="Spreadsheet\Utils.cs" />
-    <Compile Include="Spreadsheet\Worksheet\WorksheetHelper.cs" />
-    <Compile Include="Spreadsheet\Worksheet\WorksheetWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\App.config.transform">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\OpenXML.Elements\Drawing\Charts\Formula.Empty.xml" />
-    <Content Include="content\OpenXML.Elements\Drawing\Charts\Values.Empty.xml" />
-    <Content Include="content\OpenXML.Elements\Drawing\ChartTitle.xml" />
-    <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
+    <ProjectReference Include="..\IEIT.Reports.Export.Helpers\IEIT.Reports.Export.Helpers.csproj">
+      <Project>{e346d0b8-5ec4-4ff6-ba42-5d71d4e1dfef}</Project>
+      <Name>IEIT.Reports.Export.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OpenXML.Elements\Drawing\Charts\Formula.Empty.xml" />
+    <Content Include="OpenXML.Elements\Drawing\Charts\Values.Empty.xml" />
+    <Content Include="OpenXML.Elements\Drawing\ChartTitle.xml" />
+    <Content Include="OpenXML.Elements\Drawing\ParagraphProperties.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

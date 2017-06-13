@@ -68,6 +68,7 @@
     <Content Include="OpenXML.Elements\Drawing\Charts\Values.Empty.xml" />
     <Content Include="OpenXML.Elements\Drawing\ChartTitle.xml" />
     <Content Include="OpenXML.Elements\Drawing\ParagraphProperties.xml" />
+    <Content Include="OpenXML.Elements\SST.Empty.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

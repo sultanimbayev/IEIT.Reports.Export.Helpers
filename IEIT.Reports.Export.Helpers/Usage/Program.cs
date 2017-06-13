@@ -18,20 +18,10 @@ namespace Usage
             }
 
             var doc = CreateSpreadsheetWorkbook(filepath);
-            
-            RunProperties superscript = new RunProperties(
-                new VerticalTextAlignment() { Val = VerticalAlignmentRunValues.Superscript }
-                ,new FontSize() { Val = 11.0 }
-                );         
 
-            var ws = doc.GetWorksheet("list1");
-            ws.Write("Hello world!").To("B5");
-            ws.GetCell("B5").AppendText(" From Sultan!", superscript);
+            doc.GetWorksheet("list1").Write("Hello world!").To("B5");
 
-            ws.Write(123).To("B7");
-            ws.GetCell("B7").AppendText(" From Sultan!");
-            
-            doc.Save();
+            doc.WorkbookPart.Workbook.Save();
             doc.Close();
 
         }

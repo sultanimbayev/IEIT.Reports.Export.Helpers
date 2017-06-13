@@ -11,14 +11,17 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class Utils
     {
+        /// <summary>
+        /// Название параметра в App.Config или Web.Config в котором хранится
+        /// путь к директории с XML элементами необходимые для работы всех расширении
+        /// </summary>
         private const string CONFIG_KEY_ELEMENTS_PATH = "OpenXMLElementsPath";
-        private static string ElementsDir;
-        
-        static Utils()
-        {
-            ElementsDir = ConfigurationManager.AppSettings[CONFIG_KEY_ELEMENTS_PATH];
-        }
 
+        /// <summary>
+        /// Путь к директории с XML элементами
+        /// </summary>
+        private static string ElementsDir { get { return ConfigurationManager.AppSettings[CONFIG_KEY_ELEMENTS_PATH]; } }
+        
         /// <summary>
         /// Полный путь к папке, где лежит DLL с данной библиотекой
         /// </summary>
@@ -69,7 +72,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var digits = value.PadLeft(3).Select(x => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(x));
             return (uint)digits.Aggregate(0, (current, index) => (current * 26) + (index + 1));
         }
-        
+
+        /// <summary>
+        /// Получить XML по ID элемента
+        /// </summary>
+        /// <param name="id">ID элемента, путь к XML файлу относительно папки с XML элеметнами</param>
+        /// <returns>Контент XML файла по указанному пути</returns>
         private static string GetDefaultElement(string id)
         {
             var dir = GetFullPath(ElementsDir);
@@ -84,6 +92,13 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return xmlString;
         }
 
+        /// <summary>
+        /// Создает елемент из указанного файла
+        /// </summary>
+        /// <typeparam name="T">Тип элемента</typeparam>
+        /// <param name="element">Элемент, который будет переопределен элементом из файла</param>
+        /// <param name="id">ID элемента, путь к XML файлу относительно папки с XML элеметнами</param>
+        /// <returns></returns>
         public static T From<T>(this T element, string id) where T: OpenXmlElement
         {
             var newElemStr = GetDefaultElement(id);
@@ -91,11 +106,31 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return element = Activator.CreateInstance(elementType, new object[] { newElemStr }) as T;
         }
 
+
+        /// <summary>
+        /// Получить первого потомка с указанным типом
+        /// </summary>
+        /// <typeparam name="T">Тип искомого потомка</typeparam>
+        /// <param name="element">Родительский элемент, потомок которого нужно найти</param>
+        /// <returns>
+        /// Потомок типа <typeparamref name="T"/> для элемента <paramref name="element"/>
+        /// или null если потомок не найден
+        /// </returns>
         public static T FirstDescendant<T>(this OpenXmlElement element) where T : OpenXmlElement
         {
             return element.Descendants<T>().FirstOrDefault();
         }
 
+        /// <summary>
+        /// Заменяет один элемент в древе другим элементом.
+        /// Не требует отвязки элементов от их древа, и не удаляет
+        /// заменяющий элемент из его дерева.
+        /// </summary>
+        /// <typeparam name="T1">Тип заменяемого элемента</typeparam>
+        /// <typeparam name="T2">Тип заменяющего элемента</typeparam>
+        /// <param name="oldElement">Заменяемый элемент</param>
+        /// <param name="newElement">Заменяющий элемент</param>
+        /// <returns>Новый элемент после замены</returns>
         public static T2 ReplaceBy<T1, T2>(this T1 oldElement, T2 newElement) where T1 : OpenXmlElement where T2 : OpenXmlElement
         {
             if(oldElement == null) { throw new ArgumentNullException("oldElement"); }
@@ -107,9 +142,13 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 return replacedElement.Equals(oldElement) ? newElement : null;
             }
             return null;
-
         }
-
+        
+        /// <summary>
+        /// Узнать, является ли данная строка адресом ячейки
+        /// </summary>
+        /// <param name="value">Проверяемая строка</param>
+        /// <returns>true если данная строка является валидным адресом ячейки, false в обратном случае</returns>
         public static bool IsCellAddress(this string value)
         {
             if(value == null) { return false; }
@@ -119,6 +158,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return value.Equals(string.Empty);
         }
 
+        /// <summary>
+        /// Получить индекс колонки в буквенном значении
+        /// </summary>
+        /// <param name="columnNumber">Номер колонки (начиная с 1-го)</param>
+        /// <returns></returns>
+        /// <example>Utils.ToColumnName(2) => "B"</example>
         public static string ToColumnName(int columnNumber)
         {
             var dividend = columnNumber;
@@ -135,28 +180,64 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return columnName;
         }
 
-        public static bool IsNumber(this string value)
+        /// <summary>
+        /// Проверяет, является ли значение числом
+        /// </summary>
+        /// <param name="value">Проверяемое значение</param>
+        /// <returns>true если значение числовое, false в обратном случае</returns>
+        public static bool IsNumber(object value)
         {
-            double x;
-            return double.TryParse(value, out x);
+            double d;
+            long l;
+            decimal dec;
+            var valStr = value.ToString() as string;
+            return double.TryParse(valStr, out d) || long.TryParse(valStr, out l) || decimal.TryParse(valStr, out dec);
         }
 
+        /// <summary>
+        /// Преобразует значение в объект <see cref="Drawing.Text"/>
+        /// </summary>
+        /// <param name="str">Преобразуемое значение</param>
+        /// <returns>Объект типа <see cref="Drawing.Text"/> с исходным значением <paramref name="str"/></returns>
         public static Drawing.Text ToDrawingText(this string str)
         {
             return new Drawing.Text(str);
         }
 
+        /// <summary>
+        /// Преобразует значение в объект <see cref="Text"/>
+        /// </summary>
+        /// <param name="str">Преобразуемое значение</param>
+        /// <returns>Объект типа <see cref="Text"/> с исходным значением <paramref name="str"/></returns>
         public static Text ToText(this string str)
         {
             return new Text(str);
         }
         
+        /// <summary>
+        /// Заменяет все вхождения одной строки другой строкой
+        /// </summary>
+        /// <typeparam name="T">Тип элемента <see cref="OpenXmlLeafTextElement"/></typeparam>
+        /// <param name="formula">Элемент, текст которого будет преобразован</param>
+        /// <param name="oldValue">Заменяемое значение</param>
+        /// <param name="newValue">Заменяющее значение</param>
+        /// <returns>Исходный элемент с измененным значением <paramref name="formula"/></returns>
         public static T Replace<T>(this T formula, string oldValue, string newValue) where T : OpenXmlLeafTextElement
         {
+            if(formula.Text == null) { return formula; }
             formula.Text = formula.Text.Replace(oldValue, newValue);
             return formula;
         }
 
+        /// <summary>
+        /// Заменяет все вхождения регулярного выражения
+        /// </summary>
+        /// <typeparam name="T">Тип элемента <see cref="OpenXmlLeafTextElement"/></typeparam>
+        /// <param name="formula">Элемент, текст которого будет преобразован</param>
+        /// <param name="pattern">Искомое регулярное выражение</param>
+        /// <param name="replacement">Заменяющее значение</param>
+        /// <param name="options">Дополнительные параметры регулярного выражения</param>
+        /// <returns>Исходный элемент с измененным значением <paramref name="formula"/></returns>
         public static T RegexReplace<T>(this T formula, string pattern, string replacement, RegexOptions options = RegexOptions.None) where T : OpenXmlLeafTextElement
         {
             Regex regEx = new Regex(pattern, options);
@@ -164,7 +245,14 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return formula;
         }
 
-
+        /// <summary>
+        /// Заменяет все вхождения регулярного выражения в дочерних элементах типа <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T">Тип элемента <see cref="OpenXmlLeafTextElement"/></typeparam>
+        /// <param name="element">Родительский элемент, дочерние объекты которого будут преобразованы</param>
+        /// <param name="pattern">Искомое регулярное выражение</param>
+        /// <param name="replacement">Заменяющее значение</param>
+        /// <param name="options">Дополнительные параметры регулярного выражения</param>
         public static void RegexReplaceIn<T>(this OpenXmlElement element, string pattern, string replacement, RegexOptions options = RegexOptions.None) where T : OpenXmlLeafTextElement
         {
             Regex regEx = new Regex(pattern, options);
@@ -175,6 +263,14 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
         }
 
+        /// <summary>
+        /// Заменяет все вхождения одной строки другой строкой в дочерних 
+        /// элементах типа <typeparamref name="T"/> данного объекта 
+        /// </summary>
+        /// <typeparam name="T">Тип элемента <see cref="OpenXmlLeafTextElement"/></typeparam>
+        /// <param name="element">Родительский элемент, дочерние объекты которого будут преобразованы</param>
+        /// <param name="oldValue">Заменяемое значение</param>
+        /// <param name="newValue">Заменяющее значение</param>
         public static void ReplaceIn<T>(this OpenXmlElement element, string oldValue, string newValue) where T : OpenXmlLeafTextElement
         {
             var formulas = element.Descendants<T>();
@@ -184,6 +280,41 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
         }
 
+        /// <summary>
+        /// Определяет, являются ли два элемента схожими.
+        /// Даже если два элемента null он определяет их как одинаковые.
+        /// Не зависит от положения в древе так как используется 
+        /// метод <see cref="OpenXmlElement.CloneNode(bool)"/> перед сравнением
+        /// </summary>
+        /// <typeparam name="T">Тип сравниваемых элементов</typeparam>
+        /// <param name="source">Первое сравниваемый элемент</param>
+        /// <param name="target">Второй сравниваемый элемент</param>
+        /// <returns>true если два элемента схожи, false в обратном случае</returns>
+        public static bool SameAs<T>(this T source, T target) where T : OpenXmlElement
+        {
+            if(source == null && target == null) { return true; }
+            if(source == null || target == null) { return false; }
+            return source.CloneNode(true).Equals(target.CloneNode(true));
+        }
 
+        /// <summary>
+        /// Получить ближайшего родителя типа <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T">Тип искомого родителя</typeparam>
+        /// <param name="element">Элемент, родителя которого требуется найти</param>
+        /// <returns>Ближайший родительский элемент типа <typeparamref name="T"/></returns>
+        public static T GetFirstParent<T>(this OpenXmlElement element) where T : OpenXmlElement
+        {
+            OpenXmlElement parent;
+            while((parent = element.Parent) != null)
+            {
+                if (element.Parent == null) { return null; }
+                if (element.Parent is T) { return element.Parent as T; }
+                element = parent;
+            }
+            return null;
+        }
+        
+        
     }
 }
