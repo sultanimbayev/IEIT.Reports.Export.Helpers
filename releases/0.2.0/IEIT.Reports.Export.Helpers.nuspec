@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
-    <version>0.1.2</version>
+    <version>0.2.0</version>
     <title>Excel Helpers</title>
     <authors>sultan.imbayev</authors>
     <owners>IPEIT KBTU</owners>
@@ -13,7 +13,7 @@
 		using DocumentFormat.OpenXml library.
 	</description>
     <releaseNotes>
-		Target .NETFramework downgraded to 4.5
+		- Добавлена функция добавления текста в ячейку с собственным стилем
 	</releaseNotes>
     <tags>OpenXml Excel</tags>
 	<dependencies>
