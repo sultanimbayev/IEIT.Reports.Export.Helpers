@@ -15,8 +15,8 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Charts
         {
             if(ws == null || ws.WorksheetPart == null) { return null; }
 
-            uint rowNum = Utils.ToRowNum(cellAddress);
-            uint colNum = Utils.ToColumNum(cellAddress);
+            var rowNum = Utils.ToRowNum(cellAddress);
+            var colNum = Utils.ToColumNum(cellAddress);
 
             var rowId = (rowNum - 1).ToString();
             var colId = (colNum - 1).ToString();

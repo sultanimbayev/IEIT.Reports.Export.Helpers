@@ -98,7 +98,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
             IntendedText = new Firable<string>(writeDeleg);
         }
 
-
+        /// <summary>
+        /// Изменить свойства ячейки с указанным адресом
+        /// </summary>
+        /// <param name="cellAddress">Адрес ячейки свойства которой требуется изменить</param>
+        /// <returns>"Намерение" для изменения своиств ячейки</returns>
         public WriteIntent To(string cellAddress)
         {
             CellAddress = cellAddress;
@@ -108,7 +112,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
 
         public WriteIntent To(int columnNum, int rowNum)
         {
-            CellAddress = Utils.ToColumnName(columnNum) + rowNum.ToString();
+            CellAddress = Utils.ToColumnName((uint)columnNum) + rowNum.ToString();
             if (canFire()) { fireAll(); };
             return this;
         }

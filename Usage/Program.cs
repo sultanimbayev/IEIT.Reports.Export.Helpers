@@ -30,7 +30,9 @@ namespace Usage
 
             ws.Write(123).To("B7");
             ws.GetCell("B7").AppendText(" From Sultan!");
-            
+
+            ws.Copy("A1:B7").To("B8");
+
             doc.Save();
             doc.Close();
 

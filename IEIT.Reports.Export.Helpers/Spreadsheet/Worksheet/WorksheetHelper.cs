@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using IEIT.Reports.Export.Helpers.Exceptions;
 using IEIT.Reports.Export.Helpers.Spreadsheet;
+using IEIT.Reports.Export.Helpers.Spreadsheet.Intents;
 using System;
 using System.Linq;
 
@@ -50,10 +51,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static Cell GetCell(this Worksheet worksheet, string cellAddress)
         {
             if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-
             var rowNum = Utils.ToRowNum(cellAddress);
             var row = worksheet.GetRow(rowNum);
-
+            if(row == null) { return null; }
             var cell = row.Elements<Cell>().FirstOrDefault(c => c.CellReference.Value == cellAddress);
             return cell;
         }
@@ -181,6 +181,18 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var sheet = worksheet.GetSheet();
             if (sheet == null) { return null; }
             return sheet.Name;
+        }
+
+
+        /// <summary>
+        /// Копировать ячейки
+        /// </summary>
+        /// <param name="worksheet">Лист из которого ячейки будут скопированы</param>
+        /// <param name="cellsRange">Адреса копируемых ячеек, указывать в формате A1:B2. Можно указать адрес одной ячейки</param>
+        /// <returns>"Намерение" <see cref="PasteIntent"/> для вставки ячеек</returns>
+        public static PasteIntent Copy(this Worksheet worksheet, string cellsRange)
+        {
+            return new PasteIntent(worksheet, cellsRange);
         }
 
     }

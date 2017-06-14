@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>IEIT.Reports.Export.Helpers</id>
+    <version>0.2.1</version>
+    <title>Excel Helpers</title>
+    <authors>sultan.imbayev</authors>
+    <owners>IPEIT KBTU</owners>
+    <projectUrl>https://github.com/sultanimbayev/IEIT.Reports.Export.Helpers</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		This package is for working with Excel Spreadsheet document 
+		using DocumentFormat.OpenXml library.
+	</description>
+    <releaseNotes>
+		- Добавлена функция копирования ячеек
+	</releaseNotes>
+    <tags>OpenXml Excel</tags>
+	<dependencies>
+		<dependency id="DocumentFormat.OpenXml" version="2.7.1"/>
+	</dependencies>
+	<frameworkAssemblies>
+	  <frameworkAssembly assemblyName="System.Configuration" />
+	</frameworkAssemblies>
+  </metadata>
+</package>

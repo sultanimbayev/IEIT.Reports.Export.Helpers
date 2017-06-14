@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\InvalidDocumentStructureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spreadsheet\CellHelper.cs" />
+    <Compile Include="Spreadsheet\Intents\PasteIntent.cs" />
     <Compile Include="Spreadsheet\Worksheet\WriterActions.cs" />
     <Compile Include="Spreadsheet\Charts\ChartHelper.cs" />
     <Compile Include="Spreadsheet\Charts\LineChartHelper.cs" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using System.Collections.Generic;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
@@ -35,6 +36,16 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 return System.IO.Path.GetDirectoryName(path);
             }
         }
+
+        /// <summary>
+        /// Регулярное выражения соответствующее адресу ячейки
+        /// </summary>
+        private const string RGX_PAT_CA = @"^[a-zA-Z]+\d+$";
+
+        /// <summary>
+        /// Регулярное выражение соответствующее ряду адресов ячеек
+        /// </summary>
+        private const string RGX_PAT_CA_RANGE = @"^[a-zA-Z]+\d+:[a-zA-Z]+\d+$";
 
         /// <summary>
         /// Получить полный путь относительно папки где лежит DLL с данной библиотекой
@@ -164,9 +175,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <param name="columnNumber">Номер колонки (начиная с 1-го)</param>
         /// <returns></returns>
         /// <example>Utils.ToColumnName(2) => "B"</example>
-        public static string ToColumnName(int columnNumber)
+        public static string ToColumnName(uint columnNumber)
         {
-            var dividend = columnNumber;
+            int dividend = (int)columnNumber;
             string columnName = string.Empty;
             int modulo;
 
@@ -212,6 +223,38 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static Text ToText(this string str)
         {
             return new Text(str);
+        }
+
+        /// <summary>
+        /// Получить адреса ячеек из адреса ряда ячеек
+        /// </summary>
+        /// <param name="cellsRange">Адрес ряда ячеек</param>
+        /// <returns>Массив из адресов ячеек находящиеся в указанном промежутке</returns>
+        public static List<string> CellAddressesFrom(string cellsRange)
+        {
+            Regex rgxSingle = new Regex(RGX_PAT_CA);
+            Regex rgxRange = new Regex(RGX_PAT_CA_RANGE);
+            if (rgxSingle.IsMatch(cellsRange)) { return new List<string>(){ cellsRange }; }
+            if (!rgxRange.IsMatch(cellsRange)) { throw new FormatException($"Не удалось считать адреса ячеек {cellsRange}"); }
+
+            var addrs = cellsRange.Split(':');
+            uint initCol = ToColumNum(addrs[0].ToUpper());
+            uint initRow = ToRowNum(addrs[0].ToUpper());
+
+            uint finalCol = ToColumNum(addrs[1].ToUpper());
+            uint finalRow = ToRowNum(addrs[1].ToUpper());
+
+            List<string> cellAddrs = new List<string>();
+
+            for (uint row = initRow; row <= finalRow; row++)
+            {
+                for (uint col = initCol; col <= finalCol; col++)
+                {
+                    cellAddrs.Add(ToColumnName(col) + row.ToString());
+                }
+            }
+
+            return cellAddrs;
         }
         
         /// <summary>
@@ -296,6 +339,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             if(source == null || target == null) { return false; }
             return source.CloneNode(true).Equals(target.CloneNode(true));
         }
+        
 
         /// <summary>
         /// Получить ближайшего родителя типа <typeparamref name="T"/>
