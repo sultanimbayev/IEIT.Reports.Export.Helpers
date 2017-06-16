@@ -48,6 +48,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spreadsheet\Common.cs" />
     <Compile Include="Exceptions\IncompleteActionException.cs" />
     <Compile Include="Exceptions\InvalidDocumentStructureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

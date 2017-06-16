@@ -6,6 +6,7 @@ using IEIT.Reports.Export.Helpers.Spreadsheet;
 using IEIT.Reports.Export.Helpers.Spreadsheet.Intents;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
@@ -57,6 +58,8 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var cell = row.Elements<Cell>().FirstOrDefault(c => c.CellReference.Value == cellAddress);
             return cell;
         }
+
+
 
         /// <summary>
         /// Создать ячейку. Если ячейка уже создана в указанном месте, 
@@ -182,17 +185,80 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             if (sheet == null) { return null; }
             return sheet.Name;
         }
-
+        
 
         /// <summary>
         /// Копировать ячейки
         /// </summary>
         /// <param name="worksheet">Лист из которого ячейки будут скопированы</param>
-        /// <param name="cellsRange">Адреса копируемых ячеек, указывать в формате A1:B2. Можно указать адрес одной ячейки</param>
+        /// <param name="cellsRange">Область копируемых ячеек, указывать в формате A1:B2. Можно указать адрес одной ячейки</param>
         /// <returns>"Намерение" <see cref="PasteIntent"/> для вставки ячеек</returns>
         public static PasteIntent Copy(this Worksheet worksheet, string cellsRange)
         {
             return new PasteIntent(worksheet, cellsRange);
+        }
+
+        /// <summary>
+        /// Объединить ячейки
+        /// </summary>
+        /// <param name="worksheet">Лист в котором требуется объединить ячейки</param>
+        /// <param name="cellsRange">Область объединяемых ячеек</param>
+        public static void MergeCells(this Worksheet worksheet, string cellsRange)
+        {
+            Regex rgxCellsRange = new Regex(Common.RGX_PAT_CA_RANGE);
+            if (!rgxCellsRange.IsMatch(cellsRange)) { throw new Exception($"Не удалось распознать область '{cellsRange}' адресов ячеек. Проверьте формат."); }
+
+            MergeCells mergeCells;
+            if (worksheet.Elements<MergeCells>().Count() > 0)
+            {
+                mergeCells = worksheet.Elements<MergeCells>().First();
+            }
+            else
+            {
+                mergeCells = new MergeCells();
+
+                // Insert a MergeCells object into the specified position.
+                if (worksheet.Elements<CustomSheetView>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<CustomSheetView>().First());
+                }
+                else if (worksheet.Elements<DataConsolidate>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<DataConsolidate>().First());
+                }
+                else if (worksheet.Elements<SortState>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<SortState>().First());
+                }
+                else if (worksheet.Elements<AutoFilter>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<AutoFilter>().First());
+                }
+                else if (worksheet.Elements<Scenarios>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<Scenarios>().First());
+                }
+                else if (worksheet.Elements<ProtectedRanges>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<ProtectedRanges>().First());
+                }
+                else if (worksheet.Elements<SheetProtection>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<SheetProtection>().First());
+                }
+                else if (worksheet.Elements<SheetCalculationProperties>().Count() > 0)
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<SheetCalculationProperties>().First());
+                }
+                else
+                {
+                    worksheet.InsertAfter(mergeCells, worksheet.Elements<SheetData>().First());
+                }
+            }
+
+            // Create the merged cell and append it to the MergeCells collection.
+            MergeCell mergeCell = new MergeCell() { Reference = new StringValue(cellsRange) };
+            mergeCells.Append(mergeCell);
         }
 
     }

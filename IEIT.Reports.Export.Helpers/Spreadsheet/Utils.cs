@@ -37,15 +37,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
         }
 
-        /// <summary>
-        /// Регулярное выражения соответствующее адресу ячейки
-        /// </summary>
-        private const string RGX_PAT_CA = @"^[a-zA-Z]+\d+$";
-
-        /// <summary>
-        /// Регулярное выражение соответствующее ряду адресов ячеек
-        /// </summary>
-        private const string RGX_PAT_CA_RANGE = @"^[a-zA-Z]+\d+:[a-zA-Z]+\d+$";
 
         /// <summary>
         /// Получить полный путь относительно папки где лежит DLL с данной библиотекой
@@ -232,8 +223,8 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Массив из адресов ячеек находящиеся в указанном промежутке</returns>
         public static List<string> CellAddressesFrom(string cellsRange)
         {
-            Regex rgxSingle = new Regex(RGX_PAT_CA);
-            Regex rgxRange = new Regex(RGX_PAT_CA_RANGE);
+            Regex rgxSingle = new Regex(Common.RGX_PAT_CA);
+            Regex rgxRange = new Regex(Common.RGX_PAT_CA_RANGE);
             if (rgxSingle.IsMatch(cellsRange)) { return new List<string>(){ cellsRange }; }
             if (!rgxRange.IsMatch(cellsRange)) { throw new FormatException($"Не удалось считать адреса ячеек {cellsRange}"); }
 

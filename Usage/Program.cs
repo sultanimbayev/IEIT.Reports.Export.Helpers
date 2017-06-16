@@ -32,6 +32,7 @@ namespace Usage
             ws.GetCell("B7").AppendText(" From Sultan!");
 
             ws.Copy("A1:B7").To("B8");
+            ws.MergeCells("B5:D5");
 
             doc.Save();
             doc.Close();
