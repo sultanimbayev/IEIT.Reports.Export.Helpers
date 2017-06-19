@@ -62,6 +62,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
             {
                 var srcCell = srcWorksheet.GetCell(srcAddresses[i]);
                 if(srcCell == null) { continue; }
+                srcCell.MakeValueShared();
                 srcCell = srcCell.CloneNode(true) as Cell;
                 var trgCell = targetWorksheet.MakeCell(trgAddresses[i]);
                 srcCell.CellReference = trgCell.CellReference;

@@ -77,19 +77,21 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 item.Append(run);
             }
             sst.Append(item);
-            sst.Count.Value++;
+            if (sst.Count != null) { sst.Count.Value++; }
+            if (sst.UniqueCount != null) { sst.UniqueCount.Value++; }
             return item;
         }
+        
 
         /// <summary>
-        /// Добавить текст в <see cref="SharedStringItem"/> с указанным стилем
+        /// Добавить текст в элемент типа <see cref="RstType"/> с указанным стилем
         /// </summary>
         /// <param name="item">Элемент к которому прибавляется текст</param>
         /// <param name="text">Добавляемый текст</param>
         /// <param name="rPr">Стиль добавляемого текста</param>
-        public static void Append(this SharedStringItem item, string text, RunProperties rPr = null)
+        public static void AppendText<T>(this T item, string text, RunProperties rPr = null) where T : RstType
         {
-            if(item == null) { throw new ArgumentNullException($"SharedStringItem object is null"); }
+            if(item == null) { throw new ArgumentNullException($"item object to appending text is null"); }
 
             var lastElem = item.Elements<Run>().LastOrDefault();
 
