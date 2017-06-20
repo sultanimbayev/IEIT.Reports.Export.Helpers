@@ -3,26 +3,28 @@ using IEIT.Reports.Export.Helpers.Spreadsheet;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Usage
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
             var filepath = "Temp.xlsx";
-            
+
             if (File.Exists(filepath))
             {
                 File.Delete(filepath);
             }
 
             var doc = CreateSpreadsheetWorkbook(filepath);
-            
+
             RunProperties superscript = new RunProperties(
                 new VerticalTextAlignment() { Val = VerticalAlignmentRunValues.Superscript }
-                ,new FontSize() { Val = 11.0 }
-                );         
+                , new FontSize() { Val = 11.0 }
+                );
 
             var ws = doc.GetWorksheet("list1");
             ws.Write("Hello world!").To("B5");
@@ -33,6 +35,9 @@ namespace Usage
 
             ws.Copy("A1:B7").To("B8");
             ws.MergeCells("B5:D5");
+
+            var df = new DifferentialFormat( new NumberingFormat() { NumberFormatId = 164U, FormatCode = "#,##0.000" } );
+            ws.AddFormattingRule("MOD(A1, 1) <> 0", df);
 
             doc.Save();
             doc.Close();
@@ -74,5 +79,8 @@ namespace Usage
             //spreadsheetDocument.Close();
             return spreadsheetDocument;
         }
+
     }
+
+
 }

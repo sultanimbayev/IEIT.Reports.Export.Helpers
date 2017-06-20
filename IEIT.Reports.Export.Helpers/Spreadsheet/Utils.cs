@@ -349,7 +349,18 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
             return null;
         }
-        
+
+        /// <summary>
+        /// Получить индекс элемента в родительском списке, начинается с нуля.
+        /// </summary>
+        /// <param name="element">Элемент индекс которого нужно найти</param>
+        /// <returns>Индекс данного элемента среди элементов родителя, начинается с нуля.</returns>
+        public static int GetIndex(this OpenXmlElement element) 
+        {
+            if(element == null) { throw new ArgumentNullException("Cannot get index of null element!"); }
+            if(element.Parent == null) { throw new MissingMemberException("Cannot get index of element that doesn't have parent!"); }
+            return element.Parent.Elements().ToList().FindIndex(el => el.Equals(element));
+        }
         
     }
 }

@@ -8,15 +8,38 @@ using System.Threading.Tasks;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
 {
+    /// <summary>
+    /// Класс для вставки копируемого значения
+    /// </summary>
     public class PasteIntent
     {
 
+        /// <summary>
+        /// Лист из которого копируется значения ячеек
+        /// </summary>
         private Worksheet srcWorksheet { get; set; }
 
+        /// <summary>
+        /// Область копируемых ячеек.
+        /// </summary>
         private List<string> srcAddresses;
 
-        private uint _rowsCount, _colsCount;
+        /// <summary>
+        /// Количество копируемых строк
+        /// </summary>
+        private uint _rowsCount;
 
+
+        /// <summary>
+        /// Количество копируемых колонок     
+        /// </summary>
+        private uint _colsCount;
+
+        /// <summary>
+        /// Конструктор для определения копируемых ячеек для последующей вставки
+        /// </summary>
+        /// <param name="sourceWorksheet">Лист где находятся копируемые ячейки</param>
+        /// <param name="cellsRange">Область копируемых ячеек</param>
         public PasteIntent(Worksheet sourceWorksheet, string cellsRange)
         {
             srcWorksheet = sourceWorksheet;
@@ -29,11 +52,23 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
 
         }
 
+
+        /// <summary>
+        /// Вставить элемент в тот же лист, в  указанный адрес ячейки
+        /// </summary>
+        /// <param name="targetCellAddr">Адрес ячейки для вставки, одна ячейка (верхняя-левая)</param>
+        /// <returns>"Намерение для вставки копированного значения"</returns>
         public PasteIntent To(string targetCellAddr)
         {
             return To(srcWorksheet, targetCellAddr);
         }
 
+        /// <summary>
+        /// Вставить элемент в указанный лист и адрес ячейки
+        /// </summary>
+        /// <param name="targetWorksheet">Лист куда вставляется копированное значение</param>
+        /// <param name="targetCellAddr">Адрес ячейки для вставки, одна ячейка (верхняя-левая)</param>
+        /// <returns>"Намерение для вставки копированного значения"</returns>
         public PasteIntent To(Worksheet targetWorksheet, string targetCellAddr)
         {
             var trgColNum = Utils.ToColumNum(targetCellAddr);

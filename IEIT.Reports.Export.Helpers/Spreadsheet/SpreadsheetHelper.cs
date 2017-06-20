@@ -84,49 +84,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         
 
         /// <summary>
-        /// Добавить текст в элемент типа <see cref="RstType"/> с указанным стилем
-        /// </summary>
-        /// <param name="item">Элемент к которому прибавляется текст</param>
-        /// <param name="text">Добавляемый текст</param>
-        /// <param name="rPr">Стиль добавляемого текста</param>
-        public static void AppendText<T>(this T item, string text, RunProperties rPr = null) where T : RstType
-        {
-            if(item == null) { throw new ArgumentNullException($"item object to appending text is null"); }
-
-            var lastElem = item.Elements<Run>().LastOrDefault();
-
-            if(lastElem == null)
-            {
-                if(item.Text == null) { item.Text = new Text(); }
-                if(rPr == null) { item.Text.Text += text; return; }
-                var run2 = new Run();
-                run2.Text = item.Text.CloneNode(true) as Text;
-                item.Append(run2);
-                item.Text.Remove();
-                lastElem = run2;
-            }
-
-            if (lastElem == null || !lastElem.RunProperties.SameAs(rPr))
-            {
-                var run = new Run();
-                run.RunProperties = rPr;
-                run.Text = new Text(text);
-                item.InsertAfter(run, lastElem);
-                return;
-            }
-
-            if(lastElem.Text == null || string.IsNullOrEmpty(lastElem.Text.Text))
-            {
-                lastElem.Text = new Text(text);
-                return;
-            }
-
-            lastElem.Text.Text += text;
-            return;
-            
-        }
-
-        /// <summary>
         /// Сохранить изменения и закрыть документ
         /// </summary>
         /// <param name="document">Документ над которым производится операция</param>
@@ -134,6 +91,37 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             document.Save();
             document.Close();
+        }
+        
+
+        public static Stylesheet GetStylesheet(this SpreadsheetDocument document)
+        {
+            return document.WorkbookPart.GetStylesheet();
+        }
+
+        public static Stylesheet GetStylesheet(this Workbook workbook)
+        {
+            return workbook.WorkbookPart.GetStylesheet();
+        }
+
+        /// <summary>
+        /// Получить таблицу со стилями
+        /// </summary>
+        /// <param name="wbPart">Рабочая книга документа</param>
+        /// <returns>Таблицу содержащяя стили документа</returns>
+        public static Stylesheet GetStylesheet(this WorkbookPart wbPart)
+        {
+            if(wbPart == null) { throw new ArgumentNullException("WorkbookPart must be not null!"); }
+
+            if(wbPart.WorkbookStylesPart == null) { wbPart.AddNewPart<WorkbookStylesPart>(); }
+            if(wbPart.WorkbookStylesPart.Stylesheet == null) { wbPart.WorkbookStylesPart.Stylesheet = new Stylesheet(); }
+            return wbPart.WorkbookStylesPart.Stylesheet;
+        }
+
+        public static void Add(this DifferentialFormats formatsList, DifferentialFormat format)
+        {
+            formatsList.Append(format);
+            if(formatsList.Count != null) { formatsList.Count.Value++; }
         }
 
     }
