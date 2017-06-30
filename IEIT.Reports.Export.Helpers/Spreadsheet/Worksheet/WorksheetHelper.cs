@@ -14,6 +14,66 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
     {
 
         /// <summary>
+        /// Получить рабочий лист
+        /// </summary>
+        /// <param name="doc">Документ, из которого нужно получить лист</param>
+        /// <param name="sheetName">Название требуемого листа</param>
+        /// <returns>Рабочий лист, название которого соответсвует указанному, или null если лист не найден.</returns>
+        public static Worksheet GetWorksheet(this SpreadsheetDocument doc, string sheetName)
+        {
+            if (doc == null) { throw new ArgumentNullException("doc"); }
+            if (doc.WorkbookPart == null || doc.WorkbookPart.Workbook == null) { throw new InvalidDocumentStructureException(); }
+            return doc.WorkbookPart.Workbook.GetWorksheet(sheetName);
+        }
+
+        /// <summary>
+        /// Получить информацию о существовании листа с указанным названием
+        /// </summary>
+        /// <param name="doc">Документ, из которого нужно получить информацию</param>
+        /// <param name="sheetName">Название листа</param>
+        /// <returns>true если лист с таким названием существует в книге, false в обратном случае</returns>
+        public static bool HasWorksheet(this SpreadsheetDocument doc, string sheetName)
+        {
+            if (doc == null) { throw new ArgumentNullException("doc"); }
+            if (doc.WorkbookPart == null || doc.WorkbookPart.Workbook == null) { throw new InvalidDocumentStructureException(); }
+            return doc.WorkbookPart.Workbook.HasWorksheet(sheetName);
+        }
+
+        /// <summary>
+        /// Получить лист по его названию. Возвращает null если такой лист не найден
+        /// </summary>
+        /// <param name="workbook">Рабочая книга документа</param>
+        /// <param name="sheetName">Название листа</param>
+        /// <returns>Рабочий лист с указанным названием или null если такой лист не найден</returns>
+        public static Worksheet GetWorksheet(this Workbook workbook, string sheetName)
+        {
+            if (workbook == null) { throw new ArgumentNullException("workbook"); }
+            if (workbook.WorkbookPart == null) { throw new InvalidDocumentStructureException(); }
+            var rel = workbook.Descendants<Sheet>()
+                .Where(s => s.Name.Value.Equals(sheetName))
+                .FirstOrDefault();
+            if (rel == null || rel.Id == null) { return null; }
+            var wsPart = workbook.WorkbookPart.GetPartById(rel.Id) as WorksheetPart;
+            if (wsPart == null) { return null; }
+            return wsPart.Worksheet;
+        }
+
+        /// <summary>
+        /// Получить информацию о существовании листа с указанным названием
+        /// </summary>
+        /// <param name="workbook">Рабочая книга документа</param>
+        /// <param name="sheetName">Название листа</param>
+        /// <returns>true если лист с таким названием существует в книге, false в обратном случае</returns>
+        public static bool HasWorksheet(this Workbook workbook, string sheetName)
+        {
+            if (workbook == null) { throw new ArgumentNullException("workbook"); }
+            if (workbook.WorkbookPart == null) { throw new InvalidDocumentStructureException(); }
+            return workbook.Descendants<Sheet>()
+                .Where(s => s.Name.Value.Equals(sheetName))
+                .Count() > 0;
+        }
+
+        /// <summary>
         /// Получить свойства листа
         /// </summary>
         /// <param name="worksheet">Объект листа</param>
@@ -37,104 +97,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static WorkbookPart GetWorkbookPart(this Worksheet worksheet)
         {
             return worksheet.WorksheetPart.GetParentParts().FirstOrDefault() as WorkbookPart;
-        }
-
-
-
-        /// <summary>
-        /// Получить объект ячейки. 
-        /// Вызывает ошибку если ячейка еще не существует.
-        /// <seealso cref="MakeCell(Worksheet, string)"/>
-        /// </summary>
-        /// <param name="worksheet">Лист в котором находится ячейка</param>
-        /// <param name="cellAddress">Адрес ячейки</param>
-        /// <returns>Объект ячейки который находится в данном листе по указанному адресу</returns>
-        public static Cell GetCell(this Worksheet worksheet, string cellAddress)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            var rowNum = Utils.ToRowNum(cellAddress);
-            var row = worksheet.GetRow(rowNum);
-            if(row == null) { return null; }
-            var cell = row.Elements<Cell>().FirstOrDefault(c => c.CellReference.Value == cellAddress);
-            return cell;
-        }
-
-
-
-        /// <summary>
-        /// Создать ячейку. Если ячейка уже создана в указанном месте, 
-        /// тогда данный метод будет идентичен методу <see cref="GetCell(Worksheet, string)"/>
-        /// </summary>
-        /// <param name="worksheet">Лист в котором нужно создать ячейку</param>
-        /// <param name="cellAddress">Адрес новой ячейки</param>
-        /// <returns>Созданную ячейку, если ячейка не существовала</returns>
-        public static Cell MakeCell(this Worksheet worksheet, string cellAddress)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            var rowNum = Utils.ToRowNum(cellAddress);
-            var row = worksheet.MakeRow(rowNum);
-
-            if (row == null) { throw new IncompleteActionException("Создание строки."); }
-
-            var cell = row.Elements<Cell>()
-                .Where(c => Utils.ToColumNum(c.CellReference.Value) >= Utils.ToColumNum(cellAddress))
-                .OrderBy(c => Utils.ToColumNum(c.CellReference.Value))
-                .FirstOrDefault();
-
-            if (cell != null && cell.CellReference.Value.Equals(cellAddress, StringComparison.OrdinalIgnoreCase)) { return cell; }
-
-            var newCell = new Cell();
-            newCell.CellReference = cellAddress;
-            row.InsertBefore(newCell, cell);
-
-            return newCell;
-
-        }
-
-        /// <summary>
-        /// Получить строку. 
-        /// Вызывает ошибку если строка еще не существует. 
-        /// <seealso cref="MakeRow(Worksheet, uint)"/>
-        /// </summary>
-        /// <param name="worksheet">Лист в котором находится требуемая строка</param>
-        /// <param name="rowNum">Номер запрашиваемой строки</param>
-        /// <returns>Объект строки</returns>
-        public static Row GetRow(this Worksheet worksheet, uint rowNum)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            var wsData = worksheet.GetFirstChild<SheetData>();
-            if (wsData == null) { throw new InvalidDocumentStructureException(); }
-            var row = wsData.Elements<Row>().FirstOrDefault(r => r.RowIndex.Value == rowNum);
-            return row;
-        }
-
-
-        /// <summary>
-        /// Создать строку. Если строка уже существует, то данный метод будет
-        /// идентичен методу <see cref="GetRow(Worksheet, uint)"/>
-        /// </summary>
-        /// <param name="worksheet"></param>
-        /// <param name="rowNum"></param>
-        /// <returns></returns>
-        public static Row MakeRow(this Worksheet worksheet, uint rowNum)
-        {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            var wsData = worksheet.GetFirstChild<SheetData>();
-            if (wsData == null) { throw new InvalidDocumentStructureException(); }
-
-            var row = wsData
-                    .Elements<Row>()
-                    .Where(r => r.RowIndex.Value >= rowNum)
-                    .OrderBy(r => r.RowIndex.Value).FirstOrDefault();
-
-            if (row != null && row.RowIndex == rowNum) { return row; }
-
-            var newRow = new Row();
-            newRow.RowIndex = rowNum;
-
-            wsData.InsertBefore(newRow, row);
-
-            return newRow;
         }
 
 
@@ -171,6 +133,25 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
 
             return (sheet.Name = newName).Equals(newName);
+        }
+
+        /// <summary>
+        /// Удаляет лист
+        /// </summary>
+        /// <param name="worksheet">Рабочий лист</param>
+        /// <returns>true при удачном удалении, false в обратном случае</returns>
+        public static bool Delete(this Worksheet worksheet)
+        {
+            var WbPart = worksheet.GetWorkbookPart();
+            var sheet = worksheet.GetSheet();
+            
+            if (sheet == null) { return false; }
+
+            // Remove the sheet reference from the workbook.
+            sheet.Remove();
+
+            // Delete the worksheet part.
+            return WbPart.DeletePart(worksheet.WorksheetPart);
         }
 
 
@@ -275,7 +256,38 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
         }
 
+        /// <summary>
+        /// Получить объект для работы со столбцом, с указанным адресом.
+        /// </summary>
+        /// <param name="worksheet">Объект рабочего листа</param>
+        /// <param name="columnNumber">Номер запрашиваемого столбца (начиная с 1-го)</param>
+        /// <returns>Объект для работы со столбцом</returns>
+        public static Models.Column GetColumn(this Worksheet worksheet, int columnNumber)
+        {
+            return new Models.Column(worksheet, columnNumber);
+        }
 
+        /// <summary>
+        /// Получить объект для работы со столбцом, с указанным адресом.
+        /// </summary>
+        /// <param name="worksheet">Объект рабочего листа</param>
+        /// <param name="columnNumber">Номер запрашиваемого столбца (начиная с 1-го)</param>
+        /// <returns>Объект для работы со столбцом</returns>
+        public static Models.Column GetColumn(this Worksheet worksheet, uint columnNumber)
+        {
+            return new Models.Column(worksheet, columnNumber);
+        }
+
+        /// <summary>
+        /// Получить объект для работы со столбцом, с указанным адресом.
+        /// </summary>
+        /// <param name="worksheet">Объект рабочего листа</param>
+        /// <param name="columnName">Название запрашиваемого столбца, латинские буквы.</param>
+        /// <returns>Объект для работы со столбцом</returns>
+        public static Models.Column GetColumn(this Worksheet worksheet, string columnName)
+        {
+            return new Models.Column(worksheet, columnName);
+        }
 
     }
 }

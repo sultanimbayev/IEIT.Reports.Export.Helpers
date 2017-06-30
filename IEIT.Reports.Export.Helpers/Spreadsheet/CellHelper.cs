@@ -3,67 +3,23 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using IEIT.Reports.Export.Helpers.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class CellHelper
     {
-        /// <summary>
-        /// Переместить значение хранящиеся в данном объекте в SharedString.
-        /// Не преобразует значения типа <see cref="CellValues.Boolean"/>
-        /// <see cref="CellValues.Date"/> <see cref="CellValues.Error"/>
-        /// <see cref="CellValues.Number"/> если не указан параметр <paramref name="force"/> как true
-        /// </summary>
-        /// <param name="cell">Ячейка, значение которой нужно сделать общим</param>
-        /// <param name="force">Флаг "насильного" преобразования, если указан как true, то преобразует значение не смотря на его тип.
-        /// А если указан false (по умолчанию), то преобразует только строковые значения.
-        /// </param>
-        /// <returns>Преобразованное значение <see cref="SharedStringItem"/> при удачном преобразовании, 
-        /// либо null в обратном случае</returns>
-        public static SharedStringItem MakeValueShared(this Cell cell, bool force=false)
+
+        public enum MatchOption
         {
-
-            if(cell.DataType != null && cell.DataType == CellValues.SharedString){ return cell.GetSharedStringItem(); }
-            
-            if(cell.DataType == null
-                || cell.DataType == CellValues.Boolean 
-                || cell.DataType == CellValues.Date
-                || cell.DataType == CellValues.Error 
-                || cell.DataType == CellValues.Number
-                || force)
-            {
-                return null;
-            }
-
-            var wbPart = cell.GetWorkbookPart();
-            if(wbPart == null) { throw new InvalidDocumentStructureException("Given worksheet of given cell is not part of workbook!"); }
-            if(wbPart.SharedStringTablePart == null) { wbPart.AddNewPart<SharedStringTablePart>(); }
-            if(wbPart.SharedStringTablePart.SharedStringTable == null) { wbPart.SharedStringTablePart.SharedStringTable = new SharedStringTable().From("SST.Empty"); }
-            var sst = wbPart.SharedStringTablePart.SharedStringTable;
-            if(cell.CellValue == null) { cell.CellValue = new CellValue(); }
-            var itemIdx = sst.Elements().Count();
-            SharedStringItem newItem;
-            
-            if (cell.DataType != null && cell.DataType == CellValues.InlineString)
-            {
-                var inStr = cell.InlineString;
-                newItem = new SharedStringItem(inStr.Elements().Select(el => el.CloneNode(true)));
-                sst.Append(newItem);
-            }
-            else
-            {
-                var text = cell.CellValue.Text;
-                newItem = sst.Add(text);
-            }
-
-            cell.DataType = CellValues.SharedString;
-            cell.CellValue.Text = itemIdx.ToString();
-            cell.InlineString = null;
-            return newItem;
+            Contains,
+            Equals,
+            StartsWith,
+            EndsWith
         }
-
-
+        
         /// <summary>
         /// Переместить значение хранящиеся в данном объекте в форматированную строку
         /// </summary>
@@ -104,11 +60,22 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return cellValue.Parent as Cell;
         }
 
+
+        /// <summary>
+        /// Получить рабочий лист в которой находится ячейка
+        /// </summary>
+        /// <param name="cell">Ячейка документа</param>
+        /// <returns>Рабочий лист в которой находится ячейка</returns>
         public static Worksheet GetWorksheet(this Cell cell)
         {
             return cell.GetFirstParent<Worksheet>();
         }
 
+        /// <summary>
+        /// Получить рабочюю книгу документа в которой находится данная ячейка
+        /// </summary>
+        /// <param name="cell">Ячейка документа</param>
+        /// <returns>Рабочая книга документа в которой находится данная ячейка</returns>
         public static WorkbookPart GetWorkbookPart(this Cell cell)
         {
             var ws = cell.GetFirstParent<Worksheet>();
@@ -116,16 +83,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return ws.GetWorkbookPart();
         }
 
-        public static SharedStringItem GetSharedStringItem(this Cell cell)
-        {
-            if(cell == null) { throw new ArgumentNullException("Argument 'cell' must not be null!"); }
-            if(cell.CellValue == null || cell.CellValue.Text == null) { return null; }
-            if(cell.DataType != CellValues.SharedString) { return null; }
-            var wbPart = cell.GetWorkbookPart();
-            if (wbPart == null) { throw new InvalidDocumentStructureException("Given worksheet of given cell is not part of workbook!"); }
-            var itemId = int.Parse(cell.CellValue.Text);
-            return wbPart.GetSharedStringItem(itemId);
-        }
 
         /// <summary>
         /// Добавление текста в ячейку
@@ -143,6 +100,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return true;
         }
 
+
         /// <summary>
         /// Запись текста в ячейку
         /// </summary>
@@ -157,6 +115,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             cell.InlineString = new InlineString() { Text = new Text(value) };
             return true;
         }
+
 
         /// <summary>
         /// Запись числа в ячейку
@@ -212,14 +171,118 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static string GetValue(this Cell cell)
         {
             if (cell == null) { throw new ArgumentNullException("Given Cell object is null"); }
-            if (cell.CellValue == null) { return null; }
+            var item = cell.CellValue as OpenXmlElement;
             if (cell.DataType != null && cell.DataType == CellValues.SharedString)
             {
-                var item = cell.GetSharedStringItem();
-                if (item == null) { return null; }
-                return item.InnerText;
+                item = cell.GetSharedStringItem(); 
             }
-            return cell.CellValue.InnerText;
+            if (cell.DataType != null && cell.DataType == CellValues.InlineString)
+            {
+                item = cell.InlineString;
+            }
+            return item?.InnerText;
+        }
+
+        /// <summary>
+        /// Найти ячейки по его содержанию
+        /// </summary>
+        /// <param name="worksheet">Рабочий лист документа в котором ведется поиск</param>
+        /// <param name="searchText">Значение которое должно содержать ячейка</param>
+        /// <returns>Ячейки содержание которых совпадает с указанным значением</returns>
+        public static IEnumerable<Cell> FindCells(this Worksheet worksheet, string searchText, MatchOption match = MatchOption.Contains)
+        {
+            Func<string, string, bool> matchDeleg;
+            switch (match)
+            {
+                default:
+                    throw new NotImplementedException();
+                case MatchOption.Contains:
+                    matchDeleg = (_cellText, _searchTxt) => { return _cellText.Contains(_searchTxt); };
+                    break;
+                case MatchOption.Equals:
+                    matchDeleg = (_cellText, _searchTxt) => { return _cellText.Equals(_searchTxt); };
+                    break;
+                case MatchOption.StartsWith:
+                    matchDeleg = (_cellText, _searchTxt) => { return _cellText.StartsWith(_searchTxt); };
+                    break;
+                case MatchOption.EndsWith:
+                    matchDeleg = (_cellText, _searchTxt) => { return _cellText.EndsWith(_searchTxt); };
+                    break;
+            }
+            return worksheet.Descendants<Cell>().Where(c => { var val = c.GetValue(); return val != null && matchDeleg(val, searchText); });
+        }
+
+        /// <summary>
+        /// Найти ячейки по его содержанию
+        /// </summary>
+        /// <param name="worksheet">Рабочий лист документа в котором ведется поиск</param>
+        /// <param name="searchRgx">Объект регулярного выражения для поиска</param>
+        /// <returns>Ячейки содержание которых совпадает с данным выражением</returns>
+        public static IEnumerable<Cell> FindCells(this Worksheet worksheet, Regex searchRgx)
+        {
+            return worksheet.Descendants<Cell>().Where(c => { var val = c.GetValue(); return val != null && searchRgx.IsMatch(val); });
+        }
+        
+
+        /// <summary>
+        /// Получить объект ячейки. 
+        /// Вызывает ошибку если ячейка еще не существует.
+        /// <seealso cref="MakeCell(Worksheet, string)"/>
+        /// </summary>
+        /// <param name="worksheet">Лист в котором находится ячейка</param>
+        /// <param name="cellAddress">Адрес ячейки</param>
+        /// <returns>Объект ячейки который находится в данном листе по указанному адресу</returns>
+        public static Cell GetCell(this Worksheet worksheet, string cellAddress)
+        {
+            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
+            var rowNum = Utils.ToRowNum(cellAddress);
+            var row = worksheet.GetRow(rowNum);
+            if (row == null) { return null; }
+            var cell = row.Elements<Cell>().FirstOrDefault(c => c.CellReference.Value == cellAddress);
+            return cell;
+        }
+
+
+
+        /// <summary>
+        /// Создать ячейку. Если ячейка уже создана в указанном месте, 
+        /// тогда данный метод будет идентичен методу <see cref="GetCell(Worksheet, string)"/>
+        /// </summary>
+        /// <param name="worksheet">Лист в котором нужно создать ячейку</param>
+        /// <param name="cellAddress">Адрес новой ячейки</param>
+        /// <returns>Созданную ячейку, если ячейка не существовала</returns>
+        public static Cell MakeCell(this Worksheet worksheet, string cellAddress)
+        {
+            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
+            var rowNum = Utils.ToRowNum(cellAddress);
+            var row = worksheet.MakeRow(rowNum);
+            if (row == null) { throw new IncompleteActionException("Создание строки."); } 
+            return row.MakeCell(cellAddress);
+        }
+
+        /// <summary>
+        /// Получить строку в которой находится данная ячейка
+        /// </summary>
+        /// <param name="cell">Объект ячейки OpenXML</param>
+        /// <returns>Объект строки, в которой находится ячейка</returns>
+        public static Row GetRow(this Cell cell)
+        {
+            return cell.GetFirstParent<Row>();
+        }
+
+        /// <summary>
+        /// Получить объект <see cref="Models.Column"/>
+        /// для работы со столбцом в которой находится ячейка.
+        /// </summary>
+        /// <param name="cell">Объект ячейки OpenXML</param>
+        /// <returns>
+        /// объект для работы со столбцом, в которой находится ячейка
+        /// </returns>
+        public static Models.Column GetColumn(this Cell cell)
+        {
+            var ws = cell.GetWorksheet();
+            var _colName = Utils.ToColumnName(cell.CellReference.Value);
+            return new Models.Column(ws, _colName);
         }
 
     }

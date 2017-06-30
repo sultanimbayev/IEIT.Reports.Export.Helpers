@@ -10,77 +10,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class SpreadsheetHelper
     {
-
-        /// <summary>
-        /// Получить рабочий лист
-        /// </summary>
-        /// <param name="doc">Документ, из которого нужно получить лист</param>
-        /// <param name="sheetName">Название требуемого листа</param>
-        /// <returns>Рабочий лист, название которого соответсвует указанному, или null если лист не найден.</returns>
-        public static Worksheet GetWorksheet(this SpreadsheetDocument doc, string sheetName)
-        {
-            if (doc == null) { throw new ArgumentNullException("doc"); }
-            if (doc.WorkbookPart == null || doc.WorkbookPart.Workbook == null) { throw new InvalidDocumentStructureException(); }
-            return doc.WorkbookPart.Workbook.GetWorksheet(sheetName);
-        }
-
-        /// <summary>
-        /// Получить часть документа с рабочим листом
-        /// </summary>
-        /// <param name="workbookPart"></param>
-        /// <param name="sheetName"></param>
-        /// <returns></returns>
-        public static Worksheet GetWorksheet(this Workbook workbook, string sheetName)
-        {
-            if (workbook == null) { throw new ArgumentNullException("workbook"); }
-            if (workbook.WorkbookPart == null) { throw new InvalidDocumentStructureException(); }
-            var rel = workbook.Descendants<Sheet>()
-                .Where(s => s.Name.Value.Equals(sheetName))
-                .First();
-            if (rel == null || rel.Id == null) { return null; }
-            var wsPart = workbook.WorkbookPart.GetPartById(rel.Id) as WorksheetPart;
-            if (wsPart == null) { return null; }
-            return wsPart.Worksheet;
-        }
-
-        /// <summary>
-        /// Получить <see cref="SharedStringTable"/> по ID
-        /// </summary>
-        /// <param name="wbPart">Элемент <see cref="WorkbookPart"/></param>
-        /// <param name="itemId">ID элемента <see cref="SharedStringItem"/></param>
-        /// <returns>Элемент <see cref="SharedStringItem"/> с указанным ID</returns>
-        internal static SharedStringItem GetSharedStringItem(this WorkbookPart wbPart, int itemId)
-        {
-            if(wbPart == null) { throw new ArgumentNullException("wbPart is null"); }
-            return wbPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(itemId);
-        }
-
-        /// <summary>
-        /// Добавить текст в таблицу <see cref="SharedStringTable"/>
-        /// </summary>
-        /// <param name="sst">Таблица с тектами</param>
-        /// <param name="text">Добавляемый текст</param>
-        /// <param name="rPr">Стиль добавляемого текста</param>
-        /// <returns>Добавленыый элемент в <see cref="SharedStringTable"/> содержащий указанный текст</returns>
-        public static SharedStringItem Add(this SharedStringTable sst, string text, RunProperties rPr = null)
-        {
-            var item = new SharedStringItem();
-            if (rPr == null)
-            {
-                item.Text = new Text(text);
-            }
-            else
-            {
-                var run = new Run();
-                run.Text = new Text(text);
-                run.Append(rPr.CloneNode(true));
-                item.Append(run);
-            }
-            sst.Append(item);
-            if (sst.Count != null) { sst.Count.Value++; }
-            if (sst.UniqueCount != null) { sst.UniqueCount.Value++; }
-            return item;
-        }
         
 
         /// <summary>
@@ -92,13 +21,22 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             document.Save();
             document.Close();
         }
-        
 
+        /// <summary>
+        /// Получить таблицу стилей
+        /// </summary>
+        /// <param name="document">Рабочий документ</param>
+        /// <returns>Таблица стилей указанного документа</returns>
         public static Stylesheet GetStylesheet(this SpreadsheetDocument document)
         {
             return document.WorkbookPart.GetStylesheet();
         }
-
+        
+        /// <summary>
+        /// Получить таблицу стилей
+        /// </summary>
+        /// <param name="workbook">Рабочая книга документа</param>
+        /// <returns>Таблица стилей указанной рабочей книги</returns>
         public static Stylesheet GetStylesheet(this Workbook workbook)
         {
             return workbook.WorkbookPart.GetStylesheet();

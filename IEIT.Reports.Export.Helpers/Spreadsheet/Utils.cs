@@ -64,16 +64,77 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         }
         
         /// <summary>
-        /// Получить 
+        /// Получить номер колонки (начиная с 1-го)
         /// </summary>
-        /// <param name="address"></param>
-        /// <returns></returns>
+        /// <param name="address">Адрес ячейки или индекс колонки</param>
+        /// <returns>Номер колонки</returns>
         public static uint ToColumNum(string address)
         {
             var value = address.TrimEnd("1234567890".ToCharArray());
             var digits = value.PadLeft(3).Select(x => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(x));
             return (uint)digits.Aggregate(0, (current, index) => (current * 26) + (index + 1));
         }
+
+        /// <summary>
+        /// Получить индекс колонки в буквенном значении
+        /// </summary>
+        /// <param name="address">Номер колонки (начиная с 1-го) или номер колонки</param>
+        /// <returns>Индекс колонки в буквенном значении</returns>
+        /// <example>Utils.ToColumnName("C14") => "С" или Utils.ToColumnName("5") => "E"</example>
+        public static string ToColumnName(string address)
+        {
+            if (IsNumber(address)) { return ToColumnName(uint.Parse(address)); }
+            return address.TrimEnd("1234567890".ToCharArray());
+        }
+
+        /// <summary>
+        /// Получить индекс колонки в буквенном значении
+        /// </summary>
+        /// <param name="columnNumber">Номер колонки (начиная с 1-го). Значение должно быть больше нуля.</param>
+        /// <returns>Индекс колонки в виде буквы латинского языка</returns>
+        /// <example>Utils.ToColumnName(2) => "B"</example>
+        public static string ToColumnName(int columnNumber)
+        {
+            return ToColumnName((uint)columnNumber);
+        }
+
+        /// <summary>
+        /// Получить индекс колонки в буквенном значении
+        /// </summary>
+        /// <param name="columnNumber">Номер колонки (начиная с 1-го). Значение должно быть больше нуля.</param>
+        /// <returns>Индекс колонки в виде буквы латинского языка</returns>
+        /// <example>Utils.ToColumnName(2) => "B"</example>
+        public static string ToColumnName(uint columnNumber)
+        {
+            int dividend = (int)columnNumber;
+            string columnName = string.Empty;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
+                dividend = (dividend - modulo) / 26;
+            }
+
+            return columnName;
+        }
+
+
+        /// <summary>
+        /// Узнать, является ли данная строка адресом ячейки
+        /// </summary>
+        /// <param name="value">Проверяемая строка</param>
+        /// <returns>true если данная строка является валидным адресом ячейки, false в обратном случае</returns>
+        public static bool IsCellAddress(this string value)
+        {
+            if (value == null) { return false; }
+            value = value.TrimStart("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
+            if (value.StartsWith("0")) { return false; }
+            value = value.TrimEnd("1234567890".ToCharArray());
+            return value.Equals(string.Empty);
+        }
+
 
         /// <summary>
         /// Получить XML по ID элемента
@@ -146,41 +207,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return null;
         }
         
-        /// <summary>
-        /// Узнать, является ли данная строка адресом ячейки
-        /// </summary>
-        /// <param name="value">Проверяемая строка</param>
-        /// <returns>true если данная строка является валидным адресом ячейки, false в обратном случае</returns>
-        public static bool IsCellAddress(this string value)
-        {
-            if(value == null) { return false; }
-            value = value.TrimStart("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
-            if (value.StartsWith("0")){ return false; }
-            value = value.TrimEnd("1234567890".ToCharArray());
-            return value.Equals(string.Empty);
-        }
-
-        /// <summary>
-        /// Получить индекс колонки в буквенном значении
-        /// </summary>
-        /// <param name="columnNumber">Номер колонки (начиная с 1-го)</param>
-        /// <returns></returns>
-        /// <example>Utils.ToColumnName(2) => "B"</example>
-        public static string ToColumnName(uint columnNumber)
-        {
-            int dividend = (int)columnNumber;
-            string columnName = string.Empty;
-            int modulo;
-
-            while (dividend > 0)
-            {
-                modulo = (dividend - 1) % 26;
-                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
-                dividend = (dividend - modulo) / 26;
-            }
-
-            return columnName;
-        }
 
         /// <summary>
         /// Проверяет, является ли значение числом

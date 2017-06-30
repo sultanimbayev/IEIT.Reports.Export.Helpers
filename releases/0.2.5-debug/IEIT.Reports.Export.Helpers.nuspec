@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>IEIT.Reports.Export.Helpers</id>
+    <version>0.2.5-debug</version>
+    <title>Excel Helpers</title>
+    <authors>sultan.imbayev</authors>
+    <owners>IPEIT KBTU</owners>
+    <projectUrl>https://github.com/sultanimbayev/IEIT.Reports.Export.Helpers</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		This package is for working with Excel Spreadsheet document 
+		using DocumentFormat.OpenXml library. It extends its functionality.
+	</description>
+    <releaseNotes>
+		- Исправление метод Cell.GetValue()
+		- Добавлен объкет Column для работы со столбцами
+		- Методы GetRow(), GetColumn() для объкетов Cell и Worksheet
+	</releaseNotes>
+    <tags>OpenXml Excel</tags>
+	<dependencies>
+		<dependency id="DocumentFormat.OpenXml" version="2.7.1"/>
+	</dependencies>
+	<frameworkAssemblies>
+	  <frameworkAssembly assemblyName="System.Configuration" />
+	</frameworkAssemblies>
+  </metadata>
+  <files>
+	<file src="..\..\IEIT.Reports.Export.Helpers\bin\Debug\IEIT.Reports.Export.Helpers.dll" target="lib\net45" />
+	<file src="..\..\IEIT.Reports.Export.Helpers\content\**" target="content" />
+  </files>
+</package>
