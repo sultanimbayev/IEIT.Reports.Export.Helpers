@@ -97,7 +97,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var wbPart = cell.GetWorkbookPart();
             if (wbPart == null) { throw new InvalidDocumentStructureException("Given worksheet of given cell is not part of workbook!"); }
             if (wbPart.SharedStringTablePart == null) { wbPart.AddNewPart<SharedStringTablePart>(); }
-            if (wbPart.SharedStringTablePart.SharedStringTable == null) { wbPart.SharedStringTablePart.SharedStringTable = new SharedStringTable().From("SST.Empty"); }
+            if (wbPart.SharedStringTablePart.SharedStringTable == null) { wbPart.SharedStringTablePart.SharedStringTable = new SharedStringTable() { Count = 0, UniqueCount = 0 }; }
             var sst = wbPart.SharedStringTablePart.SharedStringTable;
             if (cell.CellValue == null) { cell.CellValue = new CellValue(); }
             var itemIdx = sst.Elements().Count();

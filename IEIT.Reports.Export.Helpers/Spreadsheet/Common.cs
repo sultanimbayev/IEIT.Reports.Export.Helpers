@@ -79,5 +79,32 @@ namespace IEIT.Reports.Export.Helpers
             return new InsertElementIntent<T>(parent, newChild);
         }
 
+        /// <summary>
+        /// Создает дочерний элемент в родительском объекте.
+        /// Возвращает индекс созданного элемента.
+        /// При указанном параметре <paramref name="allowDublicates"/> 
+        /// как false (по умолчанию). Не создает обект если подобный уже 
+        /// имеется, и возвращает индекс уже имеющегося элемента.
+        /// </summary>
+        /// <typeparam name="T">Тип нового элемента</typeparam>
+        /// <param name="parent">Родительский элемент в котором создается новый объект</param>
+        /// <param name="newElement">Создаваемый элемент</param>
+        /// <param name="allowDublicates">
+        /// Если указан как false (по умолчанию). Не создает обект
+        /// если подобный уже имеется. При значении true, создает новый
+        /// дочерний элемент в любом случае.
+        /// </param>
+        /// <returns>Индекс нового элемента, или индекс уже имеющегося элемента.</returns>
+        public static uint Make<T>(this OpenXmlElement parent, T newElement, bool allowDublicates = false) where T : OpenXmlElement
+        {
+            var _child = parent.Elements<T>().FirstOrDefault(el => el.SameAs(newElement));
+            if (allowDublicates || _child == null)
+            {
+                _child = newElement.CloneNode(true) as T;
+                parent.Append(_child);
+            }
+            return (uint)_child.GetIndex();
+        }
+
     }
 }

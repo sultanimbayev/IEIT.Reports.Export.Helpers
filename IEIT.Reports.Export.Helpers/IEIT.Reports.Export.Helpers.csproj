@@ -55,10 +55,12 @@
     <Compile Include="Spreadsheet\CellHelper.cs" />
     <Compile Include="Spreadsheet\Fabric.cs" />
     <Compile Include="Spreadsheet\Intents\InsertElementIntent.cs" />
+    <Compile Include="Spreadsheet\Intents\MakeStyleIntent.cs" />
     <Compile Include="Spreadsheet\Intents\PasteIntent.cs" />
     <Compile Include="Spreadsheet\Models\Column.cs" />
     <Compile Include="Spreadsheet\RowHelper.cs" />
     <Compile Include="Spreadsheet\SharedStringHelper.cs" />
+    <Compile Include="Spreadsheet\StylesheetHelper.cs" />
     <Compile Include="Spreadsheet\Worksheet\WriterActions.cs" />
     <Compile Include="Spreadsheet\Charts\ChartHelper.cs" />
     <Compile Include="Spreadsheet\Charts\LineChartHelper.cs" />
@@ -81,6 +83,10 @@
     <Content Include="content\OpenXML.Elements\Drawing\Charts\Values.Empty.xml" />
     <Content Include="content\OpenXML.Elements\Drawing\ChartTitle.xml" />
     <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Spreadsheet\Fabrics\" />
+    <Folder Include="Spreadsheet\Internal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

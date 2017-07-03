@@ -233,7 +233,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             if (styleSheet.DifferentialFormats == null) { styleSheet.DifferentialFormats = new DifferentialFormats() { Count = 0 }; }
             var dfList = styleSheet.DifferentialFormats;
 
-            dfList.Add(style);
+            dfList.AddDFormat(style);
             var formattingRule = Fabric.MakeFormattingRule(formattingExpression);
             formattingRule.FormatId = (uint)style.GetIndex();
 

@@ -10,7 +10,63 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class SpreadsheetHelper
     {
-        
+
+        /// <summary>
+        /// Создает новый файл документа Excel с единственным листом который называется Sheet1
+        /// Возвращает созданный документ
+        /// </summary>
+        /// <param name="filepath">Директория где будет создан файл</param>
+        /// <returns>Возвращает созданный документ</returns>
+        public static SpreadsheetDocument CreateBlank(string filepath)
+        {
+            // Create a spreadsheet document by supplying the filepath.
+            // By default, AutoSave = true, Editable = true, and Type = xlsx.
+            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.
+                Create(filepath, SpreadsheetDocumentType.Workbook);
+
+            // Add a WorkbookPart to the document.
+            WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
+            workbookpart.Workbook = new Workbook();
+
+            // Add a WorksheetPart to the WorkbookPart.
+            WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+            worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+            // Initializing Shared string table
+            workbookpart.AddNewPart<SharedStringTablePart>();
+            workbookpart.SharedStringTablePart.SharedStringTable = new SharedStringTable() { Count = 0, UniqueCount = 0 };
+
+            //Initializing Stylesheet
+            workbookpart.AddNewPart<WorkbookStylesPart>();
+            var stylesheet = workbookpart.WorkbookStylesPart.Stylesheet = new Stylesheet();
+            stylesheet.Fills = new Fills(
+                new Fill { PatternFill = new PatternFill { PatternType = PatternValues.None } }, // required, reserved by Excel
+                new Fill { PatternFill = new PatternFill { PatternType = PatternValues.Gray125 } } // required, reserved by Excel
+                ) { Count = 2 };
+            stylesheet.Fonts = new Fonts(new Font()) { Count = 1 }; // blank font list
+            stylesheet.Borders = new Borders(new Border()) { Count = 1 };
+            stylesheet.CellFormats = new CellFormats(new CellFormat()) { Count = 1 }; // cell format list; empty one for index 0, seems to be required
+            stylesheet.CellStyleFormats = new CellStyleFormats(new CellFormat()) { Count = 1 }; // blank cell format list
+
+
+            // Add Sheets to the Workbook.
+            Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
+
+            // Append a new worksheet and associate it with the workbook.
+            Sheet sheet = new Sheet()
+            {
+                Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
+                SheetId = 1,
+                Name = "Sheet1"
+            };
+            sheets.Append(sheet);
+
+            workbookpart.Workbook.Save();
+
+            // Close the document.
+            //spreadsheetDocument.Close();
+            return spreadsheetDocument;
+        }
 
         /// <summary>
         /// Сохранить изменения и закрыть документ
@@ -22,45 +78,6 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             document.Close();
         }
 
-        /// <summary>
-        /// Получить таблицу стилей
-        /// </summary>
-        /// <param name="document">Рабочий документ</param>
-        /// <returns>Таблица стилей указанного документа</returns>
-        public static Stylesheet GetStylesheet(this SpreadsheetDocument document)
-        {
-            return document.WorkbookPart.GetStylesheet();
-        }
-        
-        /// <summary>
-        /// Получить таблицу стилей
-        /// </summary>
-        /// <param name="workbook">Рабочая книга документа</param>
-        /// <returns>Таблица стилей указанной рабочей книги</returns>
-        public static Stylesheet GetStylesheet(this Workbook workbook)
-        {
-            return workbook.WorkbookPart.GetStylesheet();
-        }
-
-        /// <summary>
-        /// Получить таблицу со стилями
-        /// </summary>
-        /// <param name="wbPart">Рабочая книга документа</param>
-        /// <returns>Таблицу содержащяя стили документа</returns>
-        public static Stylesheet GetStylesheet(this WorkbookPart wbPart)
-        {
-            if(wbPart == null) { throw new ArgumentNullException("WorkbookPart must be not null!"); }
-
-            if(wbPart.WorkbookStylesPart == null) { wbPart.AddNewPart<WorkbookStylesPart>(); }
-            if(wbPart.WorkbookStylesPart.Stylesheet == null) { wbPart.WorkbookStylesPart.Stylesheet = new Stylesheet(); }
-            return wbPart.WorkbookStylesPart.Stylesheet;
-        }
-
-        public static void Add(this DifferentialFormats formatsList, DifferentialFormat format)
-        {
-            formatsList.Append(format);
-            if(formatsList.Count != null) { formatsList.Count.Value++; }
-        }
 
     }
 }

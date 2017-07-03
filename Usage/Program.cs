@@ -8,8 +8,16 @@ using System.Linq;
 
 namespace Usage
 {
+    
     static class Program
     {
+
+        static uint styleRed;
+        static uint styleBlue;
+        static uint styleGreen;
+
+        static RunProperties superscript;
+
         static void Main(string[] args)
         {
             var filepath = "Temp.xlsx";
@@ -19,22 +27,25 @@ namespace Usage
                 File.Delete(filepath);
             }
 
-            var doc = CreateSpreadsheetWorkbook(filepath);
 
-            RunProperties superscript = new RunProperties(
-                new VerticalTextAlignment() { Val = VerticalAlignmentRunValues.Superscript }
-                , new FontSize() { Val = 11.0 }
-                );
 
-            var ws = doc.GetWorksheet("list1");
-            ws.Write("Hello world!").To("B5");
-            ws.GetCell("B5").AppendText(" From Sultan!", superscript);
+            var doc = SpreadsheetHelper.CreateBlank(filepath);
 
-            ws.Write(123).To("B7");
-            ws.GetCell("B7").AppendText(" From Sultan!");
+            InitStyles(doc);
 
-            ws.Copy("A1:B7").To("B8");
-            ws.MergeCells("B5:D5");
+            var ws = doc.GetWorksheet("Sheet1");
+
+            ws.Write("Example table").To("B2").WithStyle(styleGreen);
+            ws.MergeCells("B2:D2");
+
+            ws.Write("Row1").WithStyle(styleRed).To("B3");
+            ws.Write("Value1").To("C3");
+            ws.Write("Value2").To("D3");
+
+            ws.Write("Row2").WithStyle(styleBlue).To("B4");
+            ws.Write("Value3").To("C4");
+            ws.Write("Value4").To("D4");
+
 
             var df = new DifferentialFormat( new NumberingFormat() { NumberFormatId = 164U, FormatCode = "#,##0.000" } );
             ws.AddFormattingRule("MOD(A1, 1) <> 0", df);
@@ -43,42 +54,31 @@ namespace Usage
             doc.Close();
 
         }
-
-        public static SpreadsheetDocument CreateSpreadsheetWorkbook(string filepath, string sheetName = "list1")
+        
+        static void InitStyles(SpreadsheetDocument doc)
         {
-            // Create a spreadsheet document by supplying the filepath.
-            // By default, AutoSave = true, Editable = true, and Type = xlsx.
-            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.
-                Create(filepath, SpreadsheetDocumentType.Workbook);
 
-            // Add a WorkbookPart to the document.
-            WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
-            workbookpart.Workbook = new Workbook();
+            superscript = new RunProperties(
+                new VerticalTextAlignment() { Val = VerticalAlignmentRunValues.Superscript }
+                , new FontSize() { Val = 11.0 }
+                );
 
-            // Add a WorksheetPart to the WorkbookPart.
-            WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet = new Worksheet(new SheetData());
+            var stylesheet = doc.GetStylesheet();
 
-            // Add Sheets to the Workbook.
-            Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.
-                AppendChild<Sheets>(new Sheets());
-
-            // Append a new worksheet and associate it with the workbook.
-            Sheet sheet = new Sheet()
+            styleRed = stylesheet.MakeCellStyle().WithFill("FF9090").Build();
+            
+            var titleFont = new Font()
             {
-                Id = spreadsheetDocument.WorkbookPart.
-                GetIdOfPart(worksheetPart),
-                SheetId = 1,
-                Name = sheetName
+                FontSize = new FontSize() { Val = 18U },
+                Bold = new Bold() { Val = true }
             };
-            sheets.Append(sheet);
 
-            workbookpart.Workbook.Save();
+            styleGreen = stylesheet.MakeCellStyle().WithFill("90FF90").WithFont(titleFont).Build();
+            
+            styleBlue = stylesheet.MakeCellStyle().WithFill("9090FF").Build();
 
-            // Close the document.
-            //spreadsheetDocument.Close();
-            return spreadsheetDocument;
         }
+        
 
     }
 
