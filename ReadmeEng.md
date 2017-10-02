@@ -38,7 +38,7 @@ cell.StyleIndex = existingStyleIndex;
 
 You can put style into cell when writing:
 ```C#
-worksheet.Write("Привет мир!").To("B2").WithStyle(existingStyleIndex);
+worksheet.Write("Hello world!").To("B2").WithStyle(existingStyleIndex);
 ```
 
 
