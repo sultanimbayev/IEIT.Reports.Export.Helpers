@@ -21,3 +21,20 @@ var worksheet = excelDoc.GetWorksheet("Лист 1");
 worksheet.Write("Привет мир!").To("B2");
 excelDoc.SaveAndClose();
 ```
+
+Получение и присваивание стилей:
+```C#
+var existingStyleIndex = worksheet.GetCell("A1").StyleIndex;
+var cell = worksheet.MakeCell("A4");
+cell.StyleIndex = existingStyleIndex;
+```
+
+Или можно присвоить стили при записи в ячейку:
+```C#
+worksheet.Write("Привет мир!").To("B2").WithStyle(existingStyleIndex);
+```
+
+Объединение ячеек:
+```C#
+worksheet.MergeCells("A2:B4");
+```
