@@ -22,8 +22,8 @@ We just using DocumentFormat.OpenXml syntax to open files.
 This extension simplifies operations with excel files.
 Writing to file:
 ```C#
-var worksheet = excelDoc.GetWorksheet("Лист 1");
-worksheet.Write("Привет мир!").To("B2");
+var worksheet = excelDoc.GetWorksheet("List 1");
+worksheet.Write("Hello world!").To("B2");
 excelDoc.SaveAndClose();
 ```
 
