@@ -1,1 +1,23 @@
-"# IEIT.Reports.Export.Helpers" 
+# IEIT.Reports.Export.Helpers
+
+Эта библиотека является расширением библиотеки [DocumentFormat.OpenXml](https://www.nuget.org/packages/DocumentFormat.OpenXml/). 
+И предназначена для формирования отчетов в формате Microsoft Excel 2007 и выше (.xlsx). Не поддерживает формат Microsoft Excel ниже версии 2007 (файлы формата.xls)
+Эта библиотека создана для того, чтобы упростить работу с Excel файлами используя только DocumentFormat.OpenXml.
+
+С данной библиотекой вы работаете напрямую с драйвером DocumentFormat.OpenXml. Остальные методы являются лишь расширением для существующих классов.
+Например, для того чтобы открыть документ:
+```C#
+var filePath = "myFolder/excelFile.xlsx";
+var editable = true;
+var excelDoc = SpreadsheetDocument.Open(filePath, editable);
+```
+Как видите, тут мы используем DocumentFormat.OpenXml, и ничего больше. 
+
+С данным расширениеми операции становятся проще.
+
+Запись в файл:
+```C#
+var worksheet = excelDoc.GetWorksheet("Лист 1");
+worksheet.Write("Привет мир!").To("B2");
+excelDoc.SaveAndClose();
+```
