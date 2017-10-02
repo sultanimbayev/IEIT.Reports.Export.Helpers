@@ -1,6 +1,8 @@
 # IEIT.Reports.Export.Helpers
 
-Read [english version](blob/master/ReadmeEng.md)
+Read [english version](ReadmeEng.md)
+
+
 Эта библиотека является расширением библиотеки [DocumentFormat.OpenXml](https://www.nuget.org/packages/DocumentFormat.OpenXml/). 
 И предназначена для формирования отчетов в формате Microsoft Excel 2007 и выше (.xlsx). Не поддерживает формат Microsoft Excel ниже версии 2007 (файлы формата.xls)
 Эта библиотека создана для того, чтобы упростить работу с Excel файлами используя только DocumentFormat.OpenXml.
