@@ -68,7 +68,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Рабочий лист в которой находится ячейка</returns>
         public static Worksheet GetWorksheet(this Cell cell)
         {
-            return cell.GetFirstParent<Worksheet>();
+            return cell.ParentOfType<Worksheet>();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Рабочая книга документа в которой находится данная ячейка</returns>
         public static WorkbookPart GetWorkbookPart(this Cell cell)
         {
-            var ws = cell.GetFirstParent<Worksheet>();
+            var ws = cell.ParentOfType<Worksheet>();
             if (ws == null) { throw new InvalidDocumentStructureException("Given cell is not part of worksheet!"); }
             return ws.GetWorkbookPart();
         }
@@ -267,7 +267,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Объект строки, в которой находится ячейка</returns>
         public static Row GetRow(this Cell cell)
         {
-            return cell.GetFirstParent<Row>();
+            return cell.ParentOfType<Row>();
         }
 
         /// <summary>

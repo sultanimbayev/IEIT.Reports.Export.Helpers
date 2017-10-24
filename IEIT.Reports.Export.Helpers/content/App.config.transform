@@ -2,6 +2,6 @@
 <configuration>
   <appSettings>
     <!--Put path to OpenXML.Element directory realtive to DLLs folder (or IEIT.Reports.Export.Helpers.dll file) -->
-    <add key="OpenXMLElementsPath" value="..\OpenXML.Elements"/>
+    <add key="OpenXMLElementsPath" value="..\OpenXML.Elements" />
   </appSettings>
 </configuration>

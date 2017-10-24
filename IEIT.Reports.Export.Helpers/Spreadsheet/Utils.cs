@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Configuration;
 using System.Collections.Generic;
+using DocumentFormat.OpenXml.Packaging;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
@@ -364,7 +365,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <typeparam name="T">Тип искомого родителя</typeparam>
         /// <param name="element">Элемент, родителя которого требуется найти</param>
         /// <returns>Ближайший родительский элемент типа <typeparamref name="T"/></returns>
-        public static T GetFirstParent<T>(this OpenXmlElement element) where T : OpenXmlElement
+        public static T ParentOfType<T>(this OpenXmlElement element) where T : OpenXmlElement
         {
             OpenXmlElement parent;
             while((parent = element.Parent) != null)
@@ -376,12 +377,37 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return null;
         }
 
+
+        /// <summary>
+        /// Получить ближайшего родительской части документа типа <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T">Тип искомого родителя</typeparam>
+        /// <param name="part">Часть документа, предка котого требуется найти</param>
+        /// <returns>Ближайший предок типа <typeparamref name="T"/></returns>
+        public static T ParentPartOfType<T>(this OpenXmlPart part) where T : OpenXmlPart
+        {
+            var parentParts = part.GetParentParts();
+            if(parentParts == null || parentParts.Count() == 0) { return null; }
+            foreach(var p in parentParts)
+            {
+                if(p == null) { continue; }
+                if(!(p is T))
+                {
+                    var p2 = p.ParentPartOfType<T>();
+                    if(p2 == null) { continue; }
+                    return p2;
+                }
+                return p as T;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Получить индекс элемента в родительском списке, начинается с нуля.
         /// </summary>
         /// <param name="element">Элемент индекс которого нужно найти</param>
         /// <returns>Индекс данного элемента среди элементов родителя, начинается с нуля.</returns>
-        public static int GetIndex(this OpenXmlElement element) 
+        public static int Index(this OpenXmlElement element) 
         {
             if(element == null) { throw new ArgumentNullException("Cannot get index of null element!"); }
             if(element.Parent == null) { throw new MissingMemberException("Cannot get index of element that doesn't have parent!"); }

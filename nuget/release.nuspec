@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>IEIT.Reports.Export.Helpers</id>
+	
+	
+    <version>0.2.6</version>
+	
+	
+    <title>Excel Helpers</title>
+    <authors>sultan.imbayev</authors>
+    <owners>IPEIT KBTU</owners>
+    <projectUrl>https://github.com/sultanimbayev/IEIT.Reports.Export.Helpers</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+        This package is to simplify work with Excel Spreadsheet document.
+        Даннный пакет предназначен для упрощения синтаксиса библиотеки DocumentFormat.OpenXml.
+	</description>
+    <summary>
+        Даннный пакет предназначен для упрощения синтаксиса библиотеки DocumentFormat.OpenXml.
+        Исползуются расширения над методами и классами из DocumentFormat.OpenXml.
+        
+		This package is to simplify work with Excel Spreadsheet document 
+		using DocumentFormat.OpenXml library. It uses extensions over DocumentFormat.OpenXml methods and classes.
+    </summary>
+    <releaseNotes>
+		- Добавлен метод для создания стилей
+        - Метод RelocateTo() для перемещения областей графиков
+        - Метод ParentPartOfType() для получения родительской части документа определенного типа
+        - Удалены xml шаблоны Formula.Empty.xml, Values.Empty.xml так как теперь они формируются в коде
+        - Переименованы методы 
+            -- Worksheet.GetChartPartByPosition() -> Worksheet.ChartPartAt()
+            -- Chart.SetTitle() -> Chart.Title()
+            -- Chart.GetTitle() -> Chart.Title()
+            -- LineChart.GetSeries() -> LineChart.Series()
+            -- LineChart.GetValuesFormula() -> LineChart.Values()
+            -- LineChart.SetValuesFormula() -> LineChart.Values()
+            -- LineChart.GetAxisFormul() -> LineChart.Series()
+            -- OpenXmlElement.GetFirstParent() -> OpenXmlElement.ParentOfType()
+            -- OpenXmlElement.GetIndex() -> OpenXmlElement.Index();
+            -- OpenXmlElement.Make() -> OpenXmlElement.MakeSame();
+            -- Drawing.Charts.Formula.Set() -> Drawing.Charts.Formula.Text()
+	</releaseNotes>
+    <tags>OpenXml Excel</tags>
+	<dependencies>
+		<dependency id="DocumentFormat.OpenXml" version="2.7.1"/>
+	</dependencies>
+	<frameworkAssemblies>
+	  <frameworkAssembly assemblyName="System.Configuration" />
+	</frameworkAssemblies>
+  </metadata>
+  <files>
+	<file src="..\IEIT.Reports.Export.Helpers\bin\Release\IEIT.Reports.Export.Helpers.dll" target="lib\net45" />
+	<file src="..\IEIT.Reports.Export.Helpers\bin\Release\IEIT.Reports.Export.Helpers.xml" target="lib\net45" />
+	<file src="..\IEIT.Reports.Export.Helpers\content\**" target="content" />
+  </files>
+</package>

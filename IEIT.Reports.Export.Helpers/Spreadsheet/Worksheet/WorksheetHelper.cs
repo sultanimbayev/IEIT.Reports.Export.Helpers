@@ -235,7 +235,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
             dfList.AddDFormat(style);
             var formattingRule = Fabric.MakeFormattingRule(formattingExpression);
-            formattingRule.FormatId = (uint)style.GetIndex();
+            formattingRule.FormatId = (uint)style.Index();
 
             IEnumerable<StringValue> stringValues = targetCellAddresses.Select(rng => new StringValue(rng));
             var sqref = new ListValue<StringValue>(stringValues);

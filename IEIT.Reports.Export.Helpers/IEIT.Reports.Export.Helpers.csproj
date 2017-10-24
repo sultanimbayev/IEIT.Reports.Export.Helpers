@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\IEIT.Reports.Export.Helpers.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\IEIT.Reports.Export.Helpers.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=0.0.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
@@ -79,8 +81,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\OpenXML.Elements\Drawing\Charts\Formula.Empty.xml" />
-    <Content Include="content\OpenXML.Elements\Drawing\Charts\Values.Empty.xml" />
     <Content Include="content\OpenXML.Elements\Drawing\ChartTitle.xml" />
     <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
   </ItemGroup>

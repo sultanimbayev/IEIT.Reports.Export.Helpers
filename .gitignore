@@ -1,2 +1,6 @@
+# visual studio files
 .vs/
+
+# nuget packages
 packages/
+*.nupkg

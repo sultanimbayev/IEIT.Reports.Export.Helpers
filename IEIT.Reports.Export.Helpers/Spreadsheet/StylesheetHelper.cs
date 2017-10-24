@@ -73,7 +73,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             formatsList.Append(format);
             if (formatsList.Count != null) { formatsList.Count.Value++; }
-            return (uint)format.GetIndex();
+            return (uint)format.Index();
         }
 
         #region BordersHelper
@@ -149,7 +149,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// </returns>
         public static uint MakeBorder(this Borders borders, Border border)
         {
-            var borderIndex = borders.Make(border);
+            var borderIndex = borders.MakeSame(border);
             borders.Count = (uint)borders.Elements().Count();
             return borderIndex;
         }
@@ -200,7 +200,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
         public static uint MakeFont(this Fonts fonts, Font font)
         {
-            var fontIndex = fonts.Make(font);
+            var fontIndex = fonts.MakeSame(font);
             fonts.Count = (uint)fonts.Elements().Count();
             return fontIndex;
         }
@@ -242,7 +242,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
         public static uint MakeNumFormat(this NumberingFormats numFormats, NumberingFormat numFormat)
         {
-            var formatIndex = numFormats.Make(numFormat);
+            var formatIndex = numFormats.MakeSame(numFormat);
             numFormats.Count = (uint)numFormats.Elements().Count();
             return formatIndex;
         }
@@ -288,7 +288,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
         public static uint MakeFill(this Fills fills, Fill fill)
         {
-            var fillIndex = fills.Make(fill);
+            var fillIndex = fills.MakeSame(fill);
             fills.Count = (uint)fills.Elements().Count();
             return fillIndex;
         }
@@ -334,7 +334,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
         public static uint MakeCellFormat(this CellFormats cellFormats, CellFormat format)
         {
-            var formatIndex = cellFormats.Make(format);
+            var formatIndex = cellFormats.MakeSame(format);
             cellFormats.Count = (uint)cellFormats.Elements().Count();
             return formatIndex;
         }

@@ -95,7 +95,7 @@ namespace IEIT.Reports.Export.Helpers
         /// дочерний элемент в любом случае.
         /// </param>
         /// <returns>Индекс нового элемента, или индекс уже имеющегося элемента.</returns>
-        public static uint Make<T>(this OpenXmlElement parent, T newElement, bool allowDublicates = false) where T : OpenXmlElement
+        public static uint MakeSame<T>(this OpenXmlElement parent, T newElement, bool allowDublicates = false) where T : OpenXmlElement
         {
             var _child = parent.Elements<T>().FirstOrDefault(el => el.SameAs(newElement));
             if (allowDublicates || _child == null)
@@ -103,7 +103,7 @@ namespace IEIT.Reports.Export.Helpers
                 _child = newElement.CloneNode(true) as T;
                 parent.Append(_child);
             }
-            return (uint)_child.GetIndex();
+            return (uint)_child.Index();
         }
 
     }
