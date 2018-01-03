@@ -18,7 +18,29 @@ namespace Usage
 
         static RunProperties superscript;
 
+        enum MyStyle
+        {
+            Style1,
+            Style2,
+            Style3,
+            Style4
+        }
+
         static void Main(string[] args)
+        {
+            Try1(args);
+        }
+
+        static void Try1(string[] args)
+        {
+            var filepath = "Temp.xlsx";
+            var doc = SpreadsheetDocument.Open(filepath, false);
+            var ws = doc.GetWorksheet("Sheet2");
+            var styles = ws.GetStylesOf<MyStyle>();
+            var style2 = styles[MyStyle.Style2];
+        }
+
+        static void Try2(string[] args)
         {
             var filepath = "Temp.xlsx";
 
@@ -26,9 +48,7 @@ namespace Usage
             {
                 File.Delete(filepath);
             }
-
-
-
+            
             var doc = SpreadsheetHelper.CreateBlank(filepath);
 
             InitStyles(doc);
@@ -47,14 +67,14 @@ namespace Usage
             ws.Write("Value4").To("D4");
 
 
-            var df = new DifferentialFormat( new NumberingFormat() { NumberFormatId = 164U, FormatCode = "#,##0.000" } );
+            var df = new DifferentialFormat(new NumberingFormat() { NumberFormatId = 164U, FormatCode = "#,##0.000" });
             ws.AddFormattingRule("MOD(A1, 1) <> 0", df);
 
             doc.Save();
             doc.Close();
 
         }
-        
+
         static void InitStyles(SpreadsheetDocument doc)
         {
 

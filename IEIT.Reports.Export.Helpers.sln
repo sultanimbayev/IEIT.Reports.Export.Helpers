@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEIT.Reports.Export.Helpers", "IEIT.Reports.Export.Helpers\IEIT.Reports.Export.Helpers.csproj", "{E346D0B8-5EC4-4FF6-BA42-5D71D4E1DFEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usage", "Usage\Usage.csproj", "{3B855824-A545-4D20-9835-B071515FBCF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Usage\Sandbox.csproj", "{3B855824-A545-4D20-9835-B071515FBCF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
