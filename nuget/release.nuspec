@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
-	<version>0.2.7</version>
+	<version>0.2.8</version>
 	<title>Excel Helpers</title>
     <authors>sultan.imbayev</authors>
     <owners>IPEIT KBTU</owners>
