@@ -289,6 +289,24 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return new Models.Column(worksheet, columnName);
         }
 
+
+        
+        /// <summary>
+        /// Получение стилей по перечислениям
+        /// </summary>
+        /// <typeparam name="T">Перечисление содержащее названия стилей</typeparam>
+        /// <param name="worksheet">Лист в котором содержатся все стили с названиями соответствующие перечислению</param>
+        /// <returns>Именнованный массив со значением указанного перечисления в виде ключа, и с индексом стиля в виде значения</returns>
+        public static IDictionary<T, UInt32Value> GetStylesOf<T>(this Worksheet worksheet) 
+        {
+            var dict = new Dictionary<T, UInt32Value>();
+            foreach(var pair in worksheet.GetStylesOf(typeof(T)))
+            {
+                dict.Add((T)pair.Key, pair.Value);
+            }
+            return dict;
+        }
+
         /// <summary>
         /// Формат регулярного выражения для поиска по названиям стилей
         /// </summary>
@@ -297,25 +315,27 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <summary>
         /// Получение стилей по перечислениям
         /// </summary>
-        /// <typeparam name="T">Перечисление содержащее названия стилей</typeparam>
+        /// <param name="enum">Перечисление содержащее названия стилей</param>
         /// <param name="worksheet">Лист в котором содержатся все стили с названиями соответствующие перечислению</param>
         /// <returns>Именнованный массив со значением указанного перечисления в виде ключа, и с индексом стиля в виде значения</returns>
-        public static IDictionary<T, UInt32Value> GetStylesOf<T>(this Worksheet worksheet)
+        public static IDictionary<object, UInt32Value> GetStylesOf(this Worksheet worksheet, Type @enum)
         {
-            var type = typeof(T);
-            if (!type.IsEnum)
+            if (!@enum.IsEnum)
             {
                 throw new Exception($"Передаваемый тип в метод (расширение) Worksheet.GetStylesOf() должен быть Enum");
             }
             
-            var dict = new Dictionary<T, UInt32Value>();
-            var typeName = type.Name;
-            foreach(T val in Enum.GetValues(type))
+            var dict = new Dictionary<object, UInt32Value>();
+            var typeName = @enum.Name;
+            //Пробегаемся по всем элементам в списке
+            foreach(var val in Enum.GetValues(@enum))
             {
-                var styleName = Enum.GetName(type, val);
+                var styleName = Enum.GetName(@enum, val);
                 var rgxPattern = string.Format(RGX_NamedStylecellValueFormat, Regex.Escape(typeName), Regex.Escape(styleName));
                 var rgx = new Regex(rgxPattern);
+                //Находим нужную ячейку со стилем
                 var cell = worksheet.FindCells(rgx).FirstOrDefault();
+                //Записываем индекс стиля в массив
                 dict.Add(val, cell?.StyleIndex);
             }
             return dict;

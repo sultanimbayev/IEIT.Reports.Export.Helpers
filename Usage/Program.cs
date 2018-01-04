@@ -38,6 +38,7 @@ namespace Usage
             var ws = doc.GetWorksheet("Sheet2");
             var styles = ws.GetStylesOf<MyStyle>();
             var style2 = styles[MyStyle.Style2];
+            doc.Close();
         }
 
         static void Try2(string[] args)
