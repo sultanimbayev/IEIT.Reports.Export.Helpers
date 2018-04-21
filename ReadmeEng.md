@@ -1,7 +1,7 @@
 # IEIT.Reports.Export.Helpers
 
 This is an extension for [DocumentFormat.OpenXml](https://www.nuget.org/packages/DocumentFormat.OpenXml/). 
-Supports Microsoft Excel 2007+ (.xlsx) file formats. Doesn't support formats less than Microsoft Excel 2007 (.xls files)
+Supports Microsoft Excel 2007+ (.xlsx) file formats. Doesn't support formats earlier than Microsoft Excel 2007 (.xls files)
 This extension meant to simplify work with Excel files using DocumentFormat.OpenXml.
 
 ## Install using NuGet
