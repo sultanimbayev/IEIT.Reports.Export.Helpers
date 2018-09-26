@@ -99,10 +99,10 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         }
 
         /// <summary>
-        /// Изменить свойства ячейки с указанным адресом
+        /// Запись в ячейку или присвоения стиля ячейки с указанным адресом
         /// </summary>
         /// <param name="cellAddress">Адрес ячейки свойства которой требуется изменить</param>
-        /// <returns>"Намерение" для изменения своиств ячейки</returns>
+        /// <returns>WriteIntent для изменения своиств ячейки</returns>
         public WriteIntent To(string cellAddress)
         {
             CellAddress = cellAddress;
@@ -110,9 +110,28 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
             return this;
         }
 
+        /// <summary>
+        /// Запись в ячейку или присвоения стиля ячейки с указанным адресом
+        /// </summary>
+        /// <param name="columnNum">Номер колонки ячейки</param>
+        /// <param name="rowNum">Номер строки ячейки</param>
+        /// <returns>WriteIntent для изменения своиств ячейки</returns>
         public WriteIntent To(int columnNum, int rowNum)
         {
             CellAddress = Utils.ToColumnName((uint)columnNum) + rowNum.ToString();
+            if (canFire()) { fireAll(); };
+            return this;
+        }
+
+        /// <summary>
+        /// Запись в ячейку или присвоения стиля ячейки с указанным адресом
+        /// </summary>
+        /// <param name="columnNum"></param>
+        /// <param name="rowNum"></param>
+        /// <returns>WriteIntent для изменения своиств ячейки</returns>
+        public WriteIntent To(uint columnNum, uint rowNum)
+        {
+            CellAddress = Utils.ToColumnName(columnNum) + rowNum.ToString();
             if (canFire()) { fireAll(); };
             return this;
         }

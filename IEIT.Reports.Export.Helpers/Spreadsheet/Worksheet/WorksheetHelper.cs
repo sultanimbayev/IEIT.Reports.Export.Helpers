@@ -107,7 +107,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <param name="newName">Новое название листа</param>
         /// <param name="updateReferences">Заменить все ссылки к данному листу?</param>
         /// <returns>true при удачном переименовывании, false в обратном случае</returns>
-        public static bool Rename(this Worksheet worksheet, string newName, bool updateReferences = true)
+        public static bool Rename(this Worksheet worksheet, string newName, bool updateReferences = false)
         {
             var sheet = worksheet.GetSheet();
             if (sheet == null) { return false; }

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
-	<version>0.2.8</version>
+	<version>0.2.9</version>
 	<title>Excel Helpers</title>
     <authors>sultan.imbayev</authors>
     <owners>IPEIT KBTU</owners>
@@ -20,7 +20,10 @@
 		using DocumentFormat.OpenXml library. It uses extensions over DocumentFormat.OpenXml methods and classes.
     </summary>
     <releaseNotes>
-		- Добавлено получение всех стилей на листе одним методом
+Добавлено:
+- Добавлен метод Duplicate() для Worksheet
+- Office2010Compatablity() для SpreadsheetDocument
+- Перегрузка метода To() получающий адреса колонок и строки типа uint при записи значения в ячейку
 	</releaseNotes>
     <tags>OpenXml Excel</tags>
 	<dependencies>

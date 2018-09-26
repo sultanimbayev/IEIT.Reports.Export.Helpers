@@ -50,11 +50,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spreadsheet\Cell\CellSetBorder.cs" />
     <Compile Include="Spreadsheet\Common.cs" />
     <Compile Include="Exceptions\IncompleteActionException.cs" />
     <Compile Include="Exceptions\InvalidDocumentStructureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spreadsheet\CellHelper.cs" />
+    <Compile Include="Spreadsheet\Common\_RemoveElements.cs" />
+    <Compile Include="Spreadsheet\Compatablity\Office2010Compatablility.cs" />
     <Compile Include="Spreadsheet\Fabric.cs" />
     <Compile Include="Spreadsheet\Intents\InsertElementIntent.cs" />
     <Compile Include="Spreadsheet\Intents\MakeStyleIntent.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="Spreadsheet\RowHelper.cs" />
     <Compile Include="Spreadsheet\SharedStringHelper.cs" />
     <Compile Include="Spreadsheet\StylesheetHelper.cs" />
+    <Compile Include="Spreadsheet\Worksheet\DuplicateWorksheet.cs" />
     <Compile Include="Spreadsheet\Worksheet\WriterActions.cs" />
     <Compile Include="Spreadsheet\Charts\ChartHelper.cs" />
     <Compile Include="Spreadsheet\Charts\LineChartHelper.cs" />
