@@ -37,7 +37,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <param name="stylesheet">Таблица стилей</param>
         /// <param name="formatIndex">ID формата ячейки</param>
         /// <returns>Возвращает объект стиля ячейки</returns>
-        public static CellFormat GetCellFormat(this Stylesheet stylesheet, int formatIndex)
+        public static CellFormat CellFormat(this Stylesheet stylesheet, int formatIndex)
         {
             return stylesheet.GetCellFormats().CellFormat(formatIndex);
         }

@@ -3,7 +3,7 @@
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
 	
-	<version>0.3.0-debug</version>
+	<version>0.3.1-debug</version>
 	
     <title>Excel Helpers</title>
     <authors>sultan.imbayev</authors>
@@ -11,15 +11,12 @@
     <projectUrl>https://github.com/sultanimbayev/IEIT.Reports.Export.Helpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-        This package is to simplify work with Excel Spreadsheet document.
-        Даннный пакет предназначен для упрощения синтаксиса библиотеки DocumentFormat.OpenXml.
+        Shortcut extensions for DocumentFormat.OpenXml.Spreadsheet classes
+        Расширения-шорткоды для классов из библиотеки DocumentFormat.OpenXml.Spreadsheet
 	</description>
     <summary>
         Даннный пакет предназначен для упрощения синтаксиса библиотеки DocumentFormat.OpenXml.
-        Исползуются расширения над методами и классами из DocumentFormat.OpenXml.
-        
-		This package is to simplify work with Excel Spreadsheet document 
-		using DocumentFormat.OpenXml library. It uses extensions over DocumentFormat.OpenXml methods and classes.
+		This package is to simplify work with Excel Spreadsheet document sing DocumentFormat.OpenXml library.
     </summary>
     <releaseNotes>
 Удалены методы Worksheet.MakeCell, Row.MakeCell и Worksheet.MakeRow их логика перенесена в методы GetCell и GetRow.
