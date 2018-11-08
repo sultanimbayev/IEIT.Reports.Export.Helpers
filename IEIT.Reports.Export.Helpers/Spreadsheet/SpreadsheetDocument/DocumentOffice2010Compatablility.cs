@@ -12,7 +12,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
     /// <summary>
     /// Настройка совместимости документа с Office 2010
     /// </summary>
-    public static class Office2010Compatablility
+    public static class DocumentOffice2010Compatablility
     {
         /// <summary>
         /// Настраивает документ на совместимость с Office 2010
@@ -32,7 +32,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static void RemoveUnknownElementsFromWorkbook(SpreadsheetDocument doc)
         {
             var unknownElements = doc.WorkbookPart.Workbook.Descendants<OpenXmlUnknownElement>();
-            _RemoveElements.RemoveElements(unknownElements, deleteSectionIfEmpty: true);
+            ElementsRemove.RemoveElements(unknownElements, deleteSectionIfEmpty: true);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             var stylesheet = doc.GetStylesheet();
             var timelineStyles = stylesheet.Descendants<excel2013.TimelineStyles>();
-            _RemoveElements.RemoveElements(timelineStyles, deleteSectionIfEmpty: true);
+            ElementsRemove.RemoveElements(timelineStyles, deleteSectionIfEmpty: true);
         }
         
     }

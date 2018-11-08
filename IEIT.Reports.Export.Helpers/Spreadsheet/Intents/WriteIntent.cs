@@ -36,6 +36,10 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         private Func<Worksheet, string, T, bool> _fireFunc;
         //private Func<Worksheet, string, string, RunProperties, bool> _appendFireFunc;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="fireFunction">Функция отработки</param>
         public Firable(Func<Worksheet, string, T, bool> fireFunction)
         {
             Fired = true;
@@ -60,6 +64,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
 
     }
     
+    /// <summary>
+    /// Класс описывающии "Намерение" для записи данных в ячейку или изменение его стиля.
+    /// </summary>
     public class WriteIntent
     {
 
@@ -140,7 +147,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         /// Присваивает стиль всей ячейке
         /// </summary>
         /// <param name="styleIndex"></param>
-        /// <returns></returns>
+        /// <returns>возвращает "Намерение" изменения данных ячейки</returns>
         public WriteIntent WithStyle(UInt32Value styleIndex)
         {
             IntendedStyle.Value = styleIndex;
@@ -148,6 +155,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
             return this;
         }
 
+        /// <summary>
+        /// Задать текст указанной ячейке
+        /// </summary>
+        /// <param name="text">Новый текст ячейки</param>
+        /// <returns>возвращает "Намерение" изменения данных ячейки</returns>
         public WriteIntent WithText(string text)
         {
             IntendedText.Value = text;

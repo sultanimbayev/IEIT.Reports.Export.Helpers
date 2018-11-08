@@ -3,7 +3,7 @@
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
 	
-	<version>0.2.9-debug</version>
+	<version>0.3.0-debug</version>
 	
     <title>Excel Helpers</title>
     <authors>sultan.imbayev</authors>
@@ -22,10 +22,8 @@
 		using DocumentFormat.OpenXml library. It uses extensions over DocumentFormat.OpenXml methods and classes.
     </summary>
     <releaseNotes>
-Добавлено:
-- Добавлен метод Duplicate() для Worksheet
-- Office2010Compatablity() для SpreadsheetDocument
-- Перегрузка метода To() получающий адреса колонок и строки типа uint при записи значения в ячейку
+Удалены методы Worksheet.MakeCell, Row.MakeCell и Worksheet.MakeRow их логика перенесена в методы GetCell и GetRow.
+Улучшен метод Cell.Set(BorderProperties) теперь можно задавать границы нескольких сторон одной ячейки одним вызовом метода. 
 	</releaseNotes>
     <tags>OpenXml Excel extension</tags>
 	<dependencies>

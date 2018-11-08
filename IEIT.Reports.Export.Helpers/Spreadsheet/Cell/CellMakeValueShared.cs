@@ -1,72 +1,12 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using IEIT.Reports.Export.Helpers.Exceptions;
-using System;
 using System.Linq;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
-    public static class SharedStringHelper
+    public static class CellMakeValueShared
     {
-
-        /// <summary>
-        /// Получить <see cref="SharedStringItem"/> по его ID
-        /// </summary>
-        /// <param name="wbPart">Элемент <see cref="WorkbookPart"/></param>
-        /// <param name="itemId">ID элемента <see cref="SharedStringItem"/></param>
-        /// <returns>Элемент <see cref="SharedStringItem"/> с указанным ID</returns>
-        internal static SharedStringItem GetSharedStringItem(this WorkbookPart wbPart, int itemId)
-        {
-            if (wbPart == null) { throw new ArgumentNullException("wbPart is null"); }
-            return wbPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(itemId);
-        }
-
-
-        /// <summary>
-        /// Получить <see cref="SharedStringItem"/> объект относящийся к данной ячейке.
-        /// Возвращяет null если у данной ячейки нет такого объекта.
-        /// </summary>
-        /// <param name="cell">Ячейка документа</param>
-        /// <returns> <see cref="SharedStringItem"/> объект относящийся к данной ячейке</returns>
-        public static SharedStringItem GetSharedStringItem(this Cell cell)
-        {
-            if (cell == null) { throw new ArgumentNullException("Argument 'cell' must not be null!"); }
-            if (cell.CellValue == null || cell.CellValue.Text == null) { return null; }
-            if (cell.DataType != CellValues.SharedString) { return null; }
-            var wbPart = cell.GetWorkbookPart();
-            if (wbPart == null) { throw new InvalidDocumentStructureException("Given worksheet of given cell is not part of workbook!"); }
-            var itemId = int.Parse(cell.CellValue.Text);
-            return wbPart.GetSharedStringItem(itemId);
-        }
-
-        /// <summary>
-        /// Добавить текст в таблицу <see cref="SharedStringTable"/>
-        /// </summary>
-        /// <param name="sst">Таблица с тектами</param>
-        /// <param name="text">Добавляемый текст</param>
-        /// <param name="rPr">Стиль добавляемого текста</param>
-        /// <returns>Добавленыый элемент в <see cref="SharedStringTable"/> содержащий указанный текст</returns>
-        public static SharedStringItem Add(this SharedStringTable sst, string text, RunProperties rPr = null)
-        {
-            var item = new SharedStringItem();
-            if (rPr == null)
-            {
-                item.Text = new Text(text);
-            }
-            else
-            {
-                var run = new Run();
-                run.Text = new Text(text);
-                run.Append(rPr.CloneNode(true));
-                item.Append(run);
-            }
-            sst.Append(item);
-            if (sst.Count != null) { sst.Count.Value++; }
-            if (sst.UniqueCount != null) { sst.UniqueCount.Value++; }
-            return item;
-        }
-
-
         /// <summary>
         /// Переместить значение хранящиеся в данном объекте в SharedString.
         /// Не преобразует значения типа <see cref="CellValues.Boolean"/>
@@ -120,6 +60,5 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             cell.InlineString = null;
             return newItem;
         }
-
     }
 }

@@ -102,7 +102,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// <returns>Ячейка с соответствующим адресом.</returns>
         public Cell MakeCell(uint rowNum)
         {
-            return Worksheet.MakeCell(ColumnName + rowNum);
+            return Worksheet.GetCell(ColumnName + rowNum);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// <returns>Ячейка с соответствующим адресом.</returns>
         public Cell MakeCell(int rowNum)
         {
-            return Worksheet.MakeCell(ColumnName + rowNum);
+            return Worksheet.GetCell(ColumnName + rowNum);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static Cell Set(this Cell cell, Border border)
         {
             var stylesheet = cell.GetWorkbookPart().GetStylesheet();
-            var cellFormat = cell.StyleIndex != null ? stylesheet.GetCellFormat(cell.StyleIndex).CloneNode(true) as CellFormat : new CellFormat();
+            var cellFormat = cell.StyleIndex != null ? stylesheet.CellFormat(cell.StyleIndex).CloneNode(true) as CellFormat : new CellFormat();
             var borderId = stylesheet.MakeBorder(border);
             cellFormat.BorderId = borderId;
             var newStyleId = stylesheet.MakeCellStyle(cellFormat);
@@ -30,11 +30,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         }
 
         /// <summary>
-        /// Задать стиль границы для ячейки для определенной стороны
+        /// Задать стиль границ для ячейки для каждой стороны
         /// </summary>
         /// <param name="cell"></param>
-        /// <param name="borderProp">
-        ///     Свойство границы
+        /// <param name="borderProps">
+        ///     Свойства границ
         /// </param>
         /// <example>
         /// <code>
@@ -45,32 +45,35 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// </code>
         /// </example>
         /// <returns></returns>
-        public static Cell Set(this Cell cell, BorderPropertiesType borderProp)
+        public static Cell Set(this Cell cell, params BorderPropertiesType[] borderProps)
         {
             var stylesheet = cell.GetWorkbookPart().GetStylesheet();
-            var cellFormat = cell.StyleIndex != null ? stylesheet.GetCellFormat(cell.StyleIndex).CloneNode(true) as CellFormat : new CellFormat();
+            var cellFormat = cell.StyleIndex != null ? stylesheet.CellFormat(cell.StyleIndex).CloneNode(true) as CellFormat : new CellFormat();
             var borderId = cellFormat.BorderId;
             var border = borderId == null ? new Border() : stylesheet.GetBorder(borderId).CloneNode(true) as Border;
 
-            if (borderProp is LeftBorder)
+            foreach(var borderProp in borderProps)
             {
-                border.LeftBorder = borderProp as LeftBorder;
-            }
-            else if (borderProp is RightBorder)
-            {
-                border.RightBorder = borderProp as RightBorder;
-            }
-            else if (borderProp is BottomBorder)
-            {
-                border.BottomBorder = borderProp as BottomBorder;
-            }
-            else if (borderProp is TopBorder)
-            {
-                border.TopBorder = borderProp as TopBorder;
-            }
-            else
-            {
-                throw new NotImplementedException($"Невозможно установить стиль границы ячейки '{borderProp.GetType().Name}'");
+                if (borderProp is LeftBorder)
+                {
+                    border.LeftBorder = borderProp as LeftBorder;
+                }
+                else if (borderProp is RightBorder)
+                {
+                    border.RightBorder = borderProp as RightBorder;
+                }
+                else if (borderProp is BottomBorder)
+                {
+                    border.BottomBorder = borderProp as BottomBorder;
+                }
+                else if (borderProp is TopBorder)
+                {
+                    border.TopBorder = borderProp as TopBorder;
+                }
+                else
+                {
+                    throw new NotImplementedException($"Невозможно установить стиль границы ячейки '{borderProp.GetType().Name}'");
+                }
             }
 
             var newBorderId = stylesheet.MakeBorder(border);

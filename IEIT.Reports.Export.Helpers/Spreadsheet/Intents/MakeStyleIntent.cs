@@ -40,7 +40,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
                 this.CellFormat.ApplyNumberFormat = false;
                 return this;
             }
-            this.CellFormat.NumberFormatId = this.Stylesheet.MakeNumFormat(numFormat);
+            this.CellFormat.NumberFormatId = this.Stylesheet.NumFormat(numFormat);
             this.CellFormat.ApplyNumberFormat = true;
             return this;
         }
@@ -66,7 +66,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
                 this.CellFormat.ApplyFont = false;
                 return this;
             }
-            this.CellFormat.FontId = this.Stylesheet.MakeFont(font);
+            this.CellFormat.FontId = this.Stylesheet.Font(font);
             this.CellFormat.ApplyFont = true;
             return this;
         }
@@ -78,7 +78,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
                 this.CellFormat.FillId = 0;
                 this.CellFormat.ApplyFill = false;
             }
-            this.CellFormat.FillId = this.Stylesheet.MakeFill(fill);
+            this.CellFormat.FillId = this.Stylesheet.Fill(fill);
             this.CellFormat.ApplyFill = true;
             return this;
         }
@@ -98,7 +98,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
 
         public uint Build()
         {
-            return this.Stylesheet.MakeCellFormat(this.CellFormat);
+            return this.Stylesheet.CellFormat(this.CellFormat);
         }
 
     }

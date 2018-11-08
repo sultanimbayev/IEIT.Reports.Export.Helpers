@@ -11,7 +11,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
     /// <summary>
     /// Удаление элементов
     /// </summary>
-    public static class _RemoveElements
+    public static class ElementsRemove
     {
         /// <summary>
         /// Удаляет элементы

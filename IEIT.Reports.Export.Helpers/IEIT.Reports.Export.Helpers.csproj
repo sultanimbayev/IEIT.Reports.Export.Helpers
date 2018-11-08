@@ -50,31 +50,81 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spreadsheet\Stylesheet\CellFormats\CellFormatsCellFormat.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\Fonts\FontsFont.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\NumberingFormats\NumberingFormatsNumFormat.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetCellFormat.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetFill.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetFont.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetCellFormats.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetFonts.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetNumFormats.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetMakeCellStyle.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\Borders\BordersGetBorder.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\Borders\BordersMakeBorder.cs" />
+    <Compile Include="Spreadsheet\CellValue\CellValueGetCell.cs" />
+    <Compile Include="Spreadsheet\Cell\CellAppendText.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetColumn.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetRow.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetSharedStringItem.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetValue.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetWorkbookPart.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetWorksheet.cs" />
+    <Compile Include="Spreadsheet\Cell\CellMakeValueShared.cs" />
     <Compile Include="Spreadsheet\Cell\CellSetBorder.cs" />
+    <Compile Include="Spreadsheet\Cell\CellWrite.cs" />
     <Compile Include="Spreadsheet\Common.cs" />
     <Compile Include="Exceptions\IncompleteActionException.cs" />
     <Compile Include="Exceptions\InvalidDocumentStructureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spreadsheet\CellHelper.cs" />
-    <Compile Include="Spreadsheet\Common\_RemoveElements.cs" />
-    <Compile Include="Spreadsheet\Compatablity\Office2010Compatablility.cs" />
+    <Compile Include="Spreadsheet\Common\ElementsRemove.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentOffice2010Compatablility.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\DifferentialFormats\DFormatsAddDFormat.cs" />
     <Compile Include="Spreadsheet\Fabric.cs" />
     <Compile Include="Spreadsheet\Intents\InsertElementIntent.cs" />
     <Compile Include="Spreadsheet\Intents\MakeStyleIntent.cs" />
     <Compile Include="Spreadsheet\Intents\PasteIntent.cs" />
     <Compile Include="Spreadsheet\Models\Column.cs" />
-    <Compile Include="Spreadsheet\RowHelper.cs" />
-    <Compile Include="Spreadsheet\SharedStringHelper.cs" />
-    <Compile Include="Spreadsheet\StylesheetHelper.cs" />
-    <Compile Include="Spreadsheet\Worksheet\DuplicateWorksheet.cs" />
+    <Compile Include="Spreadsheet\Row\RowGetCell.cs" />
+    <Compile Include="Spreadsheet\Row\RowGetCells.cs" />
+    <Compile Include="Spreadsheet\Row\RowGetNumber.cs" />
+    <Compile Include="Spreadsheet\SharedStringTable\SharedStringTableAdd.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentCreateBlank.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetStylesheet.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheet.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentHasWorksheet.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentNewWorksheet.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSaveAndClose.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetAddDFormat.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetBorders.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetFills.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetNumFormat.cs" />
+    <Compile Include="Spreadsheet\Workbook\WorkbookPartGetSharedStringItem.cs" />
+    <Compile Include="Spreadsheet\Workbook\WorkbookPartGetStylesheet.cs" />
+    <Compile Include="Spreadsheet\Workbook\WorkbookGetWorksheet.cs" />
+    <Compile Include="Spreadsheet\Workbook\WorkbookHasWorksheet.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetAddFormattingRule.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetCopy.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetDelete.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetDuplicate.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetFindCells.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetCell.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetColumn.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetName.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetNamedStyles.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetSheet.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetStyles.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetStylesheet.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetWorkbookPart.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetMergeCells.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetRename.cs" />
     <Compile Include="Spreadsheet\Worksheet\WriterActions.cs" />
     <Compile Include="Spreadsheet\Charts\ChartHelper.cs" />
     <Compile Include="Spreadsheet\Charts\LineChartHelper.cs" />
     <Compile Include="Spreadsheet\Intents\WriteIntent.cs" />
-    <Compile Include="Spreadsheet\SpreadsheetHelper.cs" />
     <Compile Include="Spreadsheet\Utils.cs" />
-    <Compile Include="Spreadsheet\Worksheet\WorksheetHelper.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetWriter.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="content\App.config.transform">
@@ -89,8 +139,7 @@
     <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Spreadsheet\Fabrics\" />
-    <Folder Include="Spreadsheet\Internal\" />
+    <Folder Include="Spreadsheet\Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

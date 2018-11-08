@@ -11,7 +11,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         private static Cell _getCell(Worksheet worksheet, string cellAddress)
         {
             if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
-            Cell cell = worksheet.MakeCell(cellAddress);
+            Cell cell = worksheet.GetCell(cellAddress);
             if (cell == null) { throw new IncompleteActionException("Не удалось вставить ячейку!"); }
             return cell;
         }

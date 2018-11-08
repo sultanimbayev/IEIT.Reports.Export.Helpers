@@ -99,7 +99,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
                 if(srcCell == null) { continue; }
                 srcCell.MakeValueShared();
                 srcCell = srcCell.CloneNode(true) as Cell;
-                var trgCell = targetWorksheet.MakeCell(trgAddresses[i]);
+                var trgCell = targetWorksheet.GetCell(trgAddresses[i]);
                 srcCell.CellReference = trgCell.CellReference;
                 trgCell.ReplaceBy(srcCell);
             }
