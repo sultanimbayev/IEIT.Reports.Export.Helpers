@@ -104,7 +104,7 @@
     <Compile Include="Spreadsheet\Workbook\WorkbookGetWorksheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookHasWorksheet.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetAddFormattingRule.cs" />
-    <Compile Include="Spreadsheet\Worksheet\WorksheetCopy.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetCopyCells.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetDelete.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetDuplicate.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetFindCells.cs" />

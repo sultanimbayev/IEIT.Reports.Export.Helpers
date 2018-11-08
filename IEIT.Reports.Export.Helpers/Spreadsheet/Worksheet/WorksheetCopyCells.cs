@@ -3,7 +3,7 @@ using IEIT.Reports.Export.Helpers.Spreadsheet.Intents;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
-    public static class WorksheetCopy
+    public static class WorksheetCopyCells
     {
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <param name="worksheet">Лист из которого ячейки будут скопированы</param>
         /// <param name="cellsRange">Область копируемых ячеек, указывать в формате A1:B2. Можно указать адрес одной ячейки</param>
         /// <returns>"Намерение" <see cref="PasteIntent"/> для вставки ячеек</returns>
-        public static PasteIntent Copy(this Worksheet worksheet, string cellsRange)
+        public static PasteIntent CopyCells(this Worksheet worksheet, string cellsRange)
         {
             return new PasteIntent(worksheet, cellsRange);
         }
