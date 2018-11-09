@@ -3,47 +3,47 @@
 Read [english version](ReadmeEng.md)
 
 
-Эта библиотека является расширением библиотеки [DocumentFormat.OpenXml](https://www.nuget.org/packages/DocumentFormat.OpenXml/). 
-И предназначена для формирования отчетов в формате Microsoft Excel 2007 и выше (.xlsx). Не поддерживает формат Microsoft Excel ниже версии 2007 (файлы формата.xls)
-Эта библиотека создана для того, чтобы упростить работу с Excel файлами используя только DocumentFormat.OpenXml.
+Р­С‚Р° Р±РёР±Р»РёРѕС‚РµРєР° СЏРІР»СЏРµС‚СЃСЏ СЂР°СЃС€РёСЂРµРЅРёРµРј Р±РёР±Р»РёРѕС‚РµРєРё [DocumentFormat.OpenXml](https://www.nuget.org/packages/DocumentFormat.OpenXml/). 
+Р РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РѕС‚С‡РµС‚РѕРІ РІ С„РѕСЂРјР°С‚Рµ Microsoft Excel 2007 Рё РІС‹С€Рµ (.xlsx). РќРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ С„РѕСЂРјР°С‚ Microsoft Excel РЅРёР¶Рµ РІРµСЂСЃРёРё 2007 (С„Р°Р№Р»С‹ С„РѕСЂРјР°С‚Р°.xls)
+Р­С‚Р° Р±РёР±Р»РёРѕС‚РµРєР° СЃРѕР·РґР°РЅР° РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ СѓРїСЂРѕСЃС‚РёС‚СЊ СЂР°Р±РѕС‚Сѓ СЃ Excel С„Р°Р№Р»Р°РјРё РёСЃРїРѕР»СЊР·СѓСЏ С‚РѕР»СЊРєРѕ DocumentFormat.OpenXml.
 
-## Установка с помощью NuGet
+## РЈСЃС‚Р°РЅРѕРІРєР° СЃ РїРѕРјРѕС‰СЊСЋ NuGet
 ```
 PM> Install-Package IEIT.Reports.Export.Helpers
 ```
 
-## Зачем мне это?
-С данной библиотекой вы работаете напрямую с драйвером DocumentFormat.OpenXml. Остальные методы являются лишь расширением для существующих классов.
-Например, для того чтобы открыть документ:
+## Р—Р°С‡РµРј РјРЅРµ СЌС‚Рѕ?
+РЎ РґР°РЅРЅРѕР№ Р±РёР±Р»РёРѕС‚РµРєРѕР№ РІС‹ СЂР°Р±РѕС‚Р°РµС‚Рµ РЅР°РїСЂСЏРјСѓСЋ СЃ РґСЂР°Р№РІРµСЂРѕРј DocumentFormat.OpenXml. РћСЃС‚Р°Р»СЊРЅС‹Рµ РјРµС‚РѕРґС‹ СЏРІР»СЏСЋС‚СЃСЏ Р»РёС€СЊ СЂР°СЃС€РёСЂРµРЅРёРµРј РґР»СЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… РєР»Р°СЃСЃРѕРІ.
+РќР°РїСЂРёРјРµСЂ, РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РѕС‚РєСЂС‹С‚СЊ РґРѕРєСѓРјРµРЅС‚:
 ```C#
 var filePath = "myFolder/excelFile.xlsx";
 var editable = true;
 var excelDoc = SpreadsheetDocument.Open(filePath, editable);
 ```
-Как видите, тут мы используем DocumentFormat.OpenXml, и ничего больше. 
+РљР°Рє РІРёРґРёС‚Рµ, С‚СѓС‚ РјС‹ РёСЃРїРѕР»СЊР·СѓРµРј DocumentFormat.OpenXml, Рё РЅРёС‡РµРіРѕ Р±РѕР»СЊС€Рµ. 
 
-С данным расширениеми операции становятся проще.
+РЎ РґР°РЅРЅС‹Рј СЂР°СЃС€РёСЂРµРЅРёРµРјРё РѕРїРµСЂР°С†РёРё СЃС‚Р°РЅРѕРІСЏС‚СЃСЏ РїСЂРѕС‰Рµ.
 
-Запись в файл:
+Р—Р°РїРёСЃСЊ РІ С„Р°Р№Р»:
 ```C#
-var worksheet = excelDoc.GetWorksheet("Лист 1");
-worksheet.Write("Привет мир!").To("B2");
+var worksheet = excelDoc.GetWorksheet("Р›РёСЃС‚ 1");
+worksheet.Write("РџСЂРёРІРµС‚ РјРёСЂ!").To("B2");
 excelDoc.SaveAndClose();
 ```
 
-Получение и присваивание стилей:
+РџРѕР»СѓС‡РµРЅРёРµ Рё РїСЂРёСЃРІР°РёРІР°РЅРёРµ СЃС‚РёР»РµР№:
 ```C#
-var existingStyleIndex = worksheet.GetCell("A1").StyleIndex;
-var cell = worksheet.MakeCell("A4");
-cell.StyleIndex = existingStyleIndex;
+var style = worksheet.GetCell("A1").StyleIndex;
+var cell = worksheet.GetCell("A4");
+cell.StyleIndex = style;
 ```
 
-Или можно присвоить стили при записи в ячейку:
+РР»Рё РјРѕР¶РЅРѕ РїСЂРёСЃРІРѕРёС‚СЊ СЃС‚РёР»Рё РїСЂРё Р·Р°РїРёСЃРё РІ СЏС‡РµР№РєСѓ:
 ```C#
-worksheet.Write("Привет мир!").To("B2").WithStyle(existingStyleIndex);
+worksheet.Write("РџСЂРёРІРµС‚ РјРёСЂ!").To("B2").WithStyle(style);
 ```
 
-Объединение ячеек:
+РћР±СЉРµРґРёРЅРµРЅРёРµ СЏС‡РµРµРє:
 ```C#
 worksheet.MergeCells("A2:B4");
 ```
