@@ -30,15 +30,15 @@ excelDoc.SaveAndClose();
 
 Fetching and assigning styles:
 ```C#
-var existingStyleIndex = worksheet.GetCell("A1").StyleIndex;
-var cell = worksheet.MakeCell("A4");
-cell.StyleIndex = existingStyleIndex;
+var style = worksheet.GetCell("A1").StyleIndex;
+var cell = worksheet.GetCell("A4");
+cell.StyleIndex = style;
 ```
 
 
 You can put style into cell when writing:
 ```C#
-worksheet.Write("Hello world!").To("B2").WithStyle(existingStyleIndex);
+worksheet.Write("Hello world!").To("B2").WithStyle(style);
 ```
 
 
