@@ -11,11 +11,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <summary>
         /// Объеденение ячеек по индексам.
         /// </summary>
-        /// <param name="ws"></param>
-        /// <param name="columnFrom"></param>
-        /// <param name="rowFrom"></param>
-        /// <param name="columnTo"></param>
-        /// <param name="rowTo"></param>
+        /// <param name="ws">Лист в котором требуется объединить ячейки</param>
+        /// <param name="columnFrom">Номер начального столбца (начиная с 1)</param>
+        /// <param name="rowFrom">Номер начальной строки (начиная с 1)</param>
+        /// <param name="columnTo">Номер конечного столбца (начиная с 1)</param>
+        /// <param name="rowTo">Номер конечной строки (начиная с 1)</param>
         public static void MergeCells(this Worksheet ws, int columnFrom, int rowFrom, int columnTo, int rowTo)
         {
             ws.MergeCells($"{Utils.ToColumnName(columnFrom)}{rowTo}:{Utils.ToColumnName(columnTo)}{rowTo}");

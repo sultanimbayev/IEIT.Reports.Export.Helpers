@@ -14,11 +14,13 @@ namespace IEIT.Reports.Export.Helpers
     {
         /// <summary>
         /// Регулярное выражения соответствующее адресу ячейки
+        /// Regular expression pattern for cell address
         /// </summary>
         internal const string RGX_PAT_CA = @"^[a-zA-Z]+\d+$";
 
         /// <summary>
         /// Регулярное выражение соответствующее ряду адресов ячеек
+        /// Regular expression pattern for cell address range
         /// </summary>
         internal const string RGX_PAT_CA_RANGE = @"^[a-zA-Z]+\d+:[a-zA-Z]+\d+$";
 
