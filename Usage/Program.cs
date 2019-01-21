@@ -5,6 +5,11 @@ using DocumentFormat.OpenXml;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+using Usage.Interfaces;
+using System.Reflection;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Usage
 {
@@ -28,8 +33,14 @@ namespace Usage
 
         static void Main(string[] args)
         {
-            Try1(args);
+            var fabric = new ExamplesFabric();
+            ICreateFile example = fabric.GetExample<ICreateFile>(typeof(DocumentCreateBlankExample).Name);
+            var filepath = example.CreateOne();
+            Process.Start(filepath).WaitForExit();
+            File.Delete(filepath);
         }
+        
+
 
         static void Try1(string[] args)
         {
@@ -50,7 +61,7 @@ namespace Usage
                 File.Delete(filepath);
             }
             
-            var doc = SpreadsheetHelper.CreateBlank(filepath);
+            var doc = Document.CreateBlank(filepath);
 
             InitStyles(doc);
 

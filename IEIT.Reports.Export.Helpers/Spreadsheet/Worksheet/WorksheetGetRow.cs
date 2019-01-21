@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Spreadsheet;
 using IEIT.Reports.Export.Helpers.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -22,24 +23,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Объект строки</returns>
         public static Row GetRow(this Worksheet worksheet, uint rowNum)
         {
-            if (worksheet == null) { throw new ArgumentNullException("worksheet"); }
+            if (worksheet == null) { throw new ArgumentNullException("worksheet is null"); }
             var wsData = worksheet.GetFirstChild<SheetData>();
             if (wsData == null) { throw new InvalidDocumentStructureException(); }
-
-            var row = wsData
-                    .Elements<Row>()
-                    .Where(r => r.RowIndex.Value >= rowNum)
-                    .OrderBy(r => r.RowIndex.Value).FirstOrDefault();
-
-            if (row != null && row.RowIndex == rowNum) { return row; }
-
-            var newRow = new Row();
-            newRow.RowIndex = rowNum;
-
-            wsData.InsertBefore(newRow, row);
-
-            return newRow;
+            return wsData.GetRow(rowNum);
         }
+
 
         /// <summary>
         /// Получить строку. Создается новый элемент строки, если строка еще не существует.

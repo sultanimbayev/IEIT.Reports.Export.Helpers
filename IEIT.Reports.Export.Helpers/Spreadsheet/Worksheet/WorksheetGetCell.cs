@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
+    /// <summary>
+    /// Позволяет получить объект ячейки по указанному адресу из листа (объекта Worksheet).
+    /// </summary>
     public static class WorksheetGetCell
     {
         /// <summary>
