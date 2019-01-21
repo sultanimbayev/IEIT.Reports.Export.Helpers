@@ -8,6 +8,19 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class WorksheetMergeCells
     {
+        /// <summary>
+        /// Объеденение ячеек по индексам.
+        /// </summary>
+        /// <param name="ws"></param>
+        /// <param name="columnFrom"></param>
+        /// <param name="rowFrom"></param>
+        /// <param name="columnTo"></param>
+        /// <param name="rowTo"></param>
+        public static void MergeCells(this Worksheet ws, int columnFrom, int rowFrom, int columnTo, int rowTo)
+        {
+            ws.MergeCells($"{Utils.ToColumnName(columnFrom)}{rowTo}:{Utils.ToColumnName(columnTo)}{rowTo}");
+        }
+
 
         /// <summary>
         /// Объединить ячейки
