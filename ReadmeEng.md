@@ -2,7 +2,7 @@
 
 This is an extension for [DocumentFormat.OpenXml](https://www.nuget.org/packages/DocumentFormat.OpenXml/). 
 Supports Microsoft Excel 2007+ (.xlsx) file formats. Doesn't support formats earlier than Microsoft Excel 2007 (.xls files)
-This extension meant to simplify work with Excel files using DocumentFormat.OpenXml.
+This extension is made to simplify work with Excel files using DocumentFormat.OpenXml.
 
 ## Install using NuGet
 ```
@@ -30,15 +30,15 @@ excelDoc.SaveAndClose();
 
 Fetching and assigning styles:
 ```C#
-var existingStyleIndex = worksheet.GetCell("A1").StyleIndex;
-var cell = worksheet.MakeCell("A4");
-cell.StyleIndex = existingStyleIndex;
+var style = worksheet.GetCell("A1").StyleIndex;
+var cell = worksheet.GetCell("A4");
+cell.StyleIndex = style;
 ```
 
 
 You can put style into cell when writing:
 ```C#
-worksheet.Write("Hello world!").To("B2").WithStyle(existingStyleIndex);
+worksheet.Write("Hello world!").To("B2").WithStyle(style);
 ```
 
 
