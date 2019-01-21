@@ -50,6 +50,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spreadsheet\SheetData\SheetDataGetCell.cs" />
+    <Compile Include="Spreadsheet\SheetData\SheetDataGetRow.cs" />
     <Compile Include="Spreadsheet\Stylesheet\CellFormats\CellFormatsCellFormat.cs" />
     <Compile Include="Spreadsheet\Stylesheet\Fonts\FontsFont.cs" />
     <Compile Include="Spreadsheet\Stylesheet\NumberingFormats\NumberingFormatsNumFormat.cs" />
