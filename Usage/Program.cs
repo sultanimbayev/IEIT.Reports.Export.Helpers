@@ -33,11 +33,7 @@ namespace Usage
 
         static void Main(string[] args)
         {
-            var fabric = new ExamplesFabric();
-            ICreateFile example = fabric.GetExample<ICreateFile>(typeof(DocumentCreateBlankExample).Name);
-            var filepath = example.CreateOne();
-            Process.Start(filepath).WaitForExit();
-            File.Delete(filepath);
+            Try2(args);
         }
         
 
@@ -67,7 +63,7 @@ namespace Usage
 
             var ws = doc.GetWorksheet("Sheet1");
 
-            ws.Write("Example table").To("B2").WithStyle(styleGreen);
+            ws.Write("Example table").To("b2").WithStyle(styleGreen);
             ws.MergeCells("B2:D2");
 
             ws.Write("Row1").WithStyle(styleRed).To("B3");
