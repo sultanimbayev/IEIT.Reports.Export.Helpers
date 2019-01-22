@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEIT.Reports.Export.Helpers", "IEIT.Reports.Export.Helpers\IEIT.Reports.Export.Helpers.csproj", "{E346D0B8-5EC4-4FF6-BA42-5D71D4E1DFEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Usage\Sandbox.csproj", "{3B855824-A545-4D20-9835-B071515FBCF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEIT.Reports.Export.Helpers.Tests", "IEIT.Reports.Export.Helpers.Tests\IEIT.Reports.Export.Helpers.Tests.csproj", "{BA29EA37-E6A6-4883-9884-D680014EEB0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{3B855824-A545-4D20-9835-B071515FBCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B855824-A545-4D20-9835-B071515FBCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B855824-A545-4D20-9835-B071515FBCF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA29EA37-E6A6-4883-9884-D680014EEB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA29EA37-E6A6-4883-9884-D680014EEB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA29EA37-E6A6-4883-9884-D680014EEB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA29EA37-E6A6-4883-9884-D680014EEB0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AA980C5-965D-4573-A809-F67C4A4C50EE}
 	EndGlobalSection
 EndGlobal
