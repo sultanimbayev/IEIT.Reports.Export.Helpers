@@ -130,11 +130,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static bool IsCellAddress(this string value)
         {
             if (String.IsNullOrWhiteSpace(value)) { return false; }
-            return new Regex("^[A-Z]+[1-9]+$").IsMatch(value.Trim());
-            //value = value.TrimStart("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
-            //if (value.StartsWith("0")) { return false; }
-            //value = value.TrimEnd("1234567890".ToCharArray());
-            //return value.Equals(string.Empty);
+            return new Regex(Common.RGX_PAT_CA).IsMatch(value.Trim());
         }
 
 
