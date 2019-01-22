@@ -129,11 +129,8 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>true если данная строка является валидным адресом ячейки, false в обратном случае</returns>
         public static bool IsCellAddress(this string value)
         {
-            if (value == null) { return false; }
-            value = value.TrimStart("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
-            if (value.StartsWith("0")) { return false; }
-            value = value.TrimEnd("1234567890".ToCharArray());
-            return value.Equals(string.Empty);
+            var rgx = new Regex(Common.RGX_PAT_CA);
+            return rgx.IsMatch(value);
         }
 
 
