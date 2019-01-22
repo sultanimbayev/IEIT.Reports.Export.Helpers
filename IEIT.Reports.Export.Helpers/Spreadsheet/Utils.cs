@@ -58,7 +58,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             uint result = 0;
 
-            var value = address.TrimStart("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
+            var value = address.TrimStart("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".ToCharArray());
             
             if (uint.TryParse(value, out result)){}
             return result;
