@@ -60,10 +60,15 @@ namespace IEIT.Reports.Export.Helpers.Tests
 
         [TestCase(true, "A1")]
         [TestCase(false, "")]
+        [TestCase(false, null)]
+        [TestCase(false, "   ")]
         [TestCase(false, "РУССКИЕЗАГЛАВНЫЕ123")]
         [TestCase(false, "ASDF")]
         [TestCase(false, "123")]
         [TestCase(false, "ASDF123ASDF")]
+        [TestCase(true, "asdf123")]
+        [TestCase(true, "   ASDF123   ")]
+        [TestCase(false, "!№   ASDF123   ")]
         public void IsCellAddress(bool expected, string input)
         {
             Assert.AreEqual(expected, Utils.IsCellAddress(input));
