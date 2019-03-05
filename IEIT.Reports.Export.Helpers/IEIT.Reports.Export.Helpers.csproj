@@ -118,6 +118,7 @@
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetStyles.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetStylesheet.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetWorkbookPart.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetHideColumn.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetMergeCells.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetRename.cs" />
     <Compile Include="Spreadsheet\Worksheet\WriterActions.cs" />
