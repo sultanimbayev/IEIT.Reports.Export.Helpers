@@ -13,7 +13,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <param name="ws">Исходный лист</param>
         /// <param name="newSheetName">Имя нового листа</param>
         /// <param name="docType">Тип исходного листа SpreadsheetDocumentType</param>
-        public static void Duplicate(this Worksheet ws, string newSheetName, SpreadsheetDocumentType docType = SpreadsheetDocumentType.Workbook)
+        public static Worksheet Duplicate(this Worksheet ws, string newSheetName, SpreadsheetDocumentType docType = SpreadsheetDocumentType.Workbook)
         {
             var sourceSheetPart = ws.WorksheetPart;
             SpreadsheetDocument tempSheet = SpreadsheetDocument.Create(new MemoryStream(), docType);
@@ -58,6 +58,8 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             sheets.Append(copiedSheet);
             //Save Changes
             WbPart.Workbook.Save();
+
+            return clonedSheet.Worksheet;
         }
     }
 }
