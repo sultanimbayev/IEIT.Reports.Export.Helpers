@@ -3,10 +3,10 @@
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
 	
-	<version>0.3.1-debug</version>
+	<version>0.3.3-debug</version>
 	
     <title>Excel Helpers</title>
-    <authors>sultan.imbayev</authors>
+    <authors>sultan.imbayev, yerlanyr</authors>
     <owners>IPEIT KBTU</owners>
     <projectUrl>https://github.com/sultanimbayev/IEIT.Reports.Export.Helpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -19,8 +19,7 @@
 		This package is to simplify work with Excel Spreadsheet document sing DocumentFormat.OpenXml library.
     </summary>
     <releaseNotes>
-Удалены методы Worksheet.MakeCell, Row.MakeCell и Worksheet.MakeRow их логика перенесена в методы GetCell и GetRow.
-Улучшен метод Cell.Set(BorderProperties) теперь можно задавать границы нескольких сторон одной ячейки одним вызовом метода. 
+Добавлена функция скрытия колонки
 	</releaseNotes>
     <tags>OpenXml Excel extension</tags>
 	<dependencies>
