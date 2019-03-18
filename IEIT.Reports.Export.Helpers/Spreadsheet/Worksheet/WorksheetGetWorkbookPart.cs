@@ -13,7 +13,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Часть документа который содержит все рабочие листы</returns>
         public static WorkbookPart GetWorkbookPart(this Worksheet worksheet)
         {
-            return worksheet.WorksheetPart.GetParentParts().FirstOrDefault() as WorkbookPart;
+            return worksheet.WorksheetPart.GetParentParts().FirstOrDefault(p => p.GetType() == typeof(WorkbookPart)) as WorkbookPart;
         }
     }
 }
