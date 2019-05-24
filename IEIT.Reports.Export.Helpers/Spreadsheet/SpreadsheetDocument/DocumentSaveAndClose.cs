@@ -9,14 +9,16 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class DocumentSaveAndClose
     {
-
         /// <summary>
         /// Сохранить изменения и закрыть документ
         /// </summary>
         /// <param name="document">Документ над которым производится операция</param>
         public static void SaveAndClose(this SpreadsheetDocument document)
         {
-            document.Save();
+            if(document.FileOpenAccess == System.IO.FileAccess.ReadWrite)
+            {
+                document.WorkbookPart.Workbook.Save();
+            }
             document.Close();
         }
     }

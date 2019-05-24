@@ -3,7 +3,7 @@
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
 	
-	<version>0.3.3-debug</version>
+	<version>0.3.4-debug</version>
 	
     <title>Excel Helpers</title>
     <authors>sultan.imbayev, yerlanyr</authors>
@@ -23,7 +23,7 @@
 	</releaseNotes>
     <tags>OpenXml Excel extension</tags>
 	<dependencies>
-		<dependency id="DocumentFormat.OpenXml" version="2.7.1"/>
+		<dependency id="DocumentFormat.OpenXml" version="2.5.0"/>
 	</dependencies>
 	<frameworkAssemblies>
 	  <frameworkAssembly assemblyName="System.Configuration" />

@@ -64,7 +64,7 @@ namespace Usage
             var ws = doc.GetWorksheet("Sheet1");
 
             ws.Write("Example table").To("b2").WithStyle(styleGreen);
-            ws.MergeCells("B2:D2");
+            ws.MergeCells("b2:D2");
 
             ws.Write("Row1").WithStyle(styleRed).To("B3");
             ws.Write("Value1").To("C3");
@@ -78,8 +78,7 @@ namespace Usage
             var df = new DifferentialFormat(new NumberingFormat() { NumberFormatId = 164U, FormatCode = "#,##0.000" });
             ws.AddFormattingRule("MOD(A1, 1) <> 0", df);
 
-            doc.Save();
-            doc.Close();
+            doc.SaveAndClose();
 
         }
 

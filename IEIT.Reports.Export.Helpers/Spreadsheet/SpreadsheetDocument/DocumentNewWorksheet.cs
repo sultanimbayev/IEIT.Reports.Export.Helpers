@@ -31,7 +31,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             if(sheets == null) { sheets = document.WorkbookPart.Workbook.AppendChild(new Sheets()); }
 
             //Getting max number of sheet id
-            var maxSheetId = sheets.Descendants<Sheet>().Max(s => s.SheetId);
+            uint maxSheetId = 0;
+            if (sheets.ChildElements.Count > 0)
+            {
+                maxSheetId = sheets.Descendants<Sheet>().Max(s => s.SheetId?.Value ?? 0);
+            }
 
             // Append a new worksheet and associate it with the workbook.
             Sheet sheet = new Sheet()
