@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,30 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spreadsheet\MarkerType\MarkerTypeAt.cs" />
+    <Compile Include="Spreadsheet\MarkerType\MarkerTypeSetters.cs" />
+    <Compile Include="Spreadsheet\Outline\OutlineInitDefault.cs" />
+    <Compile Include="Spreadsheet\Outline\OutlineSetSolidFill.cs" />
+    <Compile Include="Spreadsheet\Outline\OutlineSetWidth.cs" />
+    <Compile Include="Spreadsheet\Paragraph\ParagraphAddText.cs" />
+    <Compile Include="Spreadsheet\Paragraph\ParagraphSetFont.cs" />
+    <Compile Include="Spreadsheet\Paragraph\ParagraphSetTextAlignment.cs" />
+    <Compile Include="Spreadsheet\Paragraph\ParagraphSetText.cs" />
+    <Compile Include="Spreadsheet\Run\RunInit.cs" />
+    <Compile Include="Spreadsheet\Run\RunSetFont.cs" />
+    <Compile Include="Spreadsheet\ShapeProperties\ShapePropsInit.cs" />
+    <Compile Include="Spreadsheet\ShapeProperties\ShapePropsInitDefault.cs" />
+    <Compile Include="Spreadsheet\ShapeProperties\ShapePropsRemoveFill.cs" />
+    <Compile Include="Spreadsheet\ShapeProperties\ShapePropsSetSolidFill.cs" />
+    <Compile Include="Spreadsheet\ShapeStyle\ShapeStyleInitDefault.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheets.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodyAddText.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodyInitDefault.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodySetFont.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodySetText.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodySetTextAlignment.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodySetVerticalAlignment.cs" />
+    <Compile Include="Spreadsheet\TextCharacterPropertiesType\TextCharacterPropertiesTypeSetFont.cs" />
     <Compile Include="Spreadsheet\SheetData\SheetDataGetCell.cs" />
     <Compile Include="Spreadsheet\SheetData\SheetDataGetRow.cs" />
     <Compile Include="Spreadsheet\Stylesheet\CellFormats\CellFormatsCellFormat.cs" />
@@ -100,11 +125,13 @@
     <Compile Include="Spreadsheet\Stylesheet\StylesheetGetBorders.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetGetFills.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetNumFormat.cs" />
+    <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorInitDefault.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetSharedStringItem.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetStylesheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookGetWorksheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookHasWorksheet.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetAddFormattingRule.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetAddShape.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetCopyCells.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetDelete.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetDuplicate.cs" />

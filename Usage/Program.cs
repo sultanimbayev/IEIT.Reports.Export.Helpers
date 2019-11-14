@@ -40,12 +40,14 @@ namespace Usage
 
         static void Try1(string[] args)
         {
-            var filepath = "Temp.xlsx";
-            var doc = SpreadsheetDocument.Open(filepath, false);
-            var ws = doc.GetWorksheet("Sheet2");
-            var styles = ws.GetStylesOf<MyStyle>();
-            var style2 = styles[MyStyle.Style2];
-            doc.Close();
+            var filepath = ".././hello.xlsx";
+            using (var doc =  Document.CreateBlank(filepath))
+            {
+                var ws = doc.GetWorksheets().First();
+                //ws.AddShape();
+                ws.Save();
+                doc.WorkbookPart.Workbook.Save();
+            }
         }
 
         static void Try2(string[] args)

@@ -11,6 +11,9 @@ using DocumentFormat.OpenXml.Packaging;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
+    /// <summary>
+    /// Вспомагательные функции для работы с Excel
+    /// </summary>
     public static class Utils
     {
         /// <summary>

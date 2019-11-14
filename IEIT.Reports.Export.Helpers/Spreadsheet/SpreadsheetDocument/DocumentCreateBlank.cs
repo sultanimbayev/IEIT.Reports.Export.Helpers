@@ -12,7 +12,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// </summary>
         /// <param name="filepath">Директория где будет создан файл</param>
         /// <returns>Возвращает созданный документ</returns>
-        public static SpreadsheetDocument CreateBlank(string filepath)
+        public static SpreadsheetDocument CreateBlank(string filepath, string sheetName = "Sheet1")
         {
             // Create a spreadsheet document by supplying the filepath.
             // By default, AutoSave = true, Editable = true, and Type = xlsx.
@@ -51,7 +51,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             {
                 Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
                 SheetId = 1,
-                Name = "Sheet1"
+                Name = sheetName
             };
             sheets.Append(sheet);
 
