@@ -1,31 +1,28 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using IEIT.Reports.Export.Helpers.Spreadsheet;
+﻿using IEIT.Reports.Export.Helpers.Spreadsheet;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using a = DocumentFormat.OpenXml.Drawing;
 
 namespace IEIT.Reports.Export.Helpers.Tests
 {
     [TestFixture]
-    public class AddShapeTest
+    public class AddPictureTest
     {
         [TestCase]
-        public void TestCase1()
+        public void TestCase()
         {
             Do.ExcelOpen((doc) =>
             {
                 var ws = doc.GetWorksheets().First();
-                var shape = ws.AddShape(a.ShapeTypeValues.Rectangle);
-                var shape2 = ws.AddShape(a.ShapeTypeValues.Rectangle);
+                var projectDir = Do.GetProjectDir();
+                var path = Path.Combine(projectDir, "images/happy-bday.jpg");
+                var shape = ws.AddPicture(path);
                 doc.SaveAndClose();
             }, true);
         }
-
     }
 }

@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddPictureTest.cs" />
     <Compile Include="AddShapeTest.cs" />
     <Compile Include="Do.cs" />
     <Compile Include="UtilsTest.cs" />

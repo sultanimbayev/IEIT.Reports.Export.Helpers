@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,16 @@ namespace IEIT.Reports.Export.Helpers.Tests
             }
             var proc = Directory.EnumerateFiles(tempDir.FullName).Count() == 1 && ! openFolder ? Process.Start(filepath) : Process.Start(tempDir.FullName);
             proc.WaitForInputIdle();
+        }
+
+        public static string GetProjectDir()
+        {
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            var binDir = Path.GetDirectoryName(path);
+            var projectDir = Path.GetFullPath(Path.Combine(binDir, "../../"));
+            return projectDir;
         }
     }
 }

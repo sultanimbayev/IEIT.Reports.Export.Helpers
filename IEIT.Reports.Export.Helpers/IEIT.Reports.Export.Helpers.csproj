@@ -130,7 +130,10 @@
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetStylesheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookGetWorksheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookHasWorksheet.cs" />
+    <Compile Include="Spreadsheet\WorksheetDrawing\WorksheetDrawingAddPicture.cs" />
+    <Compile Include="Spreadsheet\WorksheetDrawing\WorksheetDrawingAddShape.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetAddFormattingRule.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetAddPicture.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetAddShape.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetCopyCells.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetDelete.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetStyles.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetStylesheet.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetWorkbookPart.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetWorksheetDrawing.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetHideColumn.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetMergeCells.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetRename.cs" />
