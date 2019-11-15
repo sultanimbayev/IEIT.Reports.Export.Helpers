@@ -10,7 +10,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class OutlineSetSolidFill
     {
-        public static a.Outline SetSolidFill(this a.Outline outline, sysDr.Color? fillColor = null)
+        public static a.Outline SetSolidFill(this a.Outline outline, sysDr.Color? fillColor = null, float alpha = 1f)
         {
             var solidFill = outline.GetFirstChild<a.SolidFill>();
             if (!fillColor.HasValue && solidFill != null) { return outline; }
@@ -21,7 +21,11 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
             solidFill.RemoveAllChildren();
             var _c = fillColor ?? sysDr.Color.Black;
-            solidFill.Append(new a.RgbColorModelHex() { Val = _c.ToHex() });
+            var fillColorElem = new a.RgbColorModelHex() { Val = _c.ToHex() };
+            solidFill.Append(fillColorElem);
+            var alphaElem = new a.Alpha() { Val = (int)(alpha * 100000) };
+            fillColorElem.Append(alphaElem);
+
             return outline;
         }
     }

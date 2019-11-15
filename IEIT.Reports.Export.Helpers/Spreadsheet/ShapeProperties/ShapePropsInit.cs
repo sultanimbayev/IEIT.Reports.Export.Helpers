@@ -20,9 +20,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             shapeProperties.Append(presetGeometry);
             presetGeometry.Append(new a.AdjustValueList());
 
-            shapeProperties.SetSolidFill(sysDr.Color.White);
-            var outline = new a.Outline().InitDefault(); // Outline - def
-            shapeProperties.Append(outline);
+            //shapeProperties.SetSolidFill(sysDr.Color.White);
+            //var outline = new a.Outline().InitDefault(); // Outline - def
+            //shapeProperties.Append(outline);
             return shapeProperties;
         }
     }

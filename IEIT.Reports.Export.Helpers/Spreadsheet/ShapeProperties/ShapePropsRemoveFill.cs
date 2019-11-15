@@ -10,8 +10,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class ShapePropertiesSetFill
     {
-        public static void RemoveFill(this xdr.ShapeProperties shapeProperties)
+        public static xdr.ShapeProperties RemoveFill(this xdr.ShapeProperties shapeProperties)
         {
+            if(shapeProperties == null) { return null; }
             shapeProperties.RemoveAllChildren<a.SolidFill>();
             shapeProperties.RemoveAllChildren<a.GradientFill>();
             shapeProperties.RemoveAllChildren<a.BlipFill>();
@@ -22,6 +23,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 noFillProp = new a.NoFill();
                 shapeProperties.Insert(noFillProp).AfterOneOf(typeof(a.PresetGeometry));
             }
+            return shapeProperties;
         }
     }
     

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using a = DocumentFormat.OpenXml.Drawing;
 using sysDr = System.Drawing;
 
-namespace IEIT.Reports.Export.Helpers.Spreadsheet.Outline
+namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class OutlineSetWidth
     {

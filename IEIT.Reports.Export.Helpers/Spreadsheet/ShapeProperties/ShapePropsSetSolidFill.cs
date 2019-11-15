@@ -11,8 +11,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class ShapePropsSetSolidFill
     {
-        public static void SetSolidFill(this xdr.ShapeProperties shapeProperties, sysDr.Color fillColor, float alpha = 1f)
+        public static xdr.ShapeProperties SetSolidFill(this xdr.ShapeProperties shapeProperties, sysDr.Color fillColor, float alpha = 1f)
         {
+            if(shapeProperties == null) { return null; }
             shapeProperties.RemoveAllChildren<a.NoFill>();
             shapeProperties.RemoveAllChildren<a.GradientFill>();
             shapeProperties.RemoveAllChildren<a.BlipFill>();
@@ -25,6 +26,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             solidFill.Append(fillColorModel);
             var colorAlpha = new a.Alpha() { Val = (int)(alpha * 100000) }; // FillAlpha - def = val / 1000
             fillColorModel.Append(colorAlpha);
+            return shapeProperties;
         }
     }
 }

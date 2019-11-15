@@ -15,7 +15,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             run.Text = new a.Text(text);
             var runProps = new a.RunProperties();
-            run.Append(runProps);
+            run.PrependChild(runProps);
             runProps.SetFont(font ?? new Font("Calibri", 11), fontColor);
             return run;
         }

@@ -42,9 +42,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 complexScriptFont = new dr.ComplexScriptFont();
                 props.InsertAfter(complexScriptFont, latinFont);
             }
-            latinFont.Typeface = font.FontFamily.Name;
+            latinFont.Typeface = font.Name;
             latinFont.CharacterSet = 0;
-            complexScriptFont.Typeface = font.FontFamily.Name;
+            complexScriptFont.Typeface = font.Name;
             complexScriptFont.CharacterSet = 0;
             return props;
         }

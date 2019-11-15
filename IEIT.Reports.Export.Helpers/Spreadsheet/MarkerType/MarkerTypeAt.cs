@@ -9,33 +9,43 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class MarkerTypeAt
     {
-        public static xdr.MarkerType At(this xdr.MarkerType marker, int rowNum, int columnNum)
+        public static T At<T>(this T marker, int rowNum, int columnNum) where T : xdr.MarkerType
         {
             if (marker == null) { return null; }
-            marker.RowId = new xdr.RowId(rowNum.ToString());
-            marker.ColumnId = new xdr.ColumnId(columnNum.ToString());
+            if(rowNum < 1) { rowNum = 1; }
+            if(columnNum < 1) { columnNum = 1; }
+            marker.RowId = new xdr.RowId((rowNum - 1).ToString());
+            marker.ColumnId = new xdr.ColumnId((columnNum - 1).ToString());
             marker.RowOffset = new xdr.RowOffset();
             marker.ColumnOffset = new xdr.ColumnOffset();
             return marker;
         }
 
-        public static xdr.MarkerType At(this xdr.MarkerType marker, int rowNum, double topOffset, int columnNum, double leftOffset)
+        public static T At<T>(this T marker, int rowNum, double topOffset, int columnNum, double leftOffset) where T : xdr.MarkerType
         {
             if (marker == null) { return null; }
-            marker.RowId = new xdr.RowId(rowNum.ToString());
-            marker.ColumnId = new xdr.ColumnId(columnNum.ToString());
+            if (rowNum < 1) { rowNum = 1; }
+            if (columnNum < 1) { columnNum = 1; }
+            marker.RowId = new xdr.RowId((rowNum - 1).ToString());
+            marker.ColumnId = new xdr.ColumnId((columnNum - 1).ToString());
+            if(topOffset < 0) { topOffset = 0; }
+            if(leftOffset < 0) { leftOffset = 0; }
             marker.RowOffset = new xdr.RowOffset(topOffset.ToString());
             marker.ColumnOffset = new xdr.ColumnOffset(leftOffset.ToString());
             return marker;
         }
 
-        public static xdr.MarkerType At(this xdr.MarkerType marker, string cellAddress, double topOffset = 0, double leftOffset = 0)
+        public static T At<T>(this T marker, string cellAddress, double topOffset = 0, double leftOffset = 0) where T : xdr.MarkerType
         {
             if (marker == null) { return null; }
             var rowNum = Utils.ToRowNum(cellAddress);
             var columnNum = Utils.ToColumNum(cellAddress);
-            marker.RowId = new xdr.RowId(rowNum.ToString());
-            marker.ColumnId = new xdr.ColumnId(columnNum.ToString());
+            if (rowNum < 1) { rowNum = 1; }
+            if (columnNum < 1) { columnNum = 1; }
+            marker.RowId = new xdr.RowId((rowNum - 1).ToString());
+            marker.ColumnId = new xdr.ColumnId((columnNum - 1).ToString());
+            if (topOffset < 0) { topOffset = 0; }
+            if (leftOffset < 0) { leftOffset = 0; }
             marker.RowOffset = new xdr.RowOffset(topOffset.ToString());
             marker.ColumnOffset = new xdr.ColumnOffset(leftOffset.ToString());
             return marker;
