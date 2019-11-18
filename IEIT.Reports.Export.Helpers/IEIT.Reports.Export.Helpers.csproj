@@ -59,6 +59,8 @@
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetFont.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetTextAlignment.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetText.cs" />
+    <Compile Include="Spreadsheet\Picture\PictureSetBottomRight.cs" />
+    <Compile Include="Spreadsheet\Picture\PictureSetTopLeft.cs" />
     <Compile Include="Spreadsheet\Run\RunInit.cs" />
     <Compile Include="Spreadsheet\Run\RunSetFont.cs" />
     <Compile Include="Spreadsheet\ShapeProperties\ShapePropsGetOutline.cs" />
@@ -184,7 +186,6 @@
     <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Spreadsheet\Picture\" />
     <Folder Include="Spreadsheet\Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

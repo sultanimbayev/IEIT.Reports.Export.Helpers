@@ -20,9 +20,11 @@ namespace IEIT.Reports.Export.Helpers.Tests
                 var ws = doc.GetWorksheets().First();
                 var projectDir = Do.GetProjectDir();
                 var path = Path.Combine(projectDir, "images/happy-bday.jpg");
-                var shape = ws.AddPicture(path);
+                var picture = ws.AddPicture(path);
+                picture.SetTopLeft("B3");
+                picture.SetBottomRight("F16");
                 doc.SaveAndClose();
-            }, true);
+            });
         }
     }
 }
