@@ -41,7 +41,7 @@ namespace Usage
         static void Try1(string[] args)
         {
             var filepath = ".././hello.xlsx";
-            using (var doc =  Document.CreateBlank(filepath))
+            using (var doc =  Document.CreateWorkbook(filepath))
             {
                 var ws = doc.GetWorksheets().First();
                 //ws.AddShape();
@@ -59,7 +59,7 @@ namespace Usage
                 File.Delete(filepath);
             }
             
-            var doc = Document.CreateBlank(filepath);
+            var doc = Document.CreateWorkbook(filepath);
 
             InitStyles(doc);
 

@@ -3,7 +3,7 @@
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
 	
-	<version>0.3.4-debug</version>
+	<version>0.3.5-debug</version>
 	
     <title>Excel Helpers</title>
     <authors>sultan.imbayev, yerlanyr</authors>
@@ -19,7 +19,8 @@
 		This package is to simplify work with Excel Spreadsheet document sing DocumentFormat.OpenXml library.
     </summary>
     <releaseNotes>
-Добавлена функция скрытия колонки
+		Worksheet AddShape, AddPicture extensions
+		Shape, Picture extensions
 	</releaseNotes>
     <tags>OpenXml Excel extension</tags>
 	<dependencies>

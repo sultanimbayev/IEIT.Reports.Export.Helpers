@@ -20,7 +20,7 @@ namespace IEIT.Reports.Export.Helpers.Tests
             var filename = $"TestCase-{guid}.xlsx";
             if (!filename.EndsWith(".xlsx")) { filename = filename + ".xlsx"; }
             var filepath = Path.Combine(tempDir.FullName, filename);
-            using (var doc = Document.CreateBlank(filepath))
+            using (var doc = Document.CreateWorkbook(filepath))
             {
                 run(doc);
             }

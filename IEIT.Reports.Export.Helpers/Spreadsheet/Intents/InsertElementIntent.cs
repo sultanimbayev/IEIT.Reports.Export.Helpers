@@ -76,24 +76,34 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         /// <param name="refChilds">Элементы в порядке, после первого из которых требуется вставить новый элемент</param>
         /// <param name="force">Укажите true для вставки элемента даже если все элементы в списке null</param>
         /// <returns>true при удачной вставке, false в обратном случае</returns>
-        public bool AfterOneOf(IEnumerable<OpenXmlElement> refChilds, bool force = false)
+        public bool AfterOneOf(IEnumerable<OpenXmlElement> refChilds, bool force = true)
         {
             bool success;
             if (success = ToOneOf(refChilds, _After) || !force) { return success; }
-            ParentElem.AppendChild(newChild);
+            ParentElem.PrependChild(newChild);
             return true;
         }
 
         /// <summary>
         /// Вставка элемента после первого из элементов с указанным типом.
-        /// Если не найдено ни одного элемента из указанных, вставка не произойдет.
         /// </summary>
         /// <param name="childTypes">Типы элементов в нужном порядке, после первого элемента данного типа из которых требуется вставить новый элемент</param>
         /// <returns>true при удачной вставки, false в обратном случае</returns>
         public bool AfterOneOf(params Type[] childTypes)
         {
             var refChilds = GetChildsFromTypes(childTypes);
-            return AfterOneOf(refChilds);
+            return AfterOneOf(refChilds, true);
+        }
+        
+        /// <summary>
+        /// Вставка элемента после первого из элементов с указанным типом.
+        /// </summary>
+        /// <param name="childTypes">Типы элементов в нужном порядке, после первого элемента данного типа из которых требуется вставить новый элемент</param>
+        /// <returns>true при удачной вставки, false в обратном случае</returns>
+        public bool AfterOneOf(IEnumerable<Type> childTypes, bool force = true)
+        {
+            var refChilds = GetChildsFromTypes(childTypes);
+            return AfterOneOf(refChilds, force);
         }
 
         /// <summary>
@@ -139,7 +149,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         /// </summary>
         /// <param name="childTypes">Типы дочерних элементов</param>
         /// <returns>Элементы с указанными типами в той же последоваетльности</returns>
-        private IOrderedEnumerable<OpenXmlElement> GetChildsFromTypes(params Type[] childTypes)
+        private IOrderedEnumerable<OpenXmlElement> GetChildsFromTypes(IEnumerable<Type> childTypes)
         {
             var childTypesList = childTypes.ToList();
             var refChilds = ParentElem.Elements()

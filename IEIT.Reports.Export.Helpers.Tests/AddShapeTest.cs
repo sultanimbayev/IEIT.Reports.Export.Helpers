@@ -20,10 +20,11 @@ namespace IEIT.Reports.Export.Helpers.Tests
                 shape.SetTopLeft("B2")
                     .SetBottomRight("E5");
 
-                shape.SetSolidFill(Color.Yellow);
+                shape.SetSolidFill(Color.Yellow, 0.5f);
                 shape.SetOutlineWidthInPixels(1.5f);
                 shape.SetText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    new Font("Arial Cyr", 11, FontStyle.Italic | FontStyle.Bold), Color.Blue);
+                    new Font("Arial Cyr", 10, FontStyle.Italic), Color.Blue);
+                shape.SetLineSpace(0.8f);
 
                 var shape2 = ws.AddShape(a.ShapeTypeValues.Rectangle);
                 shape2.SetTopLeft("G2")

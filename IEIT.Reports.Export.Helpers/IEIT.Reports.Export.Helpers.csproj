@@ -57,10 +57,13 @@
     <Compile Include="Spreadsheet\Outline\OutlineSetWidth.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphAddText.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetFont.cs" />
+    <Compile Include="Spreadsheet\Paragraph\ParagraphSetLineSpace.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetTextAlignment.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetText.cs" />
     <Compile Include="Spreadsheet\Picture\PictureSetBottomRight.cs" />
     <Compile Include="Spreadsheet\Picture\PictureSetTopLeft.cs" />
+    <Compile Include="Spreadsheet\Row\RowGetHeight.cs" />
+    <Compile Include="Spreadsheet\Row\RowSetHeight.cs" />
     <Compile Include="Spreadsheet\Run\RunInit.cs" />
     <Compile Include="Spreadsheet\Run\RunSetFont.cs" />
     <Compile Include="Spreadsheet\ShapeProperties\ShapePropsGetOutline.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Spreadsheet\Shape\ShapeRemoveFill.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetBottomRight.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetHorizontalTextAlignment.cs" />
+    <Compile Include="Spreadsheet\Shape\ShapeSetLineSpace.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetOutlineColor.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetOutlineWidth.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetSolidFill.cs" />
@@ -83,9 +87,11 @@
     <Compile Include="Spreadsheet\Shape\ShapeSetText.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetTopLeft.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheets.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSave.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyAddText.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyInitDefault.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodySetFont.cs" />
+    <Compile Include="Spreadsheet\TextBody\TextBodySetLineSpace.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodySetText.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodySetHorizontalAlignment.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodySetVerticalAlignment.cs" />

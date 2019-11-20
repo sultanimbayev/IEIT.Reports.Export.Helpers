@@ -16,7 +16,7 @@ namespace Usage
         {
             var guid = Guid.NewGuid();
             var filepath = guid.ToString() + ".xlsx";
-            var doc = Document.CreateBlank(filepath);
+            var doc = Document.CreateWorkbook(filepath);
             doc.SaveAndClose();
             return filepath;
         }

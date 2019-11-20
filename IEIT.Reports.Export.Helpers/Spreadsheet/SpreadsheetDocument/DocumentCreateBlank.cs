@@ -1,6 +1,8 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System;
+using System.IO;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
@@ -10,14 +12,29 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// Создает новый файл документа Excel с единственным листом (Sheet1)
         /// Возвращает созданный документ
         /// </summary>
-        /// <param name="filepath">Директория где будет создан файл</param>
+        /// <param name="filepath">Директория, где будет создан файл</param>
         /// <returns>Возвращает созданный документ</returns>
-        public static SpreadsheetDocument CreateBlank(string filepath, string sheetName = "Sheet1")
+        public static SpreadsheetDocument CreateWorkbook(string filepath, string sheetName = "Sheet1")
+        {
+            return CreateWorkbook(() => SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook), sheetName);
+        }
+
+        /// <summary>
+        /// Создает новый файл документа Excel с единственным листом (Sheet1)
+        /// Возвращает созданный документ
+        /// </summary>
+        /// <param name="stream">Поток, в котором будет сохранен файл</param>
+        /// <returns>Возвращает созданный документ</returns>
+        public static SpreadsheetDocument CreateWorkbook(Stream stream, string sheetName = "Sheet1")
+        {
+            return CreateWorkbook(() => SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook), sheetName);
+        }
+
+        private static SpreadsheetDocument CreateWorkbook(Func<SpreadsheetDocument> getDoc, string sheetName = "Sheet1")
         {
             // Create a spreadsheet document by supplying the filepath.
             // By default, AutoSave = true, Editable = true, and Type = xlsx.
-            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.
-                Create(filepath, SpreadsheetDocumentType.Workbook);
+            SpreadsheetDocument spreadsheetDocument = getDoc();
 
             // Add a WorkbookPart to the document.
             WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
