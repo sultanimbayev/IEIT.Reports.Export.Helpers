@@ -139,11 +139,13 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// <summary>
         /// Column width in pixels with 96dpi
         /// </summary>
+        /// <param name="dpi">Pixels density, dots per inch</param>
         /// <returns>column width in pixels with 96dpi</returns>
-        public double GetWidthInPixels()
+        public double GetWidthInPixels(double dpi = 96)
         {
             var openXmlWidth = GetWidth();
-            var widthInPixels = (openXmlWidth - 1) * 7d + 12;
+            if(openXmlWidth == 0) { return 0; }
+            var widthInPixels = (dpi/96d)*((openXmlWidth - 1) * 9d + 12 - 5);
             return widthInPixels;
         }
 
@@ -178,11 +180,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// <summary>
         /// Set column width in pixels with 96dpi
         /// </summary>
-        /// <param name="width">Width in pixels with 96dpi</param>
+        /// <param name="width">Width in pixels</param>
+        /// <param name="dpi">Pixels density, dots per inch</param>
         /// <returns></returns>
-        public Column SetWidthInPixels(double width)
+        public Column SetWidthInPixels(double width, double dpi = 96)
         {
-            var openXmlWidth = (width - 12) / 7d + 1;
+            var openXmlWidth = (96d * width / dpi - 12 + 5) / 9d + 1;
             SetWidth(openXmlWidth);
             return this;
         }

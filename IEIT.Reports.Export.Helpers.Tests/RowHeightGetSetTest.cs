@@ -18,12 +18,12 @@ namespace IEIT.Reports.Export.Helpers.Tests
             {
                 var ws = doc.GetWorksheets().First();
                 var row = ws.GetRow(2);
-                var initialHeight = row.GetHeight();
-                row.SetHeight(60);
-                var newHeight = row.GetHeight();
+                var initialHeight = row.GetHeightInPixels(dpi:96);
+                row.SetHeightInPixels(24, dpi:96);
+                var newHeight = row.GetHeightInPixels(dpi:96);
                 ws.Write(initialHeight).To("B2");
                 ws.Write(newHeight).To("B3");
-            }, true);
+            });
         }
     }
 }

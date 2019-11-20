@@ -25,7 +25,8 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 sheetFormatProps = new x.SheetFormatProperties();
                 ws.Insert(sheetFormatProps).AfterOneOf(typeof(x.Dimension), typeof(x.SheetView));
             }
-            return sheetFormatProps.DefaultRowHeight ?? 14.4;
+            var result = sheetFormatProps.DefaultRowHeight == null ? 18 : sheetFormatProps.DefaultRowHeight.Value * (72d/96d);
+            return result;
         }
 
         /// <summary>
@@ -33,9 +34,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// </summary>
         /// <param name="row"></param>
         /// <returns></returns>
-        public static double GetHeightInPixels(this x.Row row)
+        public static double GetHeightInPixels(this x.Row row, double dpi = 96)
         {
-            return row.GetHeight() * 96 / 72;
+            return row.GetHeight() * dpi / 72d;
         }
     }
 }

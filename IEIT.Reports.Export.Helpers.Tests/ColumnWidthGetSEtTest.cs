@@ -19,7 +19,7 @@ namespace IEIT.Reports.Export.Helpers.Tests
                 var ws = doc.GetWorksheets().First();
                 var columnB = ws.GetColumn("B");
                 var oldWidth = columnB.GetWidthInPixels();
-                var newWidth = 200;
+                var newWidth = 1000;
                 columnB.SetWidthInPixels(newWidth);
                 var newWidth2 = columnB.GetWidthInPixels();
                 //Assert.AreEqual(newWidth, newWidth2);

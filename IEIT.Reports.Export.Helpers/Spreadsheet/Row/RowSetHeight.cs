@@ -8,9 +8,19 @@ using IEIT.Reports.Export.Helpers.Exceptions;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
+
+    /// <summary>
+    /// Row set height extension
+    /// </summary>
     public static class RowSetHeight
     {
-        public static x.Row SetHeight(this x.Row row, double height)
+        /// <summary>
+        /// Set height of row in points (pixels with 72dpi)
+        /// </summary>
+        /// <param name="row">row instance which height is going to change</param>
+        /// <param name="height">height of row in points (pixels with 72dpi)</param>
+        /// <returns></returns>
+        public static x.Row SetHeightInPoints(this x.Row row, double height)
         {
             if(row == null) { return null; }
             var ws = row.ParentOfType<x.Worksheet>();
@@ -26,7 +36,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             }
             if (sheetFormatProps.DefaultRowHeight == null || !sheetFormatProps.DefaultRowHeight.HasValue)
             {
-                sheetFormatProps.DefaultRowHeight = 14.4;
+                sheetFormatProps.DefaultRowHeight = 18;
             }
             row.Height = height;
             row.CustomHeight = true;
@@ -37,11 +47,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// 
         /// </summary>
         /// <param name="row"></param>
-        /// <param name="heightInPixels">Pixels in 96dpi</param>
+        /// <param name="heightInPixels">Pixels</param>
+        /// <param name="dpi">Pixels density, dots per inch</param>
         /// <returns></returns>
-        public static x.Row SetHeightInPixels(this x.Row row, double heightInPixels)
+        public static x.Row SetHeightInPixels(this x.Row row, double heightInPixels, double dpi = 96)
         {
-            return row.SetHeight(heightInPixels * 72 / 96);
+            return row.SetHeightInPoints(heightInPixels / dpi * 72d );
         }
     }
 }
