@@ -83,6 +83,7 @@
     <Compile Include="Spreadsheet\Shape\ShapeGetWidth.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeRemoveFill.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetBottomRight.cs" />
+    <Compile Include="Spreadsheet\Shape\ShapeSetHeight.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetHorizontalTextAlignment.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetLineSpace.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetOutlineColor.cs" />

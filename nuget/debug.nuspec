@@ -3,7 +3,7 @@
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
 	
-	<version>0.3.5-debug</version>
+	<version>0.3.8-debug</version>
 	
     <title>Excel Helpers</title>
     <authors>sultan.imbayev, yerlanyr</authors>
@@ -19,8 +19,8 @@
 		This package is to simplify work with Excel Spreadsheet document sing DocumentFormat.OpenXml library.
     </summary>
     <releaseNotes>
-		Worksheet AddShape, AddPicture extensions
-		Shape, Picture extensions
+		Shape SetWidthInPixels, SetHeightInPixels extensions major fix
+		Picture SetWidthInPixels, SetHeightInPixels extensions major fix
 	</releaseNotes>
     <tags>OpenXml Excel extension</tags>
 	<dependencies>
