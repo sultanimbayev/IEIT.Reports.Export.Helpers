@@ -145,7 +145,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         {
             var openXmlWidth = GetWidth();
             if(openXmlWidth == 0) { return 0; }
-            var widthInPixels = (dpi/96d)*((openXmlWidth - 1) * 9d + 12 - 5);
+            var widthInPixels = (dpi/96d)*((openXmlWidth - 1) * 9d + 12 - 3);
             return widthInPixels;
         }
 
@@ -185,7 +185,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// <returns></returns>
         public Column SetWidthInPixels(double width, double dpi = 96)
         {
-            var openXmlWidth = (96d * width / dpi - 12 + 5) / 9d + 1;
+            var openXmlWidth = (96d * width / dpi - 12 + 3) / 9d + 1;
             SetWidth(openXmlWidth);
             return this;
         }

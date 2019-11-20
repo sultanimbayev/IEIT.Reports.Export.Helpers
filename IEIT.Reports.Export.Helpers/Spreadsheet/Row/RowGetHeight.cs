@@ -20,12 +20,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
                 throw new InvalidDocumentStructureException();
             }
             var sheetFormatProps = ws.SheetFormatProperties;
-            if(sheetFormatProps == null)
-            {
-                sheetFormatProps = new x.SheetFormatProperties();
-                ws.Insert(sheetFormatProps).AfterOneOf(typeof(x.Dimension), typeof(x.SheetView));
-            }
-            var result = sheetFormatProps.DefaultRowHeight == null ? 18 : sheetFormatProps.DefaultRowHeight.Value * (72d/96d);
+            var result = sheetFormatProps?.DefaultRowHeight == null ? 18 : sheetFormatProps.DefaultRowHeight.Value * (72d/96d);
             return result;
         }
 

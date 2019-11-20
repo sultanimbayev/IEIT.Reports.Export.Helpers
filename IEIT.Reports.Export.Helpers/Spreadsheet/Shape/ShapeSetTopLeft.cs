@@ -10,7 +10,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var twoCellAnchor = shape.Parent as xdr.TwoCellAnchor;
             if (twoCellAnchor != null)
             {
-                twoCellAnchor.FromMarker = new xdr.FromMarker().At(cellAddress, topOffset, leftOffset);
+                twoCellAnchor.SetTopLeft(cellAddress, topOffset, leftOffset);
                 return shape;
             }
 
@@ -29,7 +29,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var twoCellAnchor = shape.Parent as xdr.TwoCellAnchor;
             if (twoCellAnchor != null)
             {
-                twoCellAnchor.FromMarker = new xdr.FromMarker().At(rowNum, columnNum);
+                twoCellAnchor.SetTopLeft(rowNum, columnNum);
                 return shape;
             }
 
@@ -49,7 +49,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             var twoCellAnchor = shape.Parent as xdr.TwoCellAnchor;
             if(twoCellAnchor != null)
             {
-                twoCellAnchor.FromMarker = new xdr.FromMarker().At(rowNum, topOffset, columnNum, leftOffset);
+                twoCellAnchor.SetTopLeft(rowNum, topOffset, columnNum, leftOffset);
                 return shape;
             }
 

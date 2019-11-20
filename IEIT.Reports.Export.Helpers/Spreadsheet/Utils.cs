@@ -414,5 +414,28 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return element.Parent.Elements().ToList().FindIndex(el => el.Equals(element));
         }
         
+        public static double ConvertPixelsToEmu(double pixels, double dpi = 96)
+        {
+            return 12700d * pixels * 72d / dpi;
+        }
+
+        public static double ConvertPointsToEmu(double points)
+        {
+            return 12700d * points;
+        }
+        public static double ConvertEmuToPixels(double emu, double dpi = 96)
+        {
+            return (emu * dpi) / (12700d * 72d);
+        }
+        public static double ConvertEmuToPoints(double emu)
+        {
+            return emu / 12700d;
+        }
+
+        public static double ConvertPixelsToInch(double pixels, double dpi = 96)
+        {
+            return pixels / dpi;
+        }
+
     }
 }

@@ -60,8 +60,12 @@
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetLineSpace.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetTextAlignment.cs" />
     <Compile Include="Spreadsheet\Paragraph\ParagraphSetText.cs" />
+    <Compile Include="Spreadsheet\Picture\PictureGetHeight.cs" />
+    <Compile Include="Spreadsheet\Picture\PictureGetWidth.cs" />
     <Compile Include="Spreadsheet\Picture\PictureSetBottomRight.cs" />
+    <Compile Include="Spreadsheet\Picture\PictureSetHeight.cs" />
     <Compile Include="Spreadsheet\Picture\PictureSetTopLeft.cs" />
+    <Compile Include="Spreadsheet\Picture\PictureSetWidth.cs" />
     <Compile Include="Spreadsheet\Row\RowGetHeight.cs" />
     <Compile Include="Spreadsheet\Row\RowSetHeight.cs" />
     <Compile Include="Spreadsheet\Run\RunInit.cs" />
@@ -74,7 +78,9 @@
     <Compile Include="Spreadsheet\ShapeProperties\ShapePropsSetSolidFill.cs" />
     <Compile Include="Spreadsheet\ShapeStyle\ShapeStyleInitDefault.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeAddText.cs" />
+    <Compile Include="Spreadsheet\Shape\ShapeGetHeight.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeGetOutline.cs" />
+    <Compile Include="Spreadsheet\Shape\ShapeGetWidth.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeRemoveFill.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetBottomRight.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetHorizontalTextAlignment.cs" />
@@ -86,6 +92,7 @@
     <Compile Include="Spreadsheet\Shape\ShapeSetFont.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetText.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetTopLeft.cs" />
+    <Compile Include="Spreadsheet\Shape\ShapeSetWidth.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheets.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSave.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyAddText.cs" />
@@ -147,7 +154,12 @@
     <Compile Include="Spreadsheet\Stylesheet\StylesheetGetBorders.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetGetFills.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetNumFormat.cs" />
+    <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorGetHeight.cs" />
+    <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorGetWidth.cs" />
     <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorInitDefault.cs" />
+    <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorSetHeight.cs" />
+    <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorSetTopLeft.cs" />
+    <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorSetWidth.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetSharedStringItem.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetStylesheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookGetWorksheet.cs" />
@@ -192,6 +204,7 @@
     <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Spreadsheet\OneCellAnchor\" />
     <Folder Include="Spreadsheet\Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

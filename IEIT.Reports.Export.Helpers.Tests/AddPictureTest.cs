@@ -21,8 +21,9 @@ namespace IEIT.Reports.Export.Helpers.Tests
                 var projectDir = Do.GetProjectDir();
                 var path = Path.Combine(projectDir, "images/happy-bday.jpg");
                 var picture = ws.AddPicture(path);
-                picture.SetTopLeft("B3");
-                picture.SetBottomRight("F16");
+                picture.SetWidthInPixels(200);
+                picture.SetHeightInPixels(280);
+                picture.SetTopLeft("B2", 10 * 12700, 15 * 12700);
                 doc.SaveAndClose();
             });
         }
