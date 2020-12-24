@@ -96,6 +96,7 @@
     <Compile Include="Spreadsheet\Shape\ShapeSetWidth.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheets.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSave.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSetCustomTextProperty.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyAddText.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyInitDefault.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodySetFont.cs" />

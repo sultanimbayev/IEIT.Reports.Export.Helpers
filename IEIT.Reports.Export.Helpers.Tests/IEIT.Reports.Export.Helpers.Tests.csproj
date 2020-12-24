@@ -55,6 +55,7 @@
     <Compile Include="AddShapeTest.cs" />
     <Compile Include="Do.cs" />
     <Compile Include="ColumnWidthGetSetTest.cs" />
+    <Compile Include="DocumentIdTest.cs" />
     <Compile Include="RowHeightGetSetTest.cs" />
     <Compile Include="UtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
