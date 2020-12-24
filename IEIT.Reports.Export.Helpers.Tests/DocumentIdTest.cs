@@ -19,8 +19,12 @@ namespace IEIT.Reports.Export.Helpers.Tests
         {
             Do.ExcelOpen((doc) =>
             {
-                doc.SetCustomTextProperty("myProp", "Hello Sultan!!!");
-            }, openFolder: true);
+                var guid = Guid.NewGuid();
+                doc.SetCustomTextProperty("myProp", guid.ToString());
+                var propValue = doc.GetCustomPropertyAsString("myProp");
+                var ws = doc.GetWorksheets().First();
+                ws.Write(propValue).To("B2");
+            });
         }
         
     }

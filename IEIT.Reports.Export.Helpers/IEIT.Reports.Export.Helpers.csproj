@@ -94,6 +94,7 @@
     <Compile Include="Spreadsheet\Shape\ShapeSetText.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetTopLeft.cs" />
     <Compile Include="Spreadsheet\Shape\ShapeSetWidth.cs" />
+    <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetCustomPropertyAsString.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheets.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSave.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSetCustomTextProperty.cs" />
