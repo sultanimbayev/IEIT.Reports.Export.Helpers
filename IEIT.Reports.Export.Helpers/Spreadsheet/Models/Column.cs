@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
 {
@@ -96,7 +97,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// Создать ячейку на пересечении этой колонки с указанной строкой если ее не существует.
         /// Если ячейка уже существует, тогда возвращяется существующая ячейка.
         /// Старая ячейка перезаписана не будет.
-        /// Идентично методу <see cref="CellHelper.MakeCell(Worksheet, string)"/>
+        /// Идентично методу <see cref="WorksheetGetCell.GetCell(Worksheet, string)"/>
         /// </summary>
         /// <param name="rowNum">Номер строки</param>
         /// <returns>Ячейка с соответствующим адресом.</returns>
@@ -109,7 +110,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         /// Создать ячейку на пересечении этой колонки с указанной строкой если ее не существует.
         /// Если ячейка уже существует, тогда возвращяется существующая ячейка.
         /// Старая ячейка перезаписана не будет.
-        /// Идентично методу <see cref="CellHelper.MakeCell(Worksheet, string)"/>
+        /// Идентично методу <see cref="WorksheetGetCell.GetCell(Worksheet, string)"/>
         /// </summary>
         /// <param name="rowNum">Номер строки</param>
         /// <returns>Ячейка с соответствующим адресом.</returns>
