@@ -1,7 +1,7 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
 using IEIT.Reports.Export.Helpers.Spreadsheet.Intents;
-
+using IEIT.Reports.Export.Helpers.Styling;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
@@ -79,5 +79,15 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             return new WriteIntent(ws, WriterActions._writeAny).WithStyle(styleIndex);
         }
 
+        /// <summary>
+        /// Назначить стиль ячейки
+        /// </summary>
+        /// <param name="ws">Лист в которыом нужно изменить стиль</param>
+        /// <param name="cellStyle">стиль ячейки</param>
+        /// <returns>Намерение, с помощью которого производится запись</returns>
+        public static WriteIntent SetStyle(this Worksheet ws, xlCellStyle cellStyle)
+        {
+            return new WriteIntent(ws, WriterActions._writeAny).WithStyle(cellStyle);
+        }
     }
 }

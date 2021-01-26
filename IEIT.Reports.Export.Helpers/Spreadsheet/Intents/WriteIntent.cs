@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
+using IEIT.Reports.Export.Helpers.Styling;
 using System;
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
@@ -146,11 +147,23 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         /// <summary>
         /// Присваивает стиль всей ячейке
         /// </summary>
-        /// <param name="styleIndex"></param>
+        /// <param name="styleIndex">Индекс стиля ячейки</param>
         /// <returns>возвращает "Намерение" изменения данных ячейки</returns>
         public WriteIntent WithStyle(UInt32Value styleIndex)
         {
             IntendedStyle.Value = styleIndex;
+            if (canFire()) { fireAll(); };
+            return this;
+        }
+
+        /// <summary>
+        /// Присваивает стиль всей ячейке
+        /// </summary>
+        /// <param name="cellStyle">стиль ячейки</param>
+        /// <returns>возвращает "Намерение" изменения данных ячейки</returns>
+        public WriteIntent WithStyle(xlCellStyle cellStyle)
+        {
+            IntendedStyle.Value = cellStyle.GetStyleIndexFor(Worksheet.GetWorkbookPart());
             if (canFire()) { fireAll(); };
             return this;
         }

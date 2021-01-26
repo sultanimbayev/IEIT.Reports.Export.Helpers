@@ -2,11 +2,13 @@
 
 namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
+
     public static class StylesheetAddDFormat
     {
         /// <summary>
         /// Добавить формат для условного форматирования ячеек.
         /// Возвращает индекс добавленного формата.
+        /// <para>Deprecated: Use <see cref="StylesheetDifferentialFormat.DifferentialFormat(Stylesheet, DifferentialFormat)"/> instead</para>
         /// </summary>
         /// <param name="stylesheet">Таблица стилей</param>
         /// <param name="format">Новый формат</param>

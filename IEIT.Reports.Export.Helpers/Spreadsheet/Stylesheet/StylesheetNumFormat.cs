@@ -9,16 +9,27 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 {
     public static class StylesheetNumFormat
     {
-
+        public const int BUILTIN_NUMFORMATS_COUNT = 164;
+        /// <summary>
+        /// Получить таблицу формата чисел
+        /// </summary>
+        /// <param name="stylesheet">таблица стилей</param>
+        /// <returns>возвращает таблицу формата чисел</returns>
+        internal static NumberingFormats GetNumFormatsOf(Stylesheet stylesheet)
+        {
+            if (stylesheet.NumberingFormats == null) { stylesheet.NumberingFormats = new NumberingFormats() { Count = 0 }; }
+            return stylesheet.NumberingFormats;
+        }
         /// <summary>
         /// Получить формат числа
         /// </summary>
         /// <param name="stylesheet">таблица стилей</param>
-        /// <param name="formatIndex">индекс формата числа</param>
+        /// <param name="numFormatId">индекс формата числа</param>
         /// <returns>возвращает объект формата числа</returns>
-        public static NumberingFormat NumFormat(this Stylesheet stylesheet, int formatIndex)
+        public static NumberingFormat NumFormat(this Stylesheet stylesheet, int numFormatId)
         {
-            return stylesheet.GetNumFormats().NumFormat(formatIndex);
+            if(numFormatId < BUILTIN_NUMFORMATS_COUNT) { return null; }
+            return GetNumFormatsOf(stylesheet).Elements<NumberingFormat>().ElementAt(numFormatId - BUILTIN_NUMFORMATS_COUNT);
         }
 
 
@@ -26,11 +37,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// Получить формат числа
         /// </summary>
         /// <param name="stylesheet">таблица стилей</param>
-        /// <param name="formatIndex">индекс формата числа</param>
+        /// <param name="numFormatId">индекс формата числа</param>
         /// <returns>возвращает объект формата числа</returns>
-        public static NumberingFormat NumFormat(this Stylesheet stylesheet, uint formatIndex)
+        public static NumberingFormat NumFormat(this Stylesheet stylesheet, uint numFormatId)
         {
-            return stylesheet.GetNumFormats().NumFormat(formatIndex);
+            if (numFormatId < BUILTIN_NUMFORMATS_COUNT) { return null; }
+            return GetNumFormatsOf(stylesheet).Elements<NumberingFormat>().ElementAt((int)numFormatId - BUILTIN_NUMFORMATS_COUNT);
         }
 
 
@@ -42,7 +54,10 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>Индекс вставленного формата числа</returns>
         public static uint NumFormat(this Stylesheet stylesheet, NumberingFormat numFormat)
         {
-            return stylesheet.GetNumFormats().NumFormat(numFormat);
+            var numFormats = GetNumFormatsOf(stylesheet);
+            var numFormatId = numFormats.MakeSame(numFormat) + BUILTIN_NUMFORMATS_COUNT;
+            numFormats.Count = (uint)numFormats.Elements().Count();
+            return numFormatId;
         }
     }
 }

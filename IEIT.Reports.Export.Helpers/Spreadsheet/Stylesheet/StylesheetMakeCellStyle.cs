@@ -13,7 +13,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns>ID вставленнго формата ячейки в структуре документа.</returns>
         public static uint MakeCellStyle(this Stylesheet stylesheet, CellFormat cellFormat)
         {
-            return stylesheet.GetCellFormats().CellFormat(cellFormat);
+            return stylesheet.CellFormat(cellFormat);
         }
 
         /// <summary>

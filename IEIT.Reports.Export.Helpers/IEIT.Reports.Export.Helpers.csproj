@@ -50,6 +50,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spreadsheet\Cell\CellCellFormat.cs" />
+    <Compile Include="Spreadsheet\Cell\CellGetStyle.cs" />
+    <Compile Include="Spreadsheet\Cell\CellSetStyle.cs" />
     <Compile Include="Spreadsheet\MarkerType\MarkerTypeAt.cs" />
     <Compile Include="Spreadsheet\MarkerType\MarkerTypeSetters.cs" />
     <Compile Include="Spreadsheet\Outline\OutlineInitDefault.cs" />
@@ -99,6 +102,9 @@
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentGetWorksheets.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSave.cs" />
     <Compile Include="Spreadsheet\SpreadsheetDocument\DocumentSetCustomTextProperty.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetBorder.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetDifferentialFormat.cs" />
+    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetWorkbookPart.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyAddText.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodyInitDefault.cs" />
     <Compile Include="Spreadsheet\TextBody\TextBodySetFont.cs" />
@@ -109,15 +115,10 @@
     <Compile Include="Spreadsheet\TextCharacterPropertiesType\TextCharacterPropertiesTypeSetFont.cs" />
     <Compile Include="Spreadsheet\SheetData\SheetDataGetCell.cs" />
     <Compile Include="Spreadsheet\SheetData\SheetDataGetRow.cs" />
-    <Compile Include="Spreadsheet\Stylesheet\CellFormats\CellFormatsCellFormat.cs" />
-    <Compile Include="Spreadsheet\Stylesheet\Fonts\FontsFont.cs" />
-    <Compile Include="Spreadsheet\Stylesheet\NumberingFormats\NumberingFormatsNumFormat.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetCellFormat.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetFill.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetFont.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetGetCellFormats.cs" />
-    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetFonts.cs" />
-    <Compile Include="Spreadsheet\Stylesheet\StylesheetGetNumFormats.cs" />
     <Compile Include="Spreadsheet\Stylesheet\StylesheetMakeCellStyle.cs" />
     <Compile Include="Spreadsheet\Stylesheet\Borders\BordersGetBorder.cs" />
     <Compile Include="Spreadsheet\Stylesheet\Borders\BordersMakeBorder.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorSetHeight.cs" />
     <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorSetTopLeft.cs" />
     <Compile Include="Spreadsheet\TwoCellAnchor\TwoCellAnchorSetWidth.cs" />
+    <Compile Include="Spreadsheet\Workbook\WorkbookGetWorkbookId.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetSharedStringItem.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookPartGetStylesheet.cs" />
     <Compile Include="Spreadsheet\Workbook\WorkbookGetWorksheet.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="Spreadsheet\Worksheet\WorksheetDuplicate.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetFindCells.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetCell.cs" />
+    <Compile Include="Spreadsheet\Worksheet\WorksheetGetCellStyle.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetColumn.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetName.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetNamedStyles.cs" />
@@ -196,6 +199,8 @@
     <Compile Include="Spreadsheet\Utils.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetWriter.cs" />
     <Compile Include="Spreadsheet\Worksheet\WorksheetGetRow.cs" />
+    <Compile Include="Styling\xlCellStyle.cs" />
+    <Compile Include="Styling\xlCellStyleCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="content\App.config.transform">
