@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IEIT.Reports.Export.Helpers</id>
-	<version>0.3.8</version>
+	<version>0.4.0</version>
 	<title>Excel Helpers</title>
     <authors>sultan.imbayev, yerlanyr</authors>
     <owners>IPEIT KBTU</owners>
@@ -17,8 +17,8 @@
 		This package is to simplify work with Excel Spreadsheet document sing DocumentFormat.OpenXml library.
     </summary>
     <releaseNotes>
-		Shape SetWidthInPixels, SetHeightInPixels extensions major fix
-		Picture SetWidthInPixels, SetHeightInPixels extensions major fix
+		ColumNum -> ColumnNum typo fix; 
+		Full styles support: styles now can be copied from another workbook;
 	</releaseNotes>
     <tags>OpenXml Excel</tags>
 	<dependencies>
@@ -31,6 +31,6 @@
   <files>
 	<file src="..\IEIT.Reports.Export.Helpers\bin\Release\IEIT.Reports.Export.Helpers.dll" target="lib\net45" />
 	<file src="..\IEIT.Reports.Export.Helpers\bin\Release\IEIT.Reports.Export.Helpers.xml" target="lib\net45" />
-	<file src="..\IEIT.Reports.Export.Helpers\content\**" target="content" />
+	<file src="..\IEIT.Reports.Export.Helpers\OpenXML.Elements\**" target="lib\net45\OpenXML.Elements" />
   </files>
 </package>
