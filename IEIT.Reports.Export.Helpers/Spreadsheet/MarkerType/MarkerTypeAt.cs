@@ -39,7 +39,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             if (marker == null) { return null; }
             var rowNum = Utils.ToRowNum(cellAddress);
-            var columnNum = Utils.ToColumNum(cellAddress);
+            var columnNum = Utils.ToColumnNum(cellAddress);
             if (rowNum < 1) { rowNum = 1; }
             if (columnNum < 1) { columnNum = 1; }
             marker.RowId = new xdr.RowId((rowNum - 1).ToString());

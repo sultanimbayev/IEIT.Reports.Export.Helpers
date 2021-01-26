@@ -72,7 +72,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// </summary>
         /// <param name="address">Адрес ячейки или индекс колонки</param>
         /// <returns>Номер колонки</returns>
-        public static uint ToColumNum(string address)
+        public static uint ToColumnNum(string address)
         {
             var value = address.TrimEnd("1234567890".ToCharArray());
             var digits = value.PadLeft(3).Select(x => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(x));
@@ -256,10 +256,10 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             if (!rgxRange.IsMatch(cellsRange)) { throw new FormatException($"Не удалось считать адреса ячеек {cellsRange}"); }
 
             var addrs = cellsRange.Split(':');
-            uint initCol = ToColumNum(addrs[0].ToUpper());
+            uint initCol = ToColumnNum(addrs[0].ToUpper());
             uint initRow = ToRowNum(addrs[0].ToUpper());
 
-            uint finalCol = ToColumNum(addrs[1].ToUpper());
+            uint finalCol = ToColumnNum(addrs[1].ToUpper());
             uint finalRow = ToRowNum(addrs[1].ToUpper());
 
             List<string> cellAddrs = new List<string>();

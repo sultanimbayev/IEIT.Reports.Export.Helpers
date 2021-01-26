@@ -24,7 +24,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Charts
             if(ws == null || ws.WorksheetPart == null) { return null; }
 
             var rowNum = Utils.ToRowNum(cellAddress);
-            var colNum = Utils.ToColumNum(cellAddress);
+            var colNum = Utils.ToColumnNum(cellAddress);
 
             var rowId = (rowNum - 1).ToString();
             var colId = (colNum - 1).ToString();
@@ -79,7 +79,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Charts
         /// <returns>true - если операция выполнилась успешно, false - в обратном случае.</returns>
         public static bool RelocateTo(this ChartPart chartPart, string cellAddress, long columnOffset = 0, long rowOffset = 0)
         {
-            var columnNum = Utils.ToColumNum(cellAddress);
+            var columnNum = Utils.ToColumnNum(cellAddress);
             var rowNum = Utils.ToRowNum(cellAddress);
             return chartPart.RelocateTo((int)columnNum, (int)rowNum, columnOffset, rowOffset);
         }

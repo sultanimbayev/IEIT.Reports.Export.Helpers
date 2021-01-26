@@ -15,7 +15,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// <returns></returns>
         public static Worksheet HideColumn(this Worksheet worksheet, string columnName)
         {
-            return HideColumn(worksheet, Utils.ToColumNum(columnName));
+            return HideColumn(worksheet, Utils.ToColumnNum(columnName));
         }
 
         /// <summary>

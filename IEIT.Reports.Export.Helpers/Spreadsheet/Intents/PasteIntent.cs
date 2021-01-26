@@ -48,7 +48,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
             if(addrs.Count() == 1) { _rowsCount = 1; _colsCount = 1; return; }
 
             _rowsCount = Utils.ToRowNum(addrs[1]) - Utils.ToRowNum(addrs[0]) + 1;
-            _colsCount = Utils.ToColumNum(addrs[1]) - Utils.ToColumNum(addrs[0]) + 1;
+            _colsCount = Utils.ToColumnNum(addrs[1]) - Utils.ToColumnNum(addrs[0]) + 1;
 
         }
 
@@ -71,7 +71,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Intents
         /// <returns>"Намерение для вставки копированного значения"</returns>
         public PasteIntent To(Worksheet targetWorksheet, string targetCellAddr)
         {
-            var trgColNum = Utils.ToColumNum(targetCellAddr);
+            var trgColNum = Utils.ToColumnNum(targetCellAddr);
             var trgRowNum = Utils.ToRowNum(targetCellAddr);
 
             var lastTrgCol = Utils.ToColumnName(trgColNum + _colsCount - 1);

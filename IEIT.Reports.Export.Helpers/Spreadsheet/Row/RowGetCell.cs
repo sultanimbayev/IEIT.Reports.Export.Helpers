@@ -26,12 +26,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         public static Cell GetCell(this Row row, string columnName)
         {
             var _colName = Utils.ToColumnName(columnName);
-            var _colNum = Utils.ToColumNum(columnName);
+            var _colNum = Utils.ToColumnNum(columnName);
             var cellAddress = _colName + row.GetRowNumber();
             var cell = row.Elements<Cell>()
                 .Where(c => c.CellReference?.Value != null)
-                .Where(c => Utils.ToColumNum(c.CellReference.Value) >= _colNum)
-                .OrderBy(c => Utils.ToColumNum(c.CellReference.Value))
+                .Where(c => Utils.ToColumnNum(c.CellReference.Value) >= _colNum)
+                .OrderBy(c => Utils.ToColumnNum(c.CellReference.Value))
                 .FirstOrDefault();
 
             if (cell != null && cell.CellReference.Value.Equals(cellAddress, StringComparison.OrdinalIgnoreCase)) { return cell; }

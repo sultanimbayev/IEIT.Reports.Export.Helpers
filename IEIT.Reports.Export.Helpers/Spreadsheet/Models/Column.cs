@@ -47,7 +47,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet.Models
         {
             Worksheet = worksheet;
             ColumnName = Utils.ToColumnName(address);
-            ColumnNum = (int)Utils.ToColumNum(address);
+            ColumnNum = (int)Utils.ToColumnNum(address);
         }
 
 

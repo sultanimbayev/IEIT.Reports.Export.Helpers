@@ -23,7 +23,7 @@ namespace IEIT.Reports.Export.Helpers.Tests
         [TestCase(27, "22")]
         public void ToColumnNum(int expected, string address)
         {
-            Assert.AreEqual(expected, Utils.ToColumNum(address));
+            Assert.AreEqual(expected, Utils.ToColumnNum(address));
         }
 
         [TestCase("A", "A1")]
