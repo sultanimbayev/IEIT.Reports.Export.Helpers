@@ -52,16 +52,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddPictureTest.cs" />
-    <Compile Include="AddShapeTest.cs" />
-    <Compile Include="Do.cs" />
-    <Compile Include="ColumnWidthGetSetTest.cs" />
-    <Compile Include="StylesSupportTest.cs" />
-    <Compile Include="GetWorkbookIdTest.cs" />
-    <Compile Include="DocumentIdTest.cs" />
-    <Compile Include="RowHeightGetSetTest.cs" />
-    <Compile Include="TestClassAttribute.cs" />
-    <Compile Include="UtilsTest.cs" />
+    <Compile Include="AddingMediaTests\AddPictureTest.cs" />
+    <Compile Include="AddingMediaTests\AddShapeTest.cs" />
+    <Compile Include="WorkingWithWorksheets\DocumentCreateWorksheetTest.cs" />
+    <Compile Include="TestUtils\Do.cs" />
+    <Compile Include="UtilsTesting\ElementsGeneratorTest.cs" />
+    <Compile Include="WorksheetInfoTests\ColumnWidthGetSetTest.cs" />
+    <Compile Include="StylingTests\StylesSupportTest.cs" />
+    <Compile Include="MetadataTests\GetWorkbookIdTest.cs" />
+    <Compile Include="MetadataTests\DocumentIdTest.cs" />
+    <Compile Include="WorksheetInfoTests\RowHeightGetSetTest.cs" />
+    <Compile Include="UtilsTesting\UtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

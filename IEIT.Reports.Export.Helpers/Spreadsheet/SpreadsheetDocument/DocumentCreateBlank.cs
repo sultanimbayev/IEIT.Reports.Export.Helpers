@@ -29,13 +29,9 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         {
             return CreateWorkbook(() => SpreadsheetDocument.Create(stream, SpreadsheetDocumentType.Workbook), sheetName);
         }
-
-        private static SpreadsheetDocument CreateWorkbook(Func<SpreadsheetDocument> getDoc, string sheetName = "Sheet1")
+        
+        internal static void TreatAsEmpty(this SpreadsheetDocument spreadsheetDocument, string sheetName = "Sheet1")
         {
-            // Create a spreadsheet document by supplying the filepath.
-            // By default, AutoSave = true, Editable = true, and Type = xlsx.
-            SpreadsheetDocument spreadsheetDocument = getDoc();
-
             // Add a WorkbookPart to the document.
             WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
             workbookpart.Workbook = new Workbook();
@@ -74,6 +70,16 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
 
             workbookpart.Workbook.Save();
 
+
+        }
+
+        private static SpreadsheetDocument CreateWorkbook(Func<SpreadsheetDocument> getDoc, string sheetName = "Sheet1")
+        {
+            // Create a spreadsheet document by supplying the filepath.
+            // By default, AutoSave = true, Editable = true, and Type = xlsx.
+            SpreadsheetDocument spreadsheetDocument = getDoc();
+
+            spreadsheetDocument.TreatAsEmpty();
             // Close the document.
             //spreadsheetDocument.Close();
             return spreadsheetDocument;

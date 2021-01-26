@@ -14,15 +14,20 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// Создает новый лист в книге
         /// </summary>
         /// <param name="document">Документ таблиц OpenXml</param>
-        /// <param name="sheetName">Наименование нового листа</param>
+        /// <param name="newSheetName">Наименование нового листа</param>
         /// <returns>Объект созданного листа Worksheet</returns>
-        public static Worksheet NewWorksheet(this SpreadsheetDocument document, string sheetName)
+        public static Worksheet NewWorksheet(this SpreadsheetDocument document, string newSheetName)
         {
             if (document == null)
             {
                 throw new ArgumentNullException("'Document' is null");
             }
             var workbookpart = document.WorkbookPart;
+            if(workbookpart == null)
+            {
+                document.TreatAsEmpty(newSheetName);
+                return document.GetWorksheet(newSheetName);
+            }
             WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
             worksheetPart.Worksheet = new Worksheet(new SheetData());
 
@@ -42,7 +47,7 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
             {
                 Id = document.WorkbookPart.GetIdOfPart(worksheetPart),
                 SheetId = maxSheetId + 1,
-                Name = sheetName
+                Name = newSheetName
             };
             sheets.Append(sheet);
 
