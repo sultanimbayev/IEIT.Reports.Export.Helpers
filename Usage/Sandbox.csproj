@@ -84,13 +84,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OpenXML.Elements\Drawing\Charts\Formula.Empty.xml" />
-    <Content Include="OpenXML.Elements\Drawing\Charts\Values.Empty.xml" />
-    <Content Include="OpenXML.Elements\Drawing\ChartTitle.xml" />
-    <Content Include="OpenXML.Elements\Drawing\ParagraphProperties.xml" />
-    <Content Include="OpenXML.Elements\SST.Empty.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>

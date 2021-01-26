@@ -22,10 +22,12 @@ namespace IEIT.Reports.Export.Helpers.Spreadsheet
         /// </summary>
         private const string CONFIG_KEY_ELEMENTS_PATH = "OpenXMLElementsPath";
 
+        private const string DEFAULT_ELEMENTS_PATH = ".\\OpenXML.Elements";
+
         /// <summary>
         /// Путь к директории с XML элементами
         /// </summary>
-        private static string ElementsDir { get { return ConfigurationManager.AppSettings[CONFIG_KEY_ELEMENTS_PATH]; } }
+        private static string ElementsDir { get=> ConfigurationManager.AppSettings[CONFIG_KEY_ELEMENTS_PATH] ?? DEFAULT_ELEMENTS_PATH; }
         
         /// <summary>
         /// Полный путь к папке, где лежит DLL с данной библиотекой

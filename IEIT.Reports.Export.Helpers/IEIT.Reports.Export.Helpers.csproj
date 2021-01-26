@@ -203,14 +203,15 @@
     <Compile Include="Styling\xlCellStyleCache.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\App.config.transform">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\OpenXML.Elements\Drawing\ChartTitle.xml" />
-    <Content Include="content\OpenXML.Elements\Drawing\ParagraphProperties.xml" />
+    <Content Include="OpenXML.Elements\Drawing\ChartTitle.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="OpenXML.Elements\Drawing\ParagraphProperties.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Spreadsheet\OneCellAnchor\" />
